@@ -191,59 +191,53 @@ build_sandbox <- function(data.id, bbox, range, non.spatial=NULL, report.only=FA
 
       }
 
-    } else {
-
-      warning('process interrupted :|')
-      stop()
-
-    }
-
     #==========================================================================================================================#
     # process table data
     #==========================================================================================================================#
 
-    ind = which(file_report$format == 'table')
-
-    if (length(ind) > 0) {
-
-      for (i in ind) {
-
-        oname = paste0(file_report$out_dir[i], basename(file_report$path)) # output file name
-
-        # without special requirements, simply copy data
-        if (is.null(method)) file.copy(file_report$data.id[i], oname)
-
-        # with special requirements, find relevant data
-        if (!is.null(method)) {
-
-          bn = basename(file_report$data.id[i]) # table name
-
-          if (method == 'random') {
-
-            non.spatial = paste0('SELECT TOP ', as.character(non.spatial), ' * FROM ', bn, ' ORDER BY NEWID()')
+      ind = which(file_report$format == 'table')
+  
+      if (length(ind) > 0) {
+  
+        for (i in ind) {
+  
+          oname = paste0(file_report$out_dir[i], basename(file_report$path)) # output file name
+  
+          # without special requirements, simply copy data
+          if (is.null(method)) file.copy(file_report$data.id[i], oname)
+  
+          # with special requirements, find relevant data
+          if (!is.null(method)) {
+  
+            bn = basename(file_report$data.id[i]) # table name
+  
+            if (method == 'random') {
+              non.spatial = paste0('SELECT TOP ', as.character(non.spatial), ' * FROM ', bn, ' ORDER BY NEWID()')
+            }
+  
+            # access data in original database
+            idb = dbConnect(SQLite(), file_report$data.id[i]) # connect to table database
+            ods = dbFetch(dbGetRowCount(dbGetQuery(idb, non.spatial))) # parse SQL query
+            dbDisconnect(idb) # disconnect from vector database
+  
+            # initiate copy
+            idb = dbConnect(SQLite(), oname)
+            dbWriteTable(ods, bn, overwrite=T)
+            dbDisconnect(idb)
+  
           }
-
-          # access data in original database
-          idb = dbConnect(SQLite(), file_report$data.id[i]) # connect to table database
-          ods = dbFetch(dbGetRowCount(dbGetQuery(idb, non.spatial))) # parse SQL query
-          dbDisconnect(idb) # disconnect from vector database
-
-          # initiate copy
-          idb = dbConnect(SQLite(), oname)
-          dbWriteTable(ods, bn, overwrite=T)
-          dbDisconnect(idb)
-
+  
         }
-
+  
       }
-
+      
+    } else {
+      
+      warning('process interrupted :|')
+      stop()
+      
     }
-
-  } else {
-
-    warning('process interrupted :|')
-    stop()
-
+    
   }
 
 }

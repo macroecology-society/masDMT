@@ -28,5 +28,5 @@ This work was funded by the Volkswagen Foundation through a Freigeist Fellowship
 </p>
 
 <p align="center">
-<a href="https://www.idiv.de/en/groups_and_people/core_groups/macroecosocial.html"><img src="./docs/idiv_promo.png" width="400" height="200"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="./docs/wg_3.jpg" width="400" height="200"/></a>
+<a href="https://www.idiv.de/en/groups_and_people/core_groups/macroecosocial.html"><img src="idiv_promo.png" width="400" height="200"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="wg_3.jpg" width="400" height="200"/></a>
 </p>
