@@ -1,0 +1,30 @@
+---
+title: "sandbox maker"
+output: rmarkdown::html_vignette
+toc: true
+vignette: >
+  %\VignetteIndexEntry{sandbox maker}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, setup, include = FALSE, echo=FALSE}
+
+require(masDMT)
+require(knitr)
+require(kableExtra)
+
+options(dmt.data='C:/Users/rr70wedu/Documents/MAS_Lab/masDMT/inst/extdata/')
+
+```
+
+### Big questions, big data: starting small.
+<p align="justify">
+When dealing with large-scale applications, starting can seem scary. While computers have evolved substantially, there are still limitations in terms of virtual memory and computing power. We can tackle these constraints by modularizing our workflows. If we design our code as functions that use standardized inputs and no hard-coded expectations (e.g. matrix dimensions, column names) we can easily reapply them to different spatial/temporal scales.
+</p>
+<p align="justify">
+Another important reason to work on smaller data chunks is time. All of us face deadlines, and these can seem even heavier when we need to process large data volumes. In this context, testing algorithms, an already time consuming task, can grow exponentially if we don't constrain our initial focus. Pre-selecting test sites is a good way to efficiently manage our time and to systematically test the performance and consistency of our analysis.
+</p>
+<p align="justify">
+`build_sandbox()` helps us tackle these issues. Using this function, we can extract subsets of multiple datasets from our common database, storing them in a identical data structure. This way, we can test our algorithms locally and we then use the same code on the our database to upscale our analysis (<a href="./articles/package-variables.html"./docs/articles/>click here</a> to learn about system variables and relative paths).
+</p>

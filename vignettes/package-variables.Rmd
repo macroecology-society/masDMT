@@ -1,0 +1,44 @@
+---
+title: "system variables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{system variables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo=FALSE, message=FALSE}
+library(masDMT)
+```
+
+### Environemntal what? ---
+<p align="justify">
+Environmental variables are seemingly trivial but often overlooked assets. If you use recurrent arguments in your code, defining environmental variables can be a massive time saver. For example, let's consider that you have several scripts accessing the same online database, and that it requires user credentials. If you need to modify those credentials, it can be bothersome to change every single script. As an alternative, we can use R's `options()` to define a variable that contains those credentials. 
+</p>
+<p align="justify">
+`masDMT` takes advantage of this feature to define the path to the MAS database, making this infrastructure transferable. In essence, if we decided to move this database to a new server, we could simply modify the variable `dmt.data` in `masDMT`, allowing us to use the package without any further changes. In your case, modifying `dmt.data` can be useful when testing algorithms. Let's consider a scenario where you decide to use < href="reference/build_sandbox.html">`build_sandbox()`</a> to extract a data subset, but that you wish to perform a global analysis on the long-run. By changing `dmt.data` to the folder with your data subset, you can test your algorithms under the same data structure as the MAS database, meaning your code will function within it.
+</p>
+<p align="justify">
+As seen below, there are two commands that you need to know to handle the system path. First, `getOptions()`, which allows you to find specific variables and consult other existing ones. Second, `option()`, which you can use to define new varibales and update exisitng ones. 
+</p>
+
+
+```{r}
+
+# consult the current data path
+getOption('dmt.data')
+
+# redefine `dmt.data` as 'new path'
+options(dmt.data='new path')
+
+# print the new data path
+getOption('dmt.data')
+
+```

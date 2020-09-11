@@ -1,0 +1,30 @@
+Package: masDMT
+Title: Data Management Tools
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given="Steffen", family="Ehrmann", role=c("aut"), email="steffen.ehrmann@idiv.de", comment=c(ORCID="0000-0002-2958-0796")),
+    person(given="Ruben", family="Remelgado", role=c("aut", "cre"), email="ruben.remelgado@idiv.de", comment=c(ORCID="0000-0002-9871-5703")),
+    person(given="Carsten", family="Meyer", role=c("cph"), email="carsten.meyer@idiv.de", comment=c(ORCID="0000-0003-3927-5856"))
+    )
+Description: Generetic tools to access and process data hosted by the MAS lab.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    sf,
+    checkmate,
+    readr,
+    dplyr, 
+    dbplyr, 
+    RSQLite, 
+    DBI,
+    terra,
+    raster,
+    gdalUtils
+RoxygenNote: 7.1.1
+Depends:
+    R (>= 2.10)
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

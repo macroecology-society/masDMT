@@ -1,0 +1,47 @@
+home:
+  title: An R package for data management
+  description: Standardized access to multi-format data within the EVE HPC, a joint initiative of UFZ and IDIV.
+  url: http://RRemelgado.github.io/masDMT
+
+reference:
+- title: Data access
+  contents:
+  - '`access_grid`'
+  - '`access_vector`'
+  - '`list_data`'
+- title: Extract data subsets
+  contents:
+  - '`build_sandbox`'
+  - '`build_vrt`'
+- title: Other tools
+  contents:
+  - '`dmt_tmp`'
+  - '`get_legend`'
+  - '`poly2sample`'
+  - '`.build_meta`'
+- title: Example data
+  contents:
+  - '`countries`'
+  - '`covariates`'
+
+navbar:
+  home: ~
+  right:
+    - icon: fa-database
+      text: datasets
+      href: articles/datasets.html
+    - icon: fa-github
+      text: GitHub
+      href: https://github.com
+    - icon: fa-envelope
+      text: mail
+      href: mailto:mas@idiv.de
+  articles:
+     text: Articles
+     menu:
+     - text: datasets
+       href: articles/datasets.html
+     - text: system variables
+       href: articles/package-variables.html
+     - text: data access
+       href: articles/find-data.html

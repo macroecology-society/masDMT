@@ -1,0 +1,10 @@
+#pkgdown-sidebar:after {
+  content: "";
+  display: block;
+  height: 200px;
+  width: 200px;
+  background-image: url("sidebar_credits.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
