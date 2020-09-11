@@ -20,7 +20,7 @@ options(dmt.data='C:/Users/rr70wedu/Documents/MAS_Lab/masDMT/inst/extdata/')
 
 ### Standardized data access
 <p align="justify">
-The MAS database has several types of data, including `gridded` (e.g. land cover), `vector` (e.g. range maps) and `tabular` (e.g. crop statistics). Given the particularities of each of these data formats, they require different forms of access. Currently, `masDMT` offers two main forms: `access_grid()` and `access_vector()`. Both function require a product identifier, <a href="articles/datasets.html">such as described in this page</a>
+The MAS database has several types of data, including `gridded` (e.g. land cover), `vector` (e.g. range maps) and `tabular` (e.g. crop statistics). Given the particularities of each of these data formats, they require different forms of access. Currently, `masDMT` offers two main forms: `access_grid()` and `access_vector()`. Both function require a product identifier, <a href="https://macroecology-society.github.io/masDMT/datasets.html">such as described in this page</a>
 </p>
 
 
