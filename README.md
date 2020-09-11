@@ -16,7 +16,7 @@ To answer our questions, We rely rely on massive amounts of data with different 
 </p>
 
 ```r
-devtools::install_github('RRemelgado/masDMT')
+devtools::install_github('macroecology-society/masDMT')
 ```
 
 ## Requirements
