@@ -5,3 +5,4 @@
 ^pkgdown$
 ^vignettes/articles$
 ^logo.png$
+^\.github$
