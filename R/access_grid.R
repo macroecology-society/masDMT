@@ -24,6 +24,7 @@
 #' @examples {}
 #' @importFrom terra rast time<-
 #' @importFrom gdalUtils gdalbuildvrt
+#' @importFrom utils write.table
 #' @export
 
 #------------------------------------------------------------------------------------------------------------------------------#

@@ -112,7 +112,7 @@ list_data()
 ```{r, echo=FALSE}
 
 df = head(list_data())
-kableExtra::kable_styling(knitr::kable(df), full_width=F, bootstrap_options=c("striped", "hover", "condensed"), font_size=8)
+kable_styling(knitr::kable(df), full_width=F, bootstrap_options=c("striped", "hover", "condensed"), font_size=8)
 
 ```
 

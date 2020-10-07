@@ -10,9 +10,10 @@
 #'    }
 #' }
 #' @return A mirror of the data structure on the cluster, containing a subset of the target datasets.
-#' @importFrom DBI dbConnect dbGetQuery dbDisconnect
+#' @importFrom DBI dbConnect dbGetQuery dbDisconnect dbGetRowCount dbFetch
 #' @importFrom terra rast res
 #' @importFrom sf st_write
+#' @importFrom gdalUtils gdal_translate
 #' @details {The function creates a copy of the datasets specified in \emph{data.id} within the area defined
 #' by \emph{bbox} and temporal range determined by \emph{range}. When \emph{report.only} is set to TRUE, the
 #' function will provide a \emph{data.frame} reporting on the amount of data per individual file that fits to
@@ -108,7 +109,7 @@ build_sandbox <- function(data.id, bbox, range, non.spatial=NULL, report.only=FA
 
       dbDisconnect(idb) # disconnect from vector database
       original_size = file.info(files)$size/1000000 # account for original file size (in Mb)
-      pred_size = original_size * ((target_records)/nr_records) # predicted size of subset in Mb
+      pred_size = original_size * ((target_nr)/nr_records) # predicted size of subset in Mb
 
     }
 
@@ -162,7 +163,7 @@ build_sandbox <- function(data.id, bbox, range, non.spatial=NULL, report.only=FA
 
           # make vrt of raster subset
           ifile = file_report$path[i]
-          ofile = paste0(tmpDir, strsplit(basename(ifile), '[.]')[[1]][1], '.vrt')
+          ofile = paste0(tempdir(), .Platform$file.sep, strsplit(basename(ifile), '[.]')[[1]][1], '.vrt')
           gdalbuildvrt(input_file_list=ifile, output.vrt=ofile, te=bbox, separate=TRUE)
 
           # translate subset into raster

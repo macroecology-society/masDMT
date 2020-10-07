@@ -12,7 +12,7 @@ reference:
 - title: Extract data subsets
   contents:
   - '`build_sandbox`'
-  - '`build_vrt`'
+  - '`build_project`'
 - title: Other tools
   contents:
   - '`dmt_tmp`'

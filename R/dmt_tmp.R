@@ -14,7 +14,7 @@ dmt_tmp = function(verbose=FALSE) {
   # create temporary directory (needed to store VRT files that will be accessed with terra)
   if (is.null(getOption('rast.temp'))) {
 
-    tmpDir =file.path(tempdir(), paste0('DMT-', as.character(Sys.getpid()), '_', Sys.Date()))
+    tmpDir =file.path(tempdir(), .Platform$file.sep, paste0('DMT-', as.character(Sys.getpid()), '_', Sys.Date()))
     dir.create(tmpDir, showWarnings=FALSE)
     options(rast.temp=tmpDir)
 
