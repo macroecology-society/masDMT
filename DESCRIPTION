@@ -12,7 +12,6 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     sf,
-    checkmate,
     readr,
     dplyr, 
     dbplyr, 
@@ -24,10 +23,9 @@ Imports:
     utils
 RoxygenNote: 7.1.1
 Depends:
-    R (>= 2.10)
+    R (>= 3.5)
 Suggests: 
     rmarkdown,
     knitr,
-    kable,
     kableExtra
 VignetteBuilder: knitr

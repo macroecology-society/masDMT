@@ -1,6 +1,6 @@
 #' Create a sandbox containing small subsets of target datasets.
 #' @param data.id Element or vector of class \emph{character}.
-#' @importFrom dplyr tbl filter pull slice
+#' @importFrom dplyr tbl filter pull slice as_data_frame data_frame
 #' @importFrom DBI dbConnect dbDisconnect
 #' @importFrom RSQLite SQLite
 #' @importFrom stats complete.cases
@@ -34,7 +34,7 @@ list_data <- function(data.id) {
       if (length(tmp != 2)) sds = NA else sds = tmp[2] # subdataset
 
       # return data.frame with relevant information
-      return(data.frame(dataset=tmp[1], subdataset=tmp[2], stringsAsFactors=F))
+      return(data_frame(dataset=tmp[1], subdataset=tmp[2], stringsAsFactors=F))
 
     }))
 
@@ -57,12 +57,12 @@ list_data <- function(data.id) {
   # return overview table if no dataset is requested
   if (missing(data.id)) {
 
-    data <- as.data.frame(tbl(idb, 'overview'))
+    data <- as_data_frame(tbl(idb, 'overview'))
 
   } else {
 
     # find data
-    data = as.data.frame(filter(tbl(idb, 'complete'), dataset %in% !!id.df$dataset & subdataset %in% !!id.df$subdataset))
+    data = as_data_frame(filter(tbl(idb, 'complete'), dataset %in% !!id.df$dataset & subdataset %in% !!id.df$subdataset))
 
   }
 
