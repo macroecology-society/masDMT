@@ -32,7 +32,7 @@ navbar:
       href: articles/datasets.html
     - icon: fa-github
       text: GitHub
-      href: https://github.com
+      href: https://github.com/macroecology-society/masDMT
     - icon: fa-envelope
       text: mail
       href: mailto:mas@idiv.de
