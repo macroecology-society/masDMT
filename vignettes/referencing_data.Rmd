@@ -1,0 +1,36 @@
+---
+title: "Referencing data"
+output: rmarkdown::html_vignette
+toc: true
+vignette: >
+  %\VignetteIndexEntry{Referencing data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, setup, include = FALSE, echo=FALSE}
+
+require(masDMT)
+require(knitr)
+require(kableExtra)
+
+options(dmt.data=paste0(system.file(package = 'masDMT'), '/extdata/'))
+
+```
+
+### Making data citable
+<p align="justify">
+Most datasets in the MAS database originate from existing publications. To help you cite these products, the database contains \emph{bibtex} files with the bibliographic references of each data product. Lets consider a scenario in which we decide to use the CCI land cover and the Koppen-Geiger climate map as baselines for a research project. We then consult <a href="https://macroecology-society.github.io/data-catalog/" target="_blank">our data catalog</a> to retrieve the dataset identifiers. In this case, we are looking for `CCI_landCover` and `BECK_climateMap`. We can then use the function `list_data()` to confirm this information.
+</p>
+
+```{r}
+list_data(c('CCI_landCover','GADM'))
+```
+
+
+When the time comes to publish our research, we will be required to cite these data to assure the reproducibility of our results. To retrieve the adequate citations, we can the function `collect_bibtex()`. This function will iterate through a list of dataset identifiers, and compile their citations into a single bibtex file.
+</p>
+
+```{r eval=FALSE}
+collect_bibtex(c('CCI_landCover', 'GADM'))
+```

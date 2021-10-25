@@ -1,6 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 1.6.0
+pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-09-11T12:51Z
+articles:
+  datasets: datasets.html
+  find-data: find-data.html
+  package-variables: package-variables.html
+  sandbox: sandbox.html
+last_built: 2021-04-30T13:35Z
 

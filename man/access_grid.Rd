@@ -4,10 +4,10 @@
 \alias{access_grid}
 \title{Access to gridded data following the MAS data structure.}
 \usage{
-access_grid(data.id, range = range, bbox = bbox)
+access_grid(data_id, range = range, bbox = bbox)
 }
 \arguments{
-\item{data.id}{Element of class \emph{character}.}
+\item{data_id}{Element of class \emph{character}.}
 
 \item{range}{Two-element vector of class \emph{character} with desired start
 and end dates (optional, in yyyy-mm-dd format).}

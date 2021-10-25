@@ -14,7 +14,7 @@ require(masDMT)
 require(knitr)
 require(kableExtra)
 
-options(dmt.data='C:/Users/rr70wedu/Documents/MAS_Lab/masDMT/inst/extdata/')
+options(dmt.data=paste0(system.file(package = 'masDMT'), '/extdata/'))
 
 ```
 
@@ -22,7 +22,6 @@ options(dmt.data='C:/Users/rr70wedu/Documents/MAS_Lab/masDMT/inst/extdata/')
 <p align="justify">
 The MAS database has several types of data, including `gridded` (e.g. land cover), `vector` (e.g. range maps) and `tabular` (e.g. crop statistics). Given the particularities of each of these data formats, they require different forms of access. Currently, `masDMT` offers two main forms: `access_grid()` and `access_vector()`. Both function require a product identifier, <a href="https://macroecology-society.github.io/masDMT/datasets.html">such as described in this page</a>
 </p>
-
 
 ### Accessing raster data
 <p align="justify">
@@ -41,7 +40,7 @@ Unlike other raster processing packages developed for R, `terra` accounts for th
 
 ```{r message=FALSE}
 
-access_grid('CCI_landCover/landCover', range=c('2001-01-01', '2002-12-31'), bbox=c(23.5, -1.5, 24, -1.3))
+access_grid('CCI_landCover', range=c('2001-01-01', '2002-12-31'), bbox=c(23.5, -1.5, 24, -1.3))
 
 ```
 

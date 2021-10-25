@@ -4,38 +4,48 @@
 \alias{access_vector}
 \title{Access to vector data following the MAS data structure.}
 \usage{
-access_vector(data.id, query = query, bbox = bbox, limit = limit)
+access_vector(data_id, query = query, bbox = bbox, limit = limit)
 }
 \arguments{
-\item{data.id}{Element of class \emph{character}.}
+\item{data_id}{Element of class \emph{character}.}
 
 \item{query}{SQL query used to thematically subset a vector dataset.}
 
-\item{bbox}{Four-element vector with target bounding box, composed of min. x, min. y, max. x and max. y coordinates.}
+\item{bbox}{{Four-element vector with target bounding box, composed of 
+min. x, min. y, max. x and max. y coordinates.}}
 
-\item{limit}{\emph{Numeric} element specifying how many features to read from requested vector data.}
+\item{limit}{{\emph{Numeric} element specifying how 
+many features to read from requested vector data.}}
 }
 \value{
 {The output consists of the following:
 \itemize{
-\item{A \emph{data.frame} with dataset table but without geometries, if \emph{geometry} is set to FALSE}
-\item{An \emph{sf} object, if \emph{geometry} is set to TRUE (constrained by  \emph{query}, and \emph{bbox}, if provided)}
+\item{A \emph{data.frame} with dataset table but 
+without geometries, if \emph{geometry} is set to FALSE}
+\item{An \emph{sf} object, if \emph{geometry} is set to 
+TRUE (constrained by  \emph{query}, and \emph{bbox}, if provided)}
 }}
 }
 \description{
 Access to vector data following the MAS data structure.
 }
 \details{
-{This function provides access to vector data available in the MAS database. All vector datasets shared by the
-group are stored as SQLite databases. This facilitates the access to large vector datasets, and the current function
-simplifies that process. The function looks for the dataset specific through \emph{data.id}, and returns a subset,
-depending on user defined criteria. Using \emph{query}, users can limit the amount of data to read using an SQL query,
-allowing to e.g. select features based on categorical information in a given data column. Note that these queries are
-case specific, and should be customized to each dataset. In addition, when provided with a \emph{bbox} argument, the
-function will select features that exist within the specified bounding box. Note that all vector datasets within the
-MAS database is stored in WGS 84, and thus the \emph{bbox} argument should be composed by latitude/longitude coordinates.
-To get acquainted with a dataset, users should use the \emph{limit} argument. This argument determine how many features
-will be read, allowing users to work with a subset of the dataset.}
+{This function provides access to vector data available in the MAS 
+database. All vector datasets shared by the group are stored as SQLite 
+databases. This facilitates the access to large vector datasets, and the 
+current function simplifies that process. The function looks for the dataset 
+specific through \emph{data.id}, and returns a subset, depending on user 
+defined criteria. Using \emph{query}, users can limit the amount of data 
+to read using an SQL query, allowing to e.g. select features based on 
+categorical information in a given data column. Note that these queries are
+case specific, and should be customized to each dataset. In addition, when 
+provided with a \emph{bbox} argument, the function will select features that 
+exist within the specified bounding box. Note that all vector datasets 
+within the MAS database is stored in WGS 84, and thus the \emph{bbox} 
+argument should be composed by latitude/longitude coordinates. To get 
+acquainted with a dataset, users should use the \emph{limit} argument. 
+This argument determine how many features will be read, allowing users 
+to work with a subset of the dataset.}
 }
 \examples{
 {}
