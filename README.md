@@ -4,15 +4,15 @@
 
 ## Towards interoperable workflows
 <p align="justify">
-At the Macroecology and Society (MAS), a research group of the German Centre for Integrative Biodiversity Research (iDiv). we compose an interdisciplinary lab, combining backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. Across our multiple research fields, we are interested in detecting and understanding global dynamics in human-environment systems, with a focus on human land use, its underlying societal drivers, and its ecological consequences. 
+The Macroecology and Society (MAS) is a research group of the German Centre for Integrative Biodiversity Research (iDiv), composed by an interdisciplinary team of scientists. It includes backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, the lab aims detect and understand global dynamics in human-environment systems, with a focus on human land use, its underlying societal drivers, and its ecological consequences. 
 </p>
 <p align="justify">
-To answer our questions, We rely rely on massive amounts of data with different characteristics and thematic scopes, from statistical surveys to global gridded and vector layers. We often share this data across projects as well as the code to analyze it, making the need for a common infrastructure imperative. With this in mind, we developed `masDMT`. This R package provides standardized access points to the common database of MAS. Additionally, it provides tools to integrate these data within an High Performance Computing (HPC) environment.
+To answer our questions, We rely rely on massive amounts of data with different characteristics and thematic scopes, from statistical surveys to global, gridded and vector layers. We often share this data across projects as well as the code required for its analysis, creating a need for a common knowledge infrastructure imperative. With this in mind, we developed `masDMT`. This R package provides standardized access points to the common database of MAS. More importantly, it provides tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
 </p>
 
 ## Instalation
 <p align="justify">
-`masDMT` takes advantage of the MAS group database with EVE, a high-performance computing platform hosted at UFZ and supported by iDiv. Due to this dependency, the package was not submitted to CRAN and must be installed from it's Github repository. To do, we can use `devtools` as following:
+`masDMT` was customized to make our work within the group easier. However, this also means we need to adapt our package to a familiar infrastructure. For this reason, it was not submitted to CRAN and must be installed from it's Github repository. To do, we can use `devtools` as following:
 </p>
 
 ```r

@@ -4,10 +4,10 @@
 \alias{list_data}
 \title{Create a sandbox containing small subsets of target datasets.}
 \usage{
-list_data(data.id)
+list_data(data_id)
 }
 \arguments{
-\item{data.id}{Element or vector of class \emph{character}.}
+\item{data_id}{Element or vector of class \emph{character}.}
 }
 \value{
 A \emph{data.frame}.
@@ -16,13 +16,10 @@ A \emph{data.frame}.
 Create a sandbox containing small subsets of target datasets.
 }
 \details{
-{When no argument is used, the function will return a \emph{data.frame}
-with a summary of the existing datasets and their general characteristics. When
-\emph{data.id} is provided, the function will search for the corresponding dataset
-and return a \emph{data.frame} reporting on the individual files that compose each
-of the target datasets.}
-}
-\examples{
-{}
-
+{When no argument is used, the function will return a 
+\emph{data.frame} with a summary of the existing datasets and 
+their general characteristics. When \emph{data.id} is provided, 
+the function will search for the corresponding dataset and return 
+a \emph{data.frame} reporting on the individual files that compose 
+each of the target datasets.}
 }

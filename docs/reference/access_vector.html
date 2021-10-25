@@ -89,7 +89,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,9 +103,6 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/datasets.html">datasets</a>
-    </li>
     <li>
       <a href="../articles/find-data.html">data access</a>
     </li>
@@ -123,14 +120,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../articles/datasets.html">
+  <a href="https://macroecology-society.github.io/data-catalog/">
     <span class="fa fa-database"></span>
      
     datasets
   </a>
 </li>
 <li>
-  <a href="https://github.com">
+  <a href="https://github.com/macroecology-society/masDMT">
     <span class="fa fa-github"></span>
      
     GitHub
@@ -165,13 +162,13 @@
     <p>Access to vector data following the MAS data structure.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>access_vector</span><span class='op'>(</span><span class='va'>data.id</span>, query <span class='op'>=</span> <span class='va'>query</span>, bbox <span class='op'>=</span> <span class='va'>bbox</span>, limit <span class='op'>=</span> <span class='va'>limit</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>access_vector</span><span class='op'>(</span><span class='va'>data_id</span>, query <span class='op'>=</span> <span class='va'>query</span>, bbox <span class='op'>=</span> <span class='va'>bbox</span>, limit <span class='op'>=</span> <span class='va'>limit</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data.id</th>
+      <th>data_id</th>
       <td><p>Element of class <em>character</em>.</p></td>
     </tr>
     <tr>
@@ -180,11 +177,13 @@
     </tr>
     <tr>
       <th>bbox</th>
-      <td><p>Four-element vector with target bounding box, composed of min. x, min. y, max. x and max. y coordinates.</p></td>
+      <td><p>Four-element vector with target bounding box, composed of 
+min. x, min. y, max. x and max. y coordinates.</p></td>
     </tr>
     <tr>
       <th>limit</th>
-      <td><p><em>Numeric</em> element specifying how many features to read from requested vector data.</p></td>
+      <td><p><em>Numeric</em> element specifying how 
+many features to read from requested vector data.</p></td>
     </tr>
     </table>
 
@@ -192,21 +191,29 @@
 
     <p>The output consists of the following:
 <ul>
-<li><p>A <em>data.frame</em> with dataset table but without geometries, if <em>geometry</em> is set to FALSE</p></li>
-<li><p>An <em>sf</em> object, if <em>geometry</em> is set to TRUE (constrained by  <em>query</em>, and <em>bbox</em>, if provided)</p></li>
+<li><p>A <em>data.frame</em> with dataset table but 
+without geometries, if <em>geometry</em> is set to FALSE</p></li>
+<li><p>An <em>sf</em> object, if <em>geometry</em> is set to 
+TRUE (constrained by  <em>query</em>, and <em>bbox</em>, if provided)</p></li>
 </ul></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function provides access to vector data available in the MAS database. All vector datasets shared by the
-group are stored as SQLite databases. This facilitates the access to large vector datasets, and the current function
-simplifies that process. The function looks for the dataset specific through <em>data.id</em>, and returns a subset,
-depending on user defined criteria. Using <em>query</em>, users can limit the amount of data to read using an SQL query,
-allowing to e.g. select features based on categorical information in a given data column. Note that these queries are
-case specific, and should be customized to each dataset. In addition, when provided with a <em>bbox</em> argument, the
-function will select features that exist within the specified bounding box. Note that all vector datasets within the
-MAS database is stored in WGS 84, and thus the <em>bbox</em> argument should be composed by latitude/longitude coordinates.
-To get acquainted with a dataset, users should use the <em>limit</em> argument. This argument determine how many features
-will be read, allowing users to work with a subset of the dataset.</p>
+    <p>This function provides access to vector data available in the MAS 
+database. All vector datasets shared by the group are stored as SQLite 
+databases. This facilitates the access to large vector datasets, and the 
+current function simplifies that process. The function looks for the dataset 
+specific through <em>data.id</em>, and returns a subset, depending on user 
+defined criteria. Using <em>query</em>, users can limit the amount of data 
+to read using an SQL query, allowing to e.g. select features based on 
+categorical information in a given data column. Note that these queries are
+case specific, and should be customized to each dataset. In addition, when 
+provided with a <em>bbox</em> argument, the function will select features that 
+exist within the specified bounding box. Note that all vector datasets 
+within the MAS database is stored in WGS 84, and thus the <em>bbox</em> 
+argument should be composed by latitude/longitude coordinates. To get 
+acquainted with a dataset, users should use the <em>limit</em> argument. 
+This argument determine how many features will be read, allowing users 
+to work with a subset of the dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='op'>{</span><span class='op'>}</span>

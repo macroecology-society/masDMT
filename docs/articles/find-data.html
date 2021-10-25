@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -61,9 +61,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/datasets.html">datasets</a>
-    </li>
-    <li>
       <a href="../articles/find-data.html">data access</a>
     </li>
     <li>
@@ -80,14 +77,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="../articles/datasets.html">
+  <a href="https://macroecology-society.github.io/data-catalog/">
     <span class="fa fa-database"></span>
      
     datasets
   </a>
 </li>
 <li>
-  <a href="https://github.com">
+  <a href="https://github.com/macroecology-society/masDMT">
     <span class="fa fa-github"></span>
      
     GitHub
@@ -110,7 +107,7 @@
 
       
 
-      </header><script src="find-data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="find-data_files/kePrint-0.0.1/kePrint.js"></script><link href="find-data_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="find-data_files/header-attrs-2.11/header-attrs.js"></script><script src="find-data_files/kePrint-0.0.1/kePrint.js"></script><link href="find-data_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -137,29 +134,29 @@ The MAS database has several types of data, including <code>gridded</code> (e.g.
 <p align="justify">
 <code><a href="../reference/access_grid.html">access_grid()</a></code> helps find and read gridded data, such as the one derived with remote sensing. It provides access to one dataset at a time, returning them as a <a href="https://www.rdocumentation.org/packages/terra/topics/SpatRaster-class"><code>spatRaster</code> object</a> with <em>n</em> bands where <em>n</em> is the number of time-steps associated to the query. In the following example, we accessed ESA’s CCI land cover, hosted under the identifier <code>CCI_landCover/landCover</code>. Here, we will limit our search o the period between 2001-01-01 and 2002-12-31. As shown below, this results in a global <code>spatRaster</code> with two layers, for 2001 and 2002, respectively.
 </p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 200, 266, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.33491, 24.0732, -1.811076, -1.255731  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
-## data source : file63604c7f1b66_25440.vrt 
-## names       : CCI_landCover/CCI_landCover-landCover_20010101_10arcSec.tif, CCI_landCover/CCI_landCover-landCover_20020101_10arcSec.tif 
-## min values  :                                                          ? ,                                                          10 
-## max values  :                                                          ? ,                                                         210</code></pre>
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : file649c2e992816_25756.vrt 
+## names       : CCI_landCover/C~00_10arcSec.tif, CCI_landCover/C~00_00arcSec.tif 
+## time        : 2001-01-01 to 2002-01-01</code></pre>
 <p align="justify">
 Unlike other raster processing packages developed for R, <code>terra</code> accounts for the perils of increasing data volumes in the remote sensing community. For that reason, most functions include arguments that prompt the use of additional CPU’s. However, it still assumes that we want to process the full raster. When dealing with global datasets, this can be an issue that tackles RAM limitations. While cropping functions exist, they create a new file with the subset data that occupy space in either physical or virtual memory. This can result in a large - and arguably unnecessary - processing time overhead, making our algorithms unnecessarily long. Under such limitations, one might choose to crop the larger dataset before running an analysis. However, this might also be inadequate. If we routinely process data on multiple spatial and temporal scales, subsetting raster in preparation for every situation can be time and space consuming. While <code>terra</code> can’t do on-the-fly subsetting, we can trick the package to only access a data subset at a time. To do so, <code><a href="../reference/access_grid.html">access_grid()</a></code> makes use of Virtual Rasters (VRT). Given a spatial bounding box, the function will call <code>gdalbuildvrt</code> and create a VRT file in the default temporary folder, which will serve as a pointer for where the desired raster data starts and which files compose the desired analysis. To demonstrate this feature, we will build on the previous example and request the desired spatial extent. Notice how the reported metatada changes.
 </p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23.5</span>, <span class="op">-</span><span class="fl">1.5</span>, <span class="fl">24</span>, <span class="op">-</span><span class="fl">1.3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23.5</span>, <span class="op">-</span><span class="fl">1.5</span>, <span class="fl">24</span>, <span class="op">-</span><span class="fl">1.3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 72, 180, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.5, 23.99959, -1.499924, -1.3  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
-## data source : file63605635716b_25440.vrt 
-## names       : CCI_landCover/CCI_landCover-landCover_20010101_10arcSec.tif, CCI_landCover/CCI_landCover-landCover_20020101_10arcSec.tif</code></pre>
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : file649c631113f0_25756.vrt 
+## names       : CCI_landCover/C~00_10arcSec.tif, CCI_landCover/C~00_00arcSec.tif 
+## time        : 2001-01-01 to 2002-01-01</code></pre>
 </div>
 <div id="accessing-vector-data" class="section level3">
 <h3 class="hasAnchor">
@@ -167,73 +164,82 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 <p align="justify">
 <code><a href="../reference/access_vector.html">access_vector()</a></code> helps find and read gridded data, such as the one derived from field surveys. Just like with <code><a href="../reference/access_grid.html">access_grid()</a></code>, it requires a dataset identifier and accepts a spatial bounding box to perform spatial subsetting. However, it does not allow for temporal queries. This choices relates to the fact that vector data from different origins can have very different tabular structures with constrasting fields, making it difficult to establish a standard content. However, given all vector data in our database is stored as spatialite objects, we can use dedicated SQL queries.We can provide <code><a href="../reference/access_vector.html">access_vector()</a></code> with a bounding box (for spatial subsetting, just like with <code><a href="../reference/access_grid.html">access_grid()</a></code>) and an SQL query (for thematic subsetting) making it easier to handle very large vector objects. In this example, we will use <code><a href="../reference/access_vector.html">access_vector()</a></code> to extract country polygons for a spatial subset and for a thematic subset. Note that the spatial subsetting does not climp vector data, but rather returns those entries that intersect with the bounding box.
 </p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># read full dataset</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span><span class="op">)</span></pre></div>
-<pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># read full dataset</span>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span><span class="op">)</span></code></pre></div>
+<pre><code>## Reading layer `level0' from data source 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   using driver `SQLite'
 ## Simple feature collection with 3 features and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84</code></pre>
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84</code></pre>
 <pre><code>## Simple feature collection with 3 features and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84
 ##   gid_0 name_0                       GEOMETRY
 ## 1   BEN  Benin MULTIPOLYGON (((1.941528 6....
 ## 2   GHA  Ghana MULTIPOLYGON (((-2.035416 4...
 ## 3   TGO   Togo MULTIPOLYGON (((1.288195 6....</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># read spatial subset</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></pre></div>
-<pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># read spatial subset</span>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## Reading layer `level0' from data source 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -3.25492 ymin: 4.738751 xmax: 1.19177 ymax: 11.1733
-## geographic CRS: WGS 84</code></pre>
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 1.19177 ymax: 11.1733
+## Geodetic CRS:  WGS 84</code></pre>
 <pre><code>## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -3.25492 ymin: 4.738751 xmax: 1.19177 ymax: 11.1733
-## geographic CRS: WGS 84
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 1.19177 ymax: 11.1733
+## Geodetic CRS:  WGS 84
 ##   gid_0 name_0                       GEOMETRY
 ## 1   GHA  Ghana MULTIPOLYGON (((-2.035416 4...</code></pre>
 <p align="justify">
 If you are new to a given dataset, you might feel unsure how to proceed, especially if it’s memory consuming. Building thematic queries is difficult without knowing which fields are available, but reading every record just for that purpose can be hindering. Preparing for such situations, <code><a href="../reference/access_vector.html">access_vector()</a></code> allows users to retrieve the first records in a dataset. Through the <code>limit</code> argument, you can specify how many records to read. In the example below, we’ll read the first entry.
 </p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="co"># select the first record</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, limit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></pre></div>
-<pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
-## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84</code></pre>
-<pre><code>## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># select the first record</span>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, limit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Reading layer `level0' from data source 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   using driver `SQLite'
+## Simple feature collection with 3 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84</code></pre>
+<pre><code>## Simple feature collection with 3 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -3.25492 ymin: 4.738751 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84
 ##   gid_0 name_0                       GEOMETRY
-## 1   BEN  Benin MULTIPOLYGON (((1.941528 6....</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="co"># select first record using an SQL query</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, query<span class="op">=</span><span class="st">'SELECT * FROM level0 WHERE gid_0 = "BEN"'</span><span class="op">)</span></pre></div>
-<pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
+## 1   BEN  Benin MULTIPOLYGON (((1.941528 6....
+## 2   GHA  Ghana MULTIPOLYGON (((-2.035416 4...
+## 3   TGO   Togo MULTIPOLYGON (((1.288195 6....</code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># select first record using an SQL query</span>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, query<span class="op">=</span><span class="st">'SELECT * FROM level0 WHERE gid_0 = "BEN"'</span><span class="op">)</span></code></pre></div>
+<pre><code>## Reading query `SELECT * FROM level0 WHERE gid_0 = "BEN"' from data source `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84</code></pre>
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84</code></pre>
 <pre><code>## Simple feature collection with 1 feature and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
-## geographic CRS: WGS 84
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 0.774574 ymin: 6.23514 xmax: 3.851701 ymax: 12.41835
+## Geodetic CRS:  WGS 84
 ##   gid_0 name_0                       GEOMETRY
 ## 1   BEN  Benin MULTIPOLYGON (((1.941528 6....</code></pre>
 </div>
@@ -243,27 +249,24 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 <p align="justify">
 Both <code><a href="../reference/access_grid.html">access_grid()</a></code> and <code><a href="../reference/access_vector.html">access_vector()</a></code> provide an “easy way in” to the MAS database. However, you might find this limiting if you have your own preferences regarding how to handle raster and vector data. But don’t fear: there is an alternative. Both the functions we discussed use <code><a href="../reference/list_data.html">list_data()</a></code> to find relevant data entries, and you too. When provided with a unique data identifier (or vector with several identifiers), the function will identify all the corresponding records and provide a <code>data.frame</code> with their characteristics. This includes, e.g., the spatial extent of the records, their format and data type, their start and end date and, perhaps more importantly, the location of the corresponding files (i.e. <code>path</code>). The example below shows the query results for <code>CCI_landCover/landCover</code> and <code>GADM/level0</code>.
 </p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, <span class="st">'GADM/level0'</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, <span class="st">'GADM/level0'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table table table-striped table-hover table-condensed">
 <thead><tr>
-<th style="text-align:right;">
-index
-</th>
-<th style="text-align:left;">
-path
-</th>
-<th style="text-align:left;">
-data_id
-</th>
 <th style="text-align:left;">
 dataset
 </th>
 <th style="text-align:left;">
 subdataset
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 resolution
+</th>
+<th style="text-align:right;">
+pixel_size
+</th>
+<th style="text-align:left;">
+path
 </th>
 <th style="text-align:left;">
 format
@@ -272,19 +275,10 @@ format
 type
 </th>
 <th style="text-align:right;">
-bytes
+nr_bytes
 </th>
 <th style="text-align:right;">
-xmin
-</th>
-<th style="text-align:right;">
-ymin
-</th>
-<th style="text-align:right;">
-xmax
-</th>
-<th style="text-align:right;">
-ymax
+nr_files
 </th>
 <th style="text-align:left;">
 start
@@ -292,26 +286,26 @@ start
 <th style="text-align:left;">
 end
 </th>
+<th style="text-align:left;">
+modified
+</th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-118
-</td>
-<td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19920101_10arcSec.tif
-</td>
-<td style="text-align:left;">
-CCI_landCover/landCover
-</td>
 <td style="text-align:left;">
 CCI_landCover
 </td>
 <td style="text-align:left;">
 landCover
 </td>
+<td style="text-align:left;">
+10arcSec
+</td>
 <td style="text-align:right;">
-0.0027778
+0.0027755
+</td>
+<td style="text-align:left;">
+CCI_landCover/CCI_landCover-landCover_20010000_10arcSec.tif
 </td>
 <td style="text-align:left;">
 grid
@@ -323,42 +317,33 @@ INT1U
 1
 </td>
 <td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
+NA
 </td>
 <td style="text-align:left;">
-1992-01-01
+2001-01-01
 </td>
 <td style="text-align:left;">
-1992-01-01
+2001-12-31
+</td>
+<td style="text-align:left;">
+2021-10-25 17:14:22
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-119
-</td>
-<td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19930101_10arcSec.tif
-</td>
-<td style="text-align:left;">
-CCI_landCover/landCover
-</td>
 <td style="text-align:left;">
 CCI_landCover
 </td>
 <td style="text-align:left;">
 landCover
 </td>
+<td style="text-align:left;">
+00arcSec
+</td>
 <td style="text-align:right;">
-0.0027778
+0.0027755
+</td>
+<td style="text-align:left;">
+CCI_landCover/CCI_landCover-landCover_200200000_00arcSec.tif
 </td>
 <td style="text-align:left;">
 grid
@@ -370,210 +355,54 @@ INT1U
 1
 </td>
 <td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
+NA
 </td>
 <td style="text-align:left;">
-1993-01-01
+2002-01-01
 </td>
 <td style="text-align:left;">
-1993-01-01
+2002-12-31
+</td>
+<td style="text-align:left;">
+2021-10-25 17:14:22
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-120
+<td style="text-align:left;">
+GADM
 </td>
 <td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19940101_10arcSec.tif
+level0
 </td>
 <td style="text-align:left;">
-CCI_landCover/landCover
-</td>
-<td style="text-align:left;">
-CCI_landCover
-</td>
-<td style="text-align:left;">
-landCover
+NA
 </td>
 <td style="text-align:right;">
-0.0027778
+NA
 </td>
 <td style="text-align:left;">
-grid
+GADM/GADM-level0_20200000_NA.spatialite
 </td>
 <td style="text-align:left;">
-INT1U
+vector
+</td>
+<td style="text-align:left;">
+NA
 </td>
 <td style="text-align:right;">
-1
+NA
 </td>
 <td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
+3
 </td>
 <td style="text-align:left;">
-1994-01-01
+2020-01-01
 </td>
 <td style="text-align:left;">
-1994-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-121
+2020-12-31
 </td>
 <td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19950101_10arcSec.tif
-</td>
-<td style="text-align:left;">
-CCI_landCover/landCover
-</td>
-<td style="text-align:left;">
-CCI_landCover
-</td>
-<td style="text-align:left;">
-landCover
-</td>
-<td style="text-align:right;">
-0.0027778
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1995-01-01
-</td>
-<td style="text-align:left;">
-1995-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-122
-</td>
-<td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19960101_10arcSec.tif
-</td>
-<td style="text-align:left;">
-CCI_landCover/landCover
-</td>
-<td style="text-align:left;">
-CCI_landCover
-</td>
-<td style="text-align:left;">
-landCover
-</td>
-<td style="text-align:right;">
-0.0027778
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1996-01-01
-</td>
-<td style="text-align:left;">
-1996-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-123
-</td>
-<td style="text-align:left;">
-CCI_landCover/CCI_landCover-landCover_19970101_10arcSec.tif
-</td>
-<td style="text-align:left;">
-CCI_landCover/landCover
-</td>
-<td style="text-align:left;">
-CCI_landCover
-</td>
-<td style="text-align:left;">
-landCover
-</td>
-<td style="text-align:right;">
-0.0027778
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1997-01-01
-</td>
-<td style="text-align:left;">
-1997-01-01
+2021-10-25 17:14:22
 </td>
 </tr>
 </tbody>
@@ -581,24 +410,24 @@ INT1U
 <p align="justify">
 </p>
 <p>If no identifier is given, the function will return a summary table, as demonstrated below. This table aggregates multi-date records into single entries and reports on the corresponding start and end dates. This can be useful to acquire an overview of the database, helping you e.g. recall dataset identifiers or verify the existence of a given dataset.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table table table-striped table-hover table-condensed">
 <thead><tr>
-<th style="text-align:right;">
-index
-</th>
-<th style="text-align:left;">
-data_id
-</th>
 <th style="text-align:left;">
 dataset
 </th>
 <th style="text-align:left;">
 subdataset
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 resolution
+</th>
+<th style="text-align:right;">
+pixel_size
+</th>
+<th style="text-align:left;">
+path
 </th>
 <th style="text-align:left;">
 format
@@ -607,19 +436,10 @@ format
 type
 </th>
 <th style="text-align:right;">
-bytes
+nr_bytes
 </th>
 <th style="text-align:right;">
-xmin
-</th>
-<th style="text-align:right;">
-ymin
-</th>
-<th style="text-align:right;">
-xmax
-</th>
-<th style="text-align:right;">
-ymax
+nr_files
 </th>
 <th style="text-align:left;">
 start
@@ -627,67 +447,26 @@ start
 <th style="text-align:left;">
 end
 </th>
+<th style="text-align:left;">
+modified
+</th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-1
+<td style="text-align:left;">
+CCI_landCover
 </td>
 <td style="text-align:left;">
-BECK_climateMap/futureClass
+landCover
 </td>
 <td style="text-align:left;">
-BECK_climateMap
-</td>
-<td style="text-align:left;">
-futureClass
+10arcSec
 </td>
 <td style="text-align:right;">
-0.0083333
+0.0027755
 </td>
 <td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-2071-01-01
-</td>
-<td style="text-align:left;">
-2100-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-BECK_climateMap/futureConfidence
-</td>
-<td style="text-align:left;">
-BECK_climateMap
-</td>
-<td style="text-align:left;">
-futureConfidence
-</td>
-<td style="text-align:right;">
-0.0083333
+CCI_landCover/CCI_landCover-landCover_20010000_10arcSec.tif
 </td>
 <td style="text-align:left;">
 grid
@@ -699,198 +478,92 @@ INT1U
 1
 </td>
 <td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
+NA
 </td>
 <td style="text-align:left;">
-2071-01-01
+2001-01-01
 </td>
 <td style="text-align:left;">
-2100-01-01
+2001-12-31
+</td>
+<td style="text-align:left;">
+2021-10-25 17:14:22
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+CCI_landCover
+</td>
+<td style="text-align:left;">
+landCover
+</td>
+<td style="text-align:left;">
+00arcSec
+</td>
+<td style="text-align:right;">
+0.0027755
+</td>
+<td style="text-align:left;">
+CCI_landCover/CCI_landCover-landCover_200200000_00arcSec.tif
+</td>
+<td style="text-align:left;">
+grid
+</td>
+<td style="text-align:left;">
+INT1U
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+2002-01-01
+</td>
+<td style="text-align:left;">
+2002-12-31
+</td>
+<td style="text-align:left;">
+2021-10-25 17:14:22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GADM
+</td>
+<td style="text-align:left;">
+level0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+GADM/GADM-level0_20200000_NA.spatialite
+</td>
+<td style="text-align:left;">
+vector
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:left;">
-BECK_climateMap/presentClass
+2020-01-01
 </td>
 <td style="text-align:left;">
-BECK_climateMap
+2020-12-31
 </td>
 <td style="text-align:left;">
-presentClass
-</td>
-<td style="text-align:right;">
-0.0083333
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1986-01-01
-</td>
-<td style="text-align:left;">
-2016-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-BECK_climateMap/presentConfidence
-</td>
-<td style="text-align:left;">
-BECK_climateMap
-</td>
-<td style="text-align:left;">
-presentConfidence
-</td>
-<td style="text-align:right;">
-0.0083333
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1986-01-01
-</td>
-<td style="text-align:left;">
-2016-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-BECK_climateMap/smoothPresent
-</td>
-<td style="text-align:left;">
-BECK_climateMap
-</td>
-<td style="text-align:left;">
-smoothPresent
-</td>
-<td style="text-align:right;">
-0.0083333
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1986-01-01
-</td>
-<td style="text-align:left;">
-2016-01-01
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:left;">
-CCI_history/agriculture
-</td>
-<td style="text-align:left;">
-CCI_history
-</td>
-<td style="text-align:left;">
-agriculture
-</td>
-<td style="text-align:right;">
-0.0027778
-</td>
-<td style="text-align:left;">
-grid
-</td>
-<td style="text-align:left;">
-INT1U
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
--180
-</td>
-<td style="text-align:right;">
--90
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:left;">
-1992-01-01
-</td>
-<td style="text-align:left;">
-2018-01-01
+2021-10-25 17:14:22
 </td>
 </tr>
 </tbody>

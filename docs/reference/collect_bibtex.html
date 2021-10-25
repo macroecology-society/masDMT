@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Accesses legend for a given product. — get_legend • masDMT</title>
+<title>Merge dataset references — collect_bibtex • masDMT</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Accesses legend for a given product. — get_legend" />
-<meta property="og:description" content="Accesses legend for a given product." />
+<meta property="og:title" content="Merge dataset references — collect_bibtex" />
+<meta property="og:description" content="Merge dataset references" />
 
 
 
@@ -153,37 +153,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Accesses legend for a given product.</h1>
+    <h1>Merge dataset references</h1>
     
-    <div class="hidden name"><code>get_legend.Rd</code></div>
+    <div class="hidden name"><code>collect_bibtex.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Accesses legend for a given product.</p>
+    <p>Merge dataset references</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_legend</span><span class='op'>(</span><span class='va'>data.id</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>collect_bibtex</span><span class='op'>(</span><span class='va'>data_id</span>, <span class='va'>output</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data.id</th>
-      <td><p>Element or vector of class <em>character</em>.</p></td>
+      <th>data_id</th>
+      <td><p><em>Character</em> vector enumerating datasets to query.</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>Path to output file in bib format.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a |emphdata.frame with the legend of the target dataset, containing:
-<ul>
-<li><p><em>value</em> - Grid value</p></li>
-<li><p><em>label</em> - class label</p></li>
-<li><p><em>hex</em> - Hex color code</p></li>
-</ul></p>
+    <p>A bibtex file combining references for requested datasets.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function provides access to legend information relative to data products existing in the MAS database.</p>
+    <p>This function provides access to the bibliographic 
+references of one or more datasets in the MAS database. The 
+function provides one bibtex file combining all relevant 
+bibligraphic references. Note that literature references 
+are only available at the top level. For example, the 
+'CCI_landCover' dataset will be accepted in the function 
+call, but 'CCI_landCover/landCover' will not return the 
+desired output.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

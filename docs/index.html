@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -61,9 +61,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/datasets.html">datasets</a>
-    </li>
-    <li>
       <a href="articles/find-data.html">data access</a>
     </li>
     <li>
@@ -80,14 +77,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="articles/datasets.html">
+  <a href="https://macroecology-society.github.io/data-catalog/">
     <span class="fa fa-database"></span>
      
     datasets
   </a>
 </li>
 <li>
-  <a href="https://github.com">
+  <a href="https://github.com/macroecology-society/masDMT">
     <span class="fa fa-github"></span>
      
     GitHub
@@ -118,20 +115,20 @@
 <h2 class="hasAnchor">
 <a href="#towards-interoperable-workflows" class="anchor"></a>Towards interoperable workflows</h2>
 <p align="justify">
-At the Macroecology and Society (MAS), a research group of the German Centre for Integrative Biodiversity Research (iDiv). we compose an interdisciplinary lab, combining backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. Across our multiple research fields, we are interested in detecting and understanding global dynamics in human-environment systems, with a focus on human land use, its underlying societal drivers, and its ecological consequences.
+The Macroecology and Society (MAS) is a research group of the German Centre for Integrative Biodiversity Research (iDiv), composed by an interdisciplinary team of scientists. It includes backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, the lab aims detect and understand global dynamics in human-environment systems, with a focus on human land use, its underlying societal drivers, and its ecological consequences.
 </p>
 <p align="justify">
-To answer our questions, We rely rely on massive amounts of data with different characteristics and thematic scopes, from statistical surveys to global gridded and vector layers. We often share this data across projects as well as the code to analyze it, making the need for a common infrastructure imperative. With this in mind, we developed <code>masDMT</code>. This R package provides standardized access points to the common database of MAS. Additionally, it provides tools to integrate these data within an High Performance Computing (HPC) environment.
+To answer our questions, We rely rely on massive amounts of data with different characteristics and thematic scopes, from statistical surveys to global, gridded and vector layers. We often share this data across projects as well as the code required for its analysis, creating a need for a common knowledge infrastructure imperative. With this in mind, we developed <code>masDMT</code>. This R package provides standardized access points to the common database of MAS. More importantly, it provides tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
 </p>
 </div>
 <div id="instalation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#instalation" class="anchor"></a>Instalation</h2>
 <p align="justify">
-<code>masDMT</code> takes advantage of the MAS group database with EVE, a high-performance computing platform hosted at UFZ and supported by iDiv. Due to this dependency, the package was not submitted to CRAN and must be installed from it’s Github repository. To do, we can use <code>devtools</code> as following:
+<code>masDMT</code> was customized to make our work within the group easier. However, this also means we need to adapt our package to a familiar infrastructure. For this reason, it was not submitted to CRAN and must be installed from it’s Github repository. To do, we can use <code>devtools</code> as following:
 </p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'macroecology-society/masDMT'</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'macroecology-society/masDMT'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="requirements" class="section level2">
 <h2 class="hasAnchor">
@@ -155,7 +152,9 @@ This work was funded by the Volkswagen Foundation through a Freigeist Fellowship
     <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li>
+<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
 <div class="developers">

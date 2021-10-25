@@ -89,7 +89,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,9 +103,6 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/datasets.html">datasets</a>
-    </li>
     <li>
       <a href="../articles/find-data.html">data access</a>
     </li>
@@ -123,14 +120,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../articles/datasets.html">
+  <a href="https://macroecology-society.github.io/data-catalog/">
     <span class="fa fa-database"></span>
      
     datasets
   </a>
 </li>
 <li>
-  <a href="https://github.com">
+  <a href="https://github.com/macroecology-society/masDMT">
     <span class="fa fa-github"></span>
      
     GitHub
@@ -165,13 +162,13 @@
     <p>Create a sandbox containing small subsets of target datasets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>list_data</span><span class='op'>(</span><span class='va'>data.id</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>list_data</span><span class='op'>(</span><span class='va'>data_id</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data.id</th>
+      <th>data_id</th>
       <td><p>Element or vector of class <em>character</em>.</p></td>
     </tr>
     </table>
@@ -181,16 +178,13 @@
     <p>A <em>data.frame</em>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>When no argument is used, the function will return a <em>data.frame</em>
-with a summary of the existing datasets and their general characteristics. When
-<em>data.id</em> is provided, the function will search for the corresponding dataset
-and return a <em>data.frame</em> reporting on the individual files that compose each
-of the target datasets.</p>
+    <p>When no argument is used, the function will return a 
+<em>data.frame</em> with a summary of the existing datasets and 
+their general characteristics. When <em>data.id</em> is provided, 
+the function will search for the corresponding dataset and return 
+a <em>data.frame</em> reporting on the individual files that compose 
+each of the target datasets.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='op'>{</span><span class='op'>}</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
