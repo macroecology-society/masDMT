@@ -1,51 +1,42 @@
 #' Create a sandbox containing small subsets of target datasets.
-#' @param data_id Element or vector of class \emph{character}.
-#' @param range {Two-element vector of class \emph{character} with start/end 
-#' dates (optional, in yyyy-mm-dd format).}
-#' @param bbox {Four-element vector with target bounding box, composed of min. 
-#' x, min. y, max. x and max. y coordinates.}
-#' @param report.only {Logical. If TRUE, the function will solely 
-#' report on storage requirements?}
-#' @param non.spatial {Optional argument. How should non-spatial 
-#' data be treated? Provide one of the following:
+#' @param data.id Element or vector of class \emph{character}.
+#' @param range Two-element vector of class \emph{character} with desired start and end dates (optional, in yyyy-mm-dd format).
+#' @param bbox Four-element vector with target bounding box, composed of min. x, min. y, max. x and max. y coordinates.
+#' @param report.only Logical. Should the function only report on storage requirements?
+#' @param non.spatial {Optional argument. How should non-spatial data be treated? Provide one of the following:
 #'   \itemize{
 #'     \item{\emph{a character element} with an SQL query}
-#'     \item{\emph{an integer} specifying the number of records to extract}
+#'     \item{\emph{a numeric element} specifying how many records to randomly select}
 #'    }
 #' }
-#' @return {A mirror of the data structure on the 
-#' cluster, containing a subset of the target datasets.}
+#' @return A mirror of the data structure on the cluster, containing a subset of the target datasets.
 #' @importFrom DBI dbConnect dbGetQuery dbDisconnect dbGetRowCount dbFetch
 #' @importFrom terra rast res
 #' @importFrom sf st_write
 #' @importFrom gdalUtils gdal_translate
-#' @details {The function creates a copy of the datasets specified in 
-#' \emph{data_id} within the area defined by \emph{bbox} and the temporal 
-#' range determined by \emph{range}. When \emph{report.only} is set to TRUE, 
-#' the function will provide a \emph{data.frame} reporting on the amount of 
-#' data per individual file that fits to the search criteria. When set to FALSE, 
-#' the function will inform the user on the amount of data that will be 
-#' processed and request an output folder to write the data to. Note that 
-#' the estimates are fairly accurate for gridded and tabular data. For gridded 
-#' data, the area within a \emph{bbox} will be consistently covered by pixels, 
-#' and a data volume is estimated from the amount of cells within it and the 
-#' data format. For vector data, this is just an estimate that assumes that 
-#' the target area is consistently covered by all vector entries in the target 
-#' dataset. this does not consider vector complexity or the actual amount of 
-#' overlapping vectors.}
+#' @details {The function creates a copy of the datasets specified in \emph{data.id} within the area defined
+#' by \emph{bbox} and temporal range determined by \emph{range}. When \emph{report.only} is set to TRUE, the
+#' function will provide a \emph{data.frame} reporting on the amount of data per individual file that fits to
+#' the search criteria. When set to false, the function will inform the user on the amount of data that will
+#' be processed and request an output folder to write the data to. Note that the estimates are fairly accurate
+#' for gridded and tabular data. For gridded data, the area within a \emph{bbox} will be consistently covered by pixels, and a data volume
+#' is estimated from the amount of cells within it and the data format. For vector data, this is just an
+#' estimate that assumes that the target area is consistently covered by all vector entries in the target
+#' dataset. this does not consider vector complexity or the actual amount of overlapping vectors.}
+#' @examples {}
 #'
 #' @export
 
-#-----------------------------------------------------------------------------#
-#-----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------#
 
-build_sandbox <- function(data_id, bbox, range, non.spatial=NULL, report.only=FALSE) {
+build_sandbox <- function(data.id, bbox, range, non.spatial=NULL, report.only=FALSE) {
 
-  #---------------------------------------------------------------------------#
+  #----------------------------------------------------------------------------------------------------------------------------#
   # 1. test input arguments ---
-  #---------------------------------------------------------------------------#
+  #----------------------------------------------------------------------------------------------------------------------------#
 
-  if (!is.character(data_id)) stop('"data_id" is not a character vector')
+  if (!is.character(data.id)) stop('"data.id" is not a character vector')
   if (!is.numeric(bbox)) stop('"bbox" is not a numeric vector')
   if (!length(bbox) != 4) stop('"bbox" does not have 4 elements')
   if (!is.character(range)) stop('"range" should be a character vector (format yyy-mm-dd)')
@@ -58,82 +49,72 @@ build_sandbox <- function(data_id, bbox, range, non.spatial=NULL, report.only=FA
     method = NULL
   }
 
-  #---------------------------------------------------------------------------#
+  #----------------------------------------------------------------------------------------------------------------------------#
+  # 2. search for nonexistent datasets ---
+  #----------------------------------------------------------------------------------------------------------------------------#
+
+  data = list_data() # read reference metadata
+  ind = which(data$data_id %in% data.id) # find requested datasets that don't exist
+
+  # if there are missing datasets, report
+  if (length(ind) == 0) stop(paste0(paste0(data.id[ind], collapse=','), ' not found in the database (maybe mispelled?)'))
+
+  #----------------------------------------------------------------------------------------------------------------------------#
   # 2. find and analyze gridded datasets ---
-  #---------------------------------------------------------------------------#
+  #----------------------------------------------------------------------------------------------------------------------------#
 
-  file_report = do.call(rbind, lapply(data_id, function(id) {
+  file_report = do.call(rbind, lapply(data.id, function(id) {
 
-    metadata = list_data(id) # find relevant files
+    data = list_data(id) # find relevant files
 
-    # subset metadata by date
-    metadata = metadata[
-      which(((metadata$start >= range[1]) & 
-               (metadata$end <= range[2])) | 
-              is.na(metadata$start)),]
-    
-    files = paste0(getOption('dmt.metadata'), metadata$path) # build file path
+    # subset data by date
+    data$start = as.Date(data$start)
+    data$end = as.Date(data$end)
+    data = data[which(((data$start >= range[1]) & (data$end <= range[2])) | is.na(data$start)),]
+    files = paste0(getOption('dmt.data'), data$path) # build file path
 
-    if (metadata$format[1] == 'grid') {
+    if (data$format[1] == 'grid') {
 
       nr_records = 1 # count files associated to dataset
-      pixel.res = metadata$pixel_size[1]
-      
-      # nr. of bytes in x image range
-      xbytes = (bbox[3]-bbox[1]) / pixel.res * metadata$nr_bytes[1]
-      
-      # nr. of bytes in y image range
-      ybytes = (bbox[4]-bbox[2]) / pixel.res * metadata$nr_bytes[1]
-      
-      # predicted size of subset in Mb
-      pred_size = ((xbytes * ybytes) * 0.000001)
+      pixel.res = res(rast(files[1]))[1] # pixel resolution
+      xbytes = (bbox$xmax-bbox$xmin) / pixel.res * data$bytes[1] # nr. of bytes in x image range
+      ybytes = (bbox$xmax-bbox$xmin) / pixel.res * data$bytes[1] # nr. of bytes in y image range
+      pred_size = ((xbytes * ybytes) * 0.000001) # predicted size of subset in Mb
 
     }
 
-    if (metadata$format[1] == 'vector') {
-      
-      # account for original file size (in Mb)
-      nr_records = metadata$nr_files
-      original_size = file.info(files)$size/1000000
-      
-      # # maximum area
-      # referenceArea = (metadata$xmax-metadata$xmin) * 
-      #   (metadata$ymax-metadata$ymin)
-      # 
-      # # overlap along the x coordinates
-      # x_overlap = max(c(min(c(metadata$xmax, bbox[3])) - 
-      #                     max(c(metadata$xmin, bbox[1]))))
-      # 
-      # # overlap along the y coordinates
-      # y_overlap = max(c(min(c(metadata$ymax, bbox[4])) - 
-      #                     max(c(metadata$ymin, bbox[2]))))
-      # 
-      # # overlap area
-      # overlapArea = x_overlap * y_overlap
-      # 
-      # # predicted size of subset in Mb
-      # pred_size = (overlapArea/referenceArea) * 
-      #   original_size * nr_records
-      
-      pred_size = original_size
+    if (data$format[1] == 'vector') {
+
+      idb = dbConnect(SQLite(), files) # connect to vector database
+      nr_records = dbGetQuery(idb, paste0('select COUNT(*) from ', data$subdataset))[1,1] # count number of features
+      dbDisconnect(idb) # disconnect from vector database
+      original_size = file.info(files)$size/1000000 # account for original file size (in Mb)
+      referenceArea = (data$xmax-data$xmin) * (data$ymax-data$ymin) # maximum area
+      x_overlap = max(c(min(c(data$xmax, bbox$xmax)) - max(c(data$xmin, bbox$xmin)))) # overlap along the x coordinates
+      y_overlap = max(c(min(c(data$ymax, bbox$ymax)) - max(c(data$ymin, bbox$ymin)))) # overlap along the y coordinates
+      overlapArea = x_overlap * y_overlap # overlap area
+      pred_size = (overlapArea/referenceArea) * original_size * nr_records # predicted size of subset in Mb
 
     }
 
-    if (metadata$format[1] == 'table') {
+    if (data$format[1] == 'table') {
+
+      idb = dbConnect(SQLite(), files) # connect to table database
 
       # nr. records in database
-      nr_records = metadata$nr_files
-      
-      # account for original file size (in Mb)
-      original_size = file.info(files)$size/1000000
-      pred_size = original_size
+      nr_records = dbGetQuery(idb, paste0('select COUNT(*) from ', data$subdataset))[1,1] # total
+      if (is.null(method)) target_nr = nr_records
+      if (method == 'sql') target_nr = dbGetRowCount(dbGetQuery(idb, non.spatial)) # records that fit the SQL query
+      if (method == 'random') nr_records = non.spatial # pre-defined nr of records
+
+      dbDisconnect(idb) # disconnect from vector database
+      original_size = file.info(files)$size/1000000 # account for original file size (in Mb)
+      pred_size = original_size * ((target_nr)/nr_records) # predicted size of subset in Mb
 
     }
 
     # report on file composition
-    return(data.frame(dataset=metadata$dataset, path=files, 
-                      nr_records=nr_records, size_Mb=pred_size, 
-                      format=metadata$format, stringsAsFactors=F))
+    return(data.frame(data.id=id, path=files, nr_records=nr_records, size_Mb=pred_size, format=data$format, stringsAsFactors=F))
 
   }))
 
@@ -152,19 +133,19 @@ build_sandbox <- function(data_id, bbox, range, non.spatial=NULL, report.only=FA
     #==========================================================================================================================#
 
     file.size = as.character(sum(file_report$size_Mb))
-    r = paste0("Your output will consist of ", file.size, " Mb's. Shall I proceed setting up the sandbox? (0=No, 1=Yes): ")
+    r = paste0("Your output will consist of ", file.size, " Mb's. Shall I Proceed? (0=No, 1=Yes): ")
     r = as.numeric(readline(r))
-    
+
     if (r == 1) {
-      
+
       out.dir = readline('please provide an output directory: ')
-      if (!dir.exists(out.dir)) {stop('the directory does not exist :/')}
+      if (!dir.exists(out.dir)) {stop('provided directory does not exist :/')}
 
     #==========================================================================================================================#
     # build sandbox file structure
     #==========================================================================================================================#
 
-      file_report$out_dir = paste0(out.dir, file_report$dataset, '/')
+      file_report$out_dir = paste0(out.dir, dirname(file_report$data.id), '/')
       unique.dirs = unique(file_report$out_dir)
       for (d in unique.dirs) if (!dir.exists(d)) dir.create(d)
 
@@ -204,7 +185,7 @@ build_sandbox <- function(data_id, bbox, range, non.spatial=NULL, report.only=FA
 
         for (i in ind) {
 
-          s = access_vector(file_report$data_id[i], bbox=bbox)
+          s = access_vector(file_report$data.id[i], bbox=bbox)
           st_write(s, paste0(file_report$out_dir[i], basename(file_report$path)), driver='sqlite', append=F)
 
         }
@@ -224,19 +205,19 @@ build_sandbox <- function(data_id, bbox, range, non.spatial=NULL, report.only=FA
           oname = paste0(file_report$out_dir[i], basename(file_report$path)) # output file name
   
           # without special requirements, simply copy data
-          if (is.null(method)) file.copy(file_report$data_id[i], oname)
+          if (is.null(method)) file.copy(file_report$data.id[i], oname)
   
           # with special requirements, find relevant data
           if (!is.null(method)) {
   
-            bn = basename(file_report$data_id[i]) # table name
+            bn = basename(file_report$data.id[i]) # table name
   
             if (method == 'random') {
               non.spatial = paste0('SELECT TOP ', as.character(non.spatial), ' * FROM ', bn, ' ORDER BY NEWID()')
             }
   
             # access data in original database
-            idb = dbConnect(SQLite(), file_report$data_id[i]) # connect to table database
+            idb = dbConnect(SQLite(), file_report$data.id[i]) # connect to table database
             ods = dbFetch(dbGetRowCount(dbGetQuery(idb, non.spatial))) # parse SQL query
             dbDisconnect(idb) # disconnect from vector database
   

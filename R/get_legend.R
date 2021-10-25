@@ -8,6 +8,7 @@
 #' \item{\emph{hex} - Hex color code}
 #'}}
 #' @details The function provides access to legend information relative to data products existing in the MAS database.
+#' @examples {}
 #'
 #' @export
 

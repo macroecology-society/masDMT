@@ -138,14 +138,13 @@ The MAS database has several types of data, including <code>gridded</code> (e.g.
 <code><a href="../reference/access_grid.html">access_grid()</a></code> helps find and read gridded data, such as the one derived with remote sensing. It provides access to one dataset at a time, returning them as a <a href="https://www.rdocumentation.org/packages/terra/topics/SpatRaster-class"><code>spatRaster</code> object</a> with <em>n</em> bands where <em>n</em> is the number of time-steps associated to the query. In the following example, we accessed ESA’s CCI land cover, hosted under the identifier <code>CCI_landCover/landCover</code>. Here, we will limit our search o the period between 2001-01-01 and 2002-12-31. As shown below, this results in a global <code>spatRaster</code> with two layers, for 2001 and 2002, respectively.
 </p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span>(<span class="st">'CCI_landCover/landCover'</span>, range=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span>))
-</pre></div>
+<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 200, 266, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.33491, 24.0732, -1.811076, -1.255731  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
-## data source : file45cc5c712639_17868.vrt 
+## data source : file63604c7f1b66_25440.vrt 
 ## names       : CCI_landCover/CCI_landCover-landCover_20010101_10arcSec.tif, CCI_landCover/CCI_landCover-landCover_20020101_10arcSec.tif 
 ## min values  :                                                          ? ,                                                          10 
 ## max values  :                                                          ? ,                                                         210</code></pre>
@@ -153,14 +152,13 @@ The MAS database has several types of data, including <code>gridded</code> (e.g.
 Unlike other raster processing packages developed for R, <code>terra</code> accounts for the perils of increasing data volumes in the remote sensing community. For that reason, most functions include arguments that prompt the use of additional CPU’s. However, it still assumes that we want to process the full raster. When dealing with global datasets, this can be an issue that tackles RAM limitations. While cropping functions exist, they create a new file with the subset data that occupy space in either physical or virtual memory. This can result in a large - and arguably unnecessary - processing time overhead, making our algorithms unnecessarily long. Under such limitations, one might choose to crop the larger dataset before running an analysis. However, this might also be inadequate. If we routinely process data on multiple spatial and temporal scales, subsetting raster in preparation for every situation can be time and space consuming. While <code>terra</code> can’t do on-the-fly subsetting, we can trick the package to only access a data subset at a time. To do so, <code><a href="../reference/access_grid.html">access_grid()</a></code> makes use of Virtual Rasters (VRT). Given a spatial bounding box, the function will call <code>gdalbuildvrt</code> and create a VRT file in the default temporary folder, which will serve as a pointer for where the desired raster data starts and which files compose the desired analysis. To demonstrate this feature, we will build on the previous example and request the desired spatial extent. Notice how the reported metatada changes.
 </p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span>(<span class="st">'CCI_landCover/landCover'</span>, range=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span>), bbox=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">23.5</span>, <span class="op">-</span><span class="fl">1.5</span>, <span class="fl">24</span>, <span class="op">-</span><span class="fl">1.3</span>))
-</pre></div>
+<span class="fu"><a href="../reference/access_grid.html">access_grid</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, range<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'2001-01-01'</span>, <span class="st">'2002-12-31'</span><span class="op">)</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23.5</span>, <span class="op">-</span><span class="fl">1.5</span>, <span class="fl">24</span>, <span class="op">-</span><span class="fl">1.3</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 72, 180, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.5, 23.99959, -1.499924, -1.3  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
-## data source : file45cc15fe5b21_17868.vrt 
+## data source : file63605635716b_25440.vrt 
 ## names       : CCI_landCover/CCI_landCover-landCover_20010101_10arcSec.tif, CCI_landCover/CCI_landCover-landCover_20020101_10arcSec.tif</code></pre>
 </div>
 <div id="accessing-vector-data" class="section level3">
@@ -171,8 +169,7 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 </p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co"># read full dataset</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span>(<span class="st">'GADM/level0'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span><span class="op">)</span></pre></div>
 <pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
 ## Simple feature collection with 3 features and 2 fields
 ## geometry type:  MULTIPOLYGON
@@ -190,8 +187,7 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 ## 3   TGO   Togo MULTIPOLYGON (((1.288195 6....</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># read spatial subset</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span>(<span class="st">'GADM/level0'</span>, bbox=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>))
-</pre></div>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
 ## geometry type:  MULTIPOLYGON
@@ -210,8 +206,7 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 </p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="co"># select the first record</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span>(<span class="st">'GADM/level0'</span>, limit=<span class="fl">1</span>)
-</pre></div>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, limit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></pre></div>
 <pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
 ## geometry type:  MULTIPOLYGON
@@ -227,8 +222,7 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 ## 1   BEN  Benin MULTIPOLYGON (((1.941528 6....</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="co"># select first record using an SQL query</span>
-<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span>(<span class="st">'GADM/level0'</span>, query=<span class="st">'SELECT * FROM level0 WHERE gid_0 = "BEN"'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, query<span class="op">=</span><span class="st">'SELECT * FROM level0 WHERE gid_0 = "BEN"'</span><span class="op">)</span></pre></div>
 <pre><code>## Reading layer `level0' from data source `C:\Users\rr70wedu\Documents\MAS_Lab\masDMT\inst\extdata\GADM\level0.sqlite' using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
 ## geometry type:  MULTIPOLYGON
@@ -250,8 +244,7 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 Both <code><a href="../reference/access_grid.html">access_grid()</a></code> and <code><a href="../reference/access_vector.html">access_vector()</a></code> provide an “easy way in” to the MAS database. However, you might find this limiting if you have your own preferences regarding how to handle raster and vector data. But don’t fear: there is an alternative. Both the functions we discussed use <code><a href="../reference/list_data.html">list_data()</a></code> to find relevant data entries, and you too. When provided with a unique data identifier (or vector with several identifiers), the function will identify all the corresponding records and provide a <code>data.frame</code> with their characteristics. This includes, e.g., the spatial extent of the records, their format and data type, their start and end date and, perhaps more importantly, the location of the corresponding files (i.e. <code>path</code>). The example below shows the query results for <code>CCI_landCover/landCover</code> and <code>GADM/level0</code>.
 </p>
 <div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/list_data.html">list_data</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'CCI_landCover/landCover'</span>, <span class="st">'GADM/level0'</span>))
-</pre></div>
+<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span>, <span class="st">'GADM/level0'</span><span class="op">)</span><span class="op">)</span></pre></div>
 <table class="table table table-striped table-hover table-condensed">
 <thead><tr>
 <th style="text-align:right;">
@@ -589,8 +582,7 @@ INT1U
 </p>
 <p>If no identifier is given, the function will return a summary table, as demonstrated below. This table aggregates multi-date records into single entries and reports on the corresponding start and end dates. This can be useful to acquire an overview of the database, helping you e.g. recall dataset identifiers or verify the existence of a given dataset.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="../reference/list_data.html">list_data</a></span>()
-</pre></div>
+<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <table class="table table table-striped table-hover table-condensed">
 <thead><tr>
 <th style="text-align:right;">
@@ -921,7 +913,7 @@ INT1U
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

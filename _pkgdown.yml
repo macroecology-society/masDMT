@@ -9,14 +9,20 @@ reference:
   - '`access_grid`'
   - '`access_vector`'
   - '`list_data`'
+- title: Extract data subsets
+  contents:
   - '`build_sandbox`'
+  - '`build_project`'
 - title: Other tools
   contents:
+  - '`dmt_tmp`'
   - '`get_legend`'
-  - '`.collect_bibtex`'
-  - '`.compile_metadata`'
-  - '`.collect_metadata`'
-  - '`build_project`'
+  - '`poly2sample`'
+  - '`.build_meta`'
+- title: Example data
+  contents:
+  - '`countries`'
+  - '`covariates`'
 
 navbar:
   home: ~
@@ -26,7 +32,7 @@ navbar:
       href: articles/datasets.html
     - icon: fa-github
       text: GitHub
-      href: https://github.com/macroecology-society/masDMT
+      href: https://github.com
     - icon: fa-envelope
       text: mail
       href: mailto:mas@idiv.de
@@ -39,7 +45,3 @@ navbar:
        href: articles/package-variables.html
      - text: data access
        href: articles/find-data.html
-     - text: build sandbox
-       href: articles/sandbox.html
-     - text: Citing datasets
-       href: articles/referencing-data.html

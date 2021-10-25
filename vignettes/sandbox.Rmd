@@ -14,7 +14,7 @@ require(masDMT)
 require(knitr)
 require(kableExtra)
 
-options(dmt.data=paste0(system.file(package = 'masDMT'), '/extdata/'))
+options(dmt.data='C:/Users/rr70wedu/Documents/MAS_Lab/masDMT/inst/extdata/')
 
 ```
 
@@ -25,32 +25,6 @@ When dealing with large-scale applications, starting can seem scary. While compu
 <p align="justify">
 Another important reason to work on smaller data chunks is time. All of us face deadlines, and these can seem even heavier when we need to process large data volumes. In this context, testing algorithms, an already time consuming task, can grow exponentially if we don't constrain our initial focus. Pre-selecting test sites is a good way to efficiently manage our time and to systematically test the performance and consistency of our analysis.
 </p>
-
-<br>
-
-### Setting up a project
 <p align="justify">
-Before engaging with data manipulation, we need a place to host it. You can use `build_project()` to setup a standardized folder structure together with a README file on the purpose of each folder. This follows a similar infrastructure as the MAS database. The more member of the lab use it, the easier it will be to exchange data and code. 
-</p>
-
-<br>
-
-### Determining what we need
-<p align="justify">
-Before integrating new, messy data into your project, you might want to <a href="https://macroecology-society.github.io/data-catalog/">look into the MAS data catalog</a>. This blog-like database offers an overview on each dataset in the MAS database, including thematic information, spatial extent and resolution, and temporal coverage. As an alternative, you can use the function `list_data()` to list all available datasets through the masDMT package.
-</p>
-
-<br>
-
-### Extracting a sandbox
-<p align="justify">
-`build_sandbox()` helps us tackle these issues. Using this function, we can extract subsets of multiple datasets from our common database, storing them in a identical data structure. This way, we can test our algorithms locally and we can later migrate that code into the main database to upscale our analysis (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find"./docs/articles/package-variables.html">click here to learn about system variables and relative paths</a>).
-</p>
-
-bbox=c(23.5, -1.5, 24, -1.3)
-
-
-### Register data
-<p align="justify">
-Once we have our sandbox, we can use `compile_metadata()` to register all collected datasets. This function will make the datasets available through the readers of masDMT (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find"./docs/articles/find-data.html">click here to learn more</a>)
+`build_sandbox()` helps us tackle these issues. Using this function, we can extract subsets of multiple datasets from our common database, storing them in a identical data structure. This way, we can test our algorithms locally and we then use the same code on the our database to upscale our analysis (<a href="./articles/package-variables.html"./docs/articles/>click here</a> to learn about system variables and relative paths).
 </p>

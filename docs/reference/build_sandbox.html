@@ -165,7 +165,7 @@
     <p>Create a sandbox containing small subsets of target datasets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_sandbox</span>(<span class='kw'>data.id</span>, <span class='kw'>bbox</span>, <span class='kw'>range</span>, report.only = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>build_sandbox</span><span class='op'>(</span><span class='va'>data.id</span>, <span class='va'>bbox</span>, <span class='va'>range</span>, non.spatial <span class='op'>=</span> <span class='cn'>NULL</span>, report.only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,6 +183,14 @@
       <td><p>Two-element vector of class <em>character</em> with desired start and end dates (optional, in yyyy-mm-dd format).</p></td>
     </tr>
     <tr>
+      <th>non.spatial</th>
+      <td><p>Optional argument. How should non-spatial data be treated? Provide one of the following:
+  <ul>
+<li><p><em>a character element</em> with an SQL query</p></li>
+<li><p><em>a numeric element</em> specifying how many records to randomly select</p></li>
+</ul></p></td>
+    </tr>
+    <tr>
       <th>report.only</th>
       <td><p>Logical. Should the function only report on storage requirements?</p></td>
     </tr>
@@ -198,13 +206,13 @@ by <em>bbox</em> and temporal range determined by <em>range</em>. When <em>repor
 function will provide a <em>data.frame</em> reporting on the amount of data per individual file that fits to
 the search criteria. When set to false, the function will inform the user on the amount of data that will
 be processed and request an output folder to write the data to. Note that the estimates are fairly accurate
-for gridded data. The area within a <em>bbox</em> will be consistently covered by pixels, and a data volume
-is estimated from the amount of cells within it and the data fromat. For vector data, this is just an
+for gridded and tabular data. For gridded data, the area within a <em>bbox</em> will be consistently covered by pixels, and a data volume
+is estimated from the amount of cells within it and the data format. For vector data, this is just an
 estimate that assumes that the target area is consistently covered by all vector entries in the target
 dataset. this does not consider vector complexity or the actual amount of overlapping vectors.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>{}
+    <pre class="examples"><div class='input'><span class='op'>{</span><span class='op'>}</span>
 </div><div class='output co'>#&gt; NULL</div><div class='input'>
 </div></pre>
   </div>
@@ -222,7 +230,7 @@ dataset. this does not consider vector complexity or the actual amount of overla
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
