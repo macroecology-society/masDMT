@@ -141,7 +141,7 @@ The MAS database has several types of data, including <code>gridded</code> (e.g.
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.33491, 24.0732, -1.811076, -1.255731  (xmin, xmax, ymin, ymax)
 ## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-## source      : file649c2e992816_25756.vrt 
+## source      : file6eb424d355b_28340.vrt 
 ## names       : CCI_landCover/C~00_10arcSec.tif, CCI_landCover/C~00_00arcSec.tif 
 ## time        : 2001-01-01 to 2002-01-01</code></pre>
 <p align="justify">
@@ -154,7 +154,7 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 ## resolution  : 0.002775493, 0.002776722  (x, y)
 ## extent      : 23.5, 23.99959, -1.499924, -1.3  (xmin, xmax, ymin, ymax)
 ## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-## source      : file649c631113f0_25756.vrt 
+## source      : file6eb4702d30fa_28340.vrt 
 ## names       : CCI_landCover/C~00_10arcSec.tif, CCI_landCover/C~00_00arcSec.tif 
 ## time        : 2001-01-01 to 2002-01-01</code></pre>
 </div>
@@ -168,7 +168,7 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 <code class="sourceCode R"><span class="co"># read full dataset</span>
 <span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span><span class="op">)</span></code></pre></div>
 <pre><code>## Reading layer `level0' from data source 
-##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752cc4622aa\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
 ##   using driver `SQLite'
 ## Simple feature collection with 3 features and 2 fields
 ## Geometry type: MULTIPOLYGON
@@ -188,7 +188,7 @@ Unlike other raster processing packages developed for R, <code>terra</code> acco
 <code class="sourceCode R"><span class="co"># read spatial subset</span>
 <span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, bbox<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## Reading layer `level0' from data source 
-##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752cc4622aa\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
 ##   using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
 ## Geometry type: MULTIPOLYGON
@@ -209,7 +209,7 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 <code class="sourceCode R"><span class="co"># select the first record</span>
 <span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, limit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## Reading layer `level0' from data source 
-##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+##   `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752cc4622aa\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
 ##   using driver `SQLite'
 ## Simple feature collection with 3 features and 2 fields
 ## Geometry type: MULTIPOLYGON
@@ -228,7 +228,7 @@ If you are new to a given dataset, you might feel unsure how to proceed, especia
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># select first record using an SQL query</span>
 <span class="fu"><a href="../reference/access_vector.html">access_vector</a></span><span class="op">(</span><span class="st">'GADM/level0'</span>, query<span class="op">=</span><span class="st">'SELECT * FROM level0 WHERE gid_0 = "BEN"'</span><span class="op">)</span></code></pre></div>
-<pre><code>## Reading query `SELECT * FROM level0 WHERE gid_0 = "BEN"' from data source `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752c236a6a6d\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
+<pre><code>## Reading query `SELECT * FROM level0 WHERE gid_0 = "BEN"' from data source `C:\Users\rr70wedu\AppData\Local\Temp\RtmpQZ0Zxa\temp_libpath752cc4622aa\masDMT\extdata\GADM\GADM-level0_20200000_NA.spatialite' 
 ##   using driver `SQLite'
 ## Simple feature collection with 1 feature and 2 fields
 ## Geometry type: MULTIPOLYGON
