@@ -25,7 +25,8 @@ Imports:
     mapview, 
     yaml, 
     methods, 
-    rmarkdown
+    rmarkdown, 
+    distill
 RoxygenNote: 7.1.2
 Depends:
     R (>= 3.5)

@@ -1,0 +1,20 @@
+---
+  title: name of dataset
+  bib: path to bibtex file
+  license: license under which the dataset falls (e.g. CC-BY-SA-4.0)
+  version: dataset version, 
+  categories: category of dataset (e.g. land cover, ecology, climate)
+  status: one of "available", "developing", "planned"
+  metadata:
+  format: data format (e.g. GRID, vector, table)
+spatial_resolution: spatial resolution(s) of dataset (e.g. [30 m, 300 m, 1 km])
+temporal_resolution: temporal resolution of dataset (e.g. yearly, multiyear snapshot)
+temporal_range: [start year, end year]
+spatial_extent: [min x, max x, min y, max y]
+subdatasets:
+  data_id:
+  - ID of subdataset 1 as DATASET_NAME/SUBDATASET_NAME
+- ID of subdataset 2 as DATASET_NAME/SUBDATASET_NAME
+description:
+  - description of subdataset 1
+- description of subdataset 2

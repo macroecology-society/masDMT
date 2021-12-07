@@ -7,7 +7,7 @@
 compile_metadata(verbose = FALSE)
 }
 \arguments{
-\item{verbose}{Logical argument. Should the progress be reported? Default is FALSE.}
+\item{verbose}{Logical argument. Should the progress be reported?}
 }
 \value{
 RDS compiling relevant metadata for every file in the database
@@ -22,7 +22,4 @@ following the path set in \emph{getOptions('dmt.data')}. If no file exists,
 a new one will be created. If a file exists, the function will read it, 
 list all files currently in the database, and update the list if the last 
 modification date differs, or if new files were added.}
-}
-\seealso{
-\code{\link{collect_metadata}}
 }

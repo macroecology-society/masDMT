@@ -4,48 +4,31 @@
 \alias{build_sandbox}
 \title{Create a sandbox containing small subsets of target datasets.}
 \usage{
-build_sandbox(data_id, bbox, range, non.spatial = NULL, report.only = FALSE)
+build_sandbox(data_id, bbox, range, path, virtual = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{data_id}{Element or vector of class \emph{character}.}
+\item{data_id}{\emph{Character} vector with target dataset ID's.}
 
-\item{bbox}{{Four-element vector with target bounding box, composed of min. 
-x, min. y, max. x and max. y coordinates.}}
+\item{bbox}{Four-element vector with target bounding box (min x, min y, max x, max y).}
 
-\item{range}{{Two-element vector of class \emph{character} with start/end 
-dates (optional, in yyyy-mm-dd format).}}
+\item{range}{Two-element \emph{Date} vector with start/end date range..}
 
-\item{non.spatial}{{Optional argument. How should non-spatial 
-data be treated? Provide one of the following:
-  \itemize{
-    \item{\emph{a character element} with an SQL query}
-    \item{\emph{an integer} specifying the number of records to extract}
-   }
-}}
+\item{path}{\emph{Character} element with path to directory where to construct database.}
 
-\item{report.only}{{Logical. If TRUE, the function will solely 
-report on storage requirements?}}
+\item{virtual}{Logical. Should the output be a Virtual Raster (VRT) or a real image?}
+
+\item{verbose}{Logical. Should the function communicate it's progress?}
 }
 \value{
-{A mirror of the data structure on the 
-cluster, containing a subset of the target datasets.}
+A copy of a parent database.
 }
 \description{
 Create a sandbox containing small subsets of target datasets.
 }
 \details{
-{The function creates a copy of the datasets specified in 
-\emph{data_id} within the area defined by \emph{bbox} and the temporal 
-range determined by \emph{range}. When \emph{report.only} is set to TRUE, 
-the function will provide a \emph{data.frame} reporting on the amount of 
-data per individual file that fits to the search criteria. When set to FALSE, 
-the function will inform the user on the amount of data that will be 
-processed and request an output folder to write the data to. Note that 
-the estimates are fairly accurate for gridded and tabular data. For gridded 
-data, the area within a \emph{bbox} will be consistently covered by pixels, 
-and a data volume is estimated from the amount of cells within it and the 
-data format. For vector data, this is just an estimate that assumes that 
-the target area is consistently covered by all vector entries in the target 
-dataset. this does not consider vector complexity or the actual amount of 
-overlapping vectors.}
+{The function creates a copy of the datasets given by \emph{data_id} 
+within the area defined by \emph{bbox} and the temporal range determined by 
+\emph{range}. Currently, the function only handles raster objects, and it 
+provides the output either as a  \emph{GeoTiff}, if \emph{virtual} is FALSE, 
+or a \emph{VRT}, if \emph{virtual} is TRUE.}
 }

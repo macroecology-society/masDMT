@@ -18,7 +18,8 @@
 list_data <- function(data_id) {
 
   # access database
-  database = readRDS(paste0(getOption('dmt.data'), 'database.rds'))
+  path = file.path(paste0(getOption('dmt.data'), .Platform$file.sep))
+  database = readRDS(paste0(path, 'database.rds'))
   
   # evaluate dataset argument
   if (missing(data_id)) {

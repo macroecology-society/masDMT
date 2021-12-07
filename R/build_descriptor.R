@@ -10,21 +10,20 @@
 #' @details {The function parses a yaml file with metadata on a given dataset 
 #' to create a standardized record of it. This record can then be integrated 
 #' in the data catalog of the MAS research group. If no yaml is provided, the 
-#' function will return a template as a variable, which can be saved with 
-#' \link[yaml]{write_yaml}}.
+#' function will write a template in the current working directory,}
 #'
 #' @export
 #'
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 
-compile_dataset_metadata <- function(params='params.yml') {
+build_descriptor <- function(params='params.yml') {
   
   if (missing(params)) {
     
     # when missing user-provided parameters, return example file 
     input = paste0(system.file(package='masDMT'), '/inst/extdata/meta_example.yml')
-    return(read_yaml(input))
+    file.copy(input, basename(input))
   
   } else {
     
@@ -46,7 +45,7 @@ compile_dataset_metadata <- function(params='params.yml') {
     i = which(!n %in% c('title', 'preview_image', 'short_description', 
                         'long_description', 'metadata', 'categories',
                         'subdatasets', 'author', 'documentation', 
-                        'license','version'))
+                        'license','version','status'))
     
     # check if parameters are missing and, when so, report which ones
     if (length(i) > 0) {
@@ -113,6 +112,18 @@ compile_dataset_metadata <- function(params='params.yml') {
     }
     
     #-------------------------------------------------------------------------#
+    # check data status
+    #-------------------------------------------------------------------------#
+    
+    if (!params$status %in% c('planned','developing','available')) {
+      stop(paste0('"', params$status, '" is not a valid keyword')) 
+    }
+    
+    if (params$status == 'planned') status_color = '#eb984e'
+    if (params$status == 'developing') status_color = '#3498db'
+    if (params$status == 'available') status_color = '#229954'
+    
+    #-------------------------------------------------------------------------#
     # write data into file
     #-------------------------------------------------------------------------#
     
@@ -176,6 +187,10 @@ compile_dataset_metadata <- function(params='params.yml') {
         '<p>**Time frame**</p>', 
         paste0('<p>', params$metadata$temporal_range[1], ' to ', 
                params$metadata$temporal_range[2], '</p>'), 
+        '<p>**Status**</p>', 
+        paste0('<p style="border-radius:15px;vertical-align:middle;text-align:center;background:',
+               status_color,';color:#ffffff;height:20px;width:80px;">',
+               params$status,'</p>'), 
         '</aside>', 
         '', 
         '<hr>', 

@@ -28,7 +28,7 @@ get_legend <- function(data.id) {
   # 2. build target file path
   #----------------------------------------------------------------------------------------------------------------------------#
 
-  file = paste0(getOption('dmt.data'), tmp[1], '/', tmp[1], '-', tmp[2], '.csv') # build file path
+  file = paste0(getOption('dmt.data'), tmp[1], '/info/', tmp[1], '-', tmp[2], '.csv') # build file path
 
   #----------------------------------------------------------------------------------------------------------------------------#
   # 3. find and return file (if existing)

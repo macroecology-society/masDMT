@@ -34,8 +34,6 @@ navbar:
   articles:
      text: Articles
      menu:
-     - text: datasets
-       href: articles/datasets.html
      - text: system variables
        href: articles/package-variables.html
      - text: data access

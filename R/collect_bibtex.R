@@ -25,7 +25,7 @@ collect_bibtex = function(data_id, output) {
   
   if (!dir.exists(dirname(output))) stop('output directory does not exist')
   
-  files = paste0(getOption('dmt.data'), data_id, '/', data_id, '.bib')
+  files = paste0(getOption('dmt.data'), data_id, '/info/', data_id, '.bib')
   fe = file.exists(files)
   if (sum(!fe) > 0) {
     warning(paste0(data_id[fe], collapse=', '), ' do not have a bibtex')
@@ -41,5 +41,3 @@ collect_bibtex = function(data_id, output) {
   write(unlist(bibtex_data), file=output)
   
 }
-
-
