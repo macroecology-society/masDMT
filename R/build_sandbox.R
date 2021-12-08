@@ -6,7 +6,7 @@
 #' @param virtual Logical. Should the output be a Virtual Raster (VRT) or a real image?
 #' @param verbose Logical. Should the function communicate it's progress?
 #' @return A copy of a parent database.
-#' @importFrom raster extension
+#' @importFrom lubridate is.Date
 #' @importFrom gdalUtils gdalbuildvrt gdal_translate
 #' @details {The function creates a copy of the datasets given by \emph{data_id} 
 #' within the area defined by \emph{bbox} and the temporal range determined by 
@@ -28,7 +28,7 @@ build_sandbox <- function(data_id, bbox, range, path, virtual=FALSE, verbose=FAL
   if (!is.character(data_id)) stop('"data_id" is not a character vector')
   if (!is.numeric(bbox)) stop('"bbox" is not a numeric vector')
   if (length(bbox) != 4) stop('"bbox" does not have 4 elements')
-  if (!is.character(range)) stop('"range" should be a character vector (format yyy-mm-dd)')
+  if (!is.Date(range)) stop('"range" should be a date object (yyy-mm-dd)')
   if (length(range) != 2) stop('"range" should be a 2-element vector')
   if (!is.character(path)) {stop('"path" is not a character element')}
   if (!dir.exists(path)) {
@@ -40,12 +40,12 @@ build_sandbox <- function(data_id, bbox, range, path, virtual=FALSE, verbose=FAL
   # 1. find and analyze vector datasets ---
   #---------------------------------------------------------------------------#
   
-  database = list_data('CCI_landCover')
+  database = list_data(data_id)
   database = database[
     which((database$start >= range[1]) & 
             (database$end <= range[2])),]
   
-  for (i in 1:nrow(files)) {
+  for (i in 1:nrow(database)) {
     
     odir = file.path(path, database$dataset[i])
     if (!file.exists(odir)) dir.create(odir)
@@ -55,8 +55,9 @@ build_sandbox <- function(data_id, bbox, range, path, virtual=FALSE, verbose=FAL
                       .Platform$file.sep, database$path[i])
     
     # output file
-    output = file.path(odir, .Platform$file.sep, 
-                       strsplit(basename(database$path[i]), '[.]')[[1]][1], '.tif')
+    output = file.path(odir, paste0(.Platform$file.sep, 
+                       strsplit(basename(database$path[i]), '[.]')[[1]][1], 
+                       '.tif'))
     
     # create VRT file
     tmp = paste0(strsplit(output, '[.]')[[1]][1], '.vrt')

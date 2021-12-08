@@ -4,7 +4,7 @@
 \alias{build_descriptor}
 \title{Create metadata entry for the MAS database}
 \usage{
-build_descriptor(params = "params.yml")
+build_descriptor(params)
 }
 \arguments{
 \item{params}{\emph{Yaml} file with required metadata.}
@@ -16,8 +16,9 @@ A Rmarkdown file that can be fed into the MAS data catalog.
 Create metadata entry for the MAS database
 }
 \details{
-{The function parses a yaml file with metadata on a given dataset 
-to create a standardized record of it. This record can then be integrated 
-in the data catalog of the MAS research group. If no yaml is provided, the 
-function will write a template in the current working directory,}
+{The function parses a yaml file with metadata on a 
+given dataset to create a standardized record of it. This record 
+can then be integrated in the data catalog of the MAS research group. 
+If the specified path to a yaml file does not exist, a copy of a 
+template will be created under that directory.}
 }

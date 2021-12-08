@@ -2,28 +2,29 @@
 #' @param params \emph{Yaml} file with required metadata.
 #' @return A Rmarkdown file that can be fed into the MAS data catalog.
 #' @importFrom yaml read_yaml
-#' @importFrom raster extension
+#' @importFrom raster extension extent
 #' @importFrom leaflet leaflet setView addPolygons addTiles
 #' @importFrom mapview mapshot
 #' @importFrom rmarkdown render
 #' @importFrom methods as
-#' @details {The function parses a yaml file with metadata on a given dataset 
-#' to create a standardized record of it. This record can then be integrated 
-#' in the data catalog of the MAS research group. If no yaml is provided, the 
-#' function will write a template in the current working directory,}
+#' @details {The function parses a yaml file with metadata on a 
+#' given dataset to create a standardized record of it. This record 
+#' can then be integrated in the data catalog of the MAS research group. 
+#' If the specified path to a yaml file does not exist, a copy of a 
+#' template will be created under that directory.}
 #'
 #' @export
 #'
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 
-build_descriptor <- function(params='params.yml') {
+build_descriptor <- function(params) {
   
-  if (missing(params)) {
+  if (!file.exists(params)) {
     
     # when missing user-provided parameters, return example file 
-    input = paste0(system.file(package='masDMT'), '/inst/extdata/meta_example.yml')
-    file.copy(input, basename(input))
+    input = file.path(system.file(package='masDMT'), '/extdata/meta_example.yml')
+    file.copy(input, params)
   
   } else {
     
