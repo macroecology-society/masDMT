@@ -4,20 +4,26 @@ home:
   url: http://RRemelgado.github.io/masDMT
 
 reference:
+- title: Project setup
+  contents:
+  - build_project
+  - build_sandbox
+  - documentation
+  - register_path
+  - build_id
+  - register_data
+  - register_legend
+  - compile_metadata
 - title: Data access
   contents:
-  - access_grid
-  - access_vector
   - list_data
-  - build_sandbox
+  - get_bibtex
   - get_legend
-- title: Other tools
+  - lockpick
+- title: Data cataloguing
   contents:
-  - collect_bibtex
-  - compile_metadata
-  - collect_metadata
-  - build_project
-  - compile_dataset_metadata
+  - build_descriptor
+  - knit_descriptor
 
 navbar:
   home: ~

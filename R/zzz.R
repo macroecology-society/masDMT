@@ -1,7 +1,14 @@
 .onLoad <- function(libname, pkgname) {
-  options(dmt.data='/data/idiv_meyer/00_data/processed/')
-  options(dmt.catalog='https://macroecology-society.github.io/data-catalog/')
-  options(dmt.toolbox='https://macroecology-society.github.io/masDMT/')
+  
+  # read configuration file
+  config = file.path(system.file(package = 'masDMT', 'extdata'), 'config.yml')
+  config = yaml::read_yaml(config)
+  
+  # register system variables
+  options(dmt.data=config$dmt.data)
+  options(dmt.catalog=config$dmt.catalog)
+  options(dmt.toolbox=config$dmt.tools)
+  
   #globalVariables(c('dataset', 'subdataset'))
   #if (Sys.which('gdalbuildvrt') == '') warning('missing GDAL')
   #if (Sys.which('python') == '') warning('missing python')

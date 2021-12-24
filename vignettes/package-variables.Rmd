@@ -18,30 +18,42 @@ knitr::opts_chunk$set(
 library(masDMT)
 ```
 
-### Configuring local projects ---
+### Configuring local projects
 <p align="justify">
 Environmental variables are seemingly trivial but often overlooked assets. If an argument in your code is recurrent, defining environmental variables is a time saver. For example, consider you have several scripts accessing the same online database, which requires user credentials. If you need to modify those credentials, it can be bothersome to change every single script. As an alternative, we can use R's `options()` to define a variable that contains those credentials. 
 </p>
 <p align="justify">
-`masDMT` takes advantage of this feature to define the path to the MAS database. When we modify the option `dmt.data` in `masDMT`, we can use the package in another project built around a similar data structure without any further changes.
+`masDMT` takes advantage of this feature through the `register_path()`. This function registers paths to the MAS database as well as to relevant documentation. This information is recorded permanently together with your package installation, which prevents you from repeating this step with every script. Every time the `masDMT` loads, the pre-defined variables will be loaded.
 </p>
 <p align="justify">
-As seen below, there are two commands that you need to know to handle the system path. First, `getOptions()`, which allows you to find specific variables and consult other existing ones. Second, `option()`, which you can use to define new varibales and update exisitng ones. 
+To exemplify the use of this tool, let's first register our database, which is located in `/mas/database/`. To register this path, we can use `register_path` as following:
 </p>
 
 ```{r}
-
 # consult the current data path
-getOption('dmt.data')
-
-# redefine `dmt.data` as 'new path'
-options(dmt.data='new path')
-
-# print the new data path
-getOption('dmt.data')
-
+register_path(list(dmt.data='/mas/database/'))
 ```
 
 <p align="justify">
-`masDMT` provides two additional, useful options that can be changed. First, we can change the option `mas.catalog`, which changes the path to the standardized data catalog of the MAS database. This catalog, < href="https://macroecology-society.github.io/data-catalog/">available through GitHub</a>, containst data descriptions for the datasets used at MAS. However, if we wish to keep the catalog locally, we can modify the the `mas.catalog` option to a local copy so that we can work offline. Following the same premise, we can also modity `mas.toolbox`, which links us to his website.
+Note the input to the function is in the form of a list, and the keyword `dmt.data` is used to register the database. This is the go-to variable for functions that query the existing database, such as `list_data()`.
 </p>
+
+<p align="justify">
+`dmt.data` is not the only variable we can set. First, we can change the option `mas.catalog`, which changes the path to the standardized data catalog of the MAS database. This catalog, <a href="https://macroecology-society.github.io/data-catalog/">available through GitHub</a>, contains data descriptions for the datasets used at MAS. However, if we wish to keep the catalog locally - or register a new catalog- we can modify the the `mas.catalog` option. Following the same premise, we can modify `mas.toolbox`, which links us to the website of this package by default.
+</p>
+
+```{r, eval=FALSE}
+# change path to new catalog website
+register_path(list(dmt.catalog='/new_catalog/'))
+
+# change path to new toolbox website
+register_path(list(dmt.toolbox='/new_toolbox/'))
+```
+
+<p align="justify">
+In the previous examples, we changed one variable at a time for the sake of simplicity. However, you can provide all variables at once. Since the input is provided as a list, `register_path()` can update several variables simultaneously, making use of the list names to find the right variable to modify.
+</p>
+
+```{r, eval=FALSE}
+register_path(list(dmt.data='/mas/database/', dmt.catalog='/new_catalog/', dmt.toolbox='/new_toolbox/'))
+```

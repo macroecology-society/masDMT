@@ -11,15 +11,11 @@ build_id(dataset, subdataset, start_date, end_date, resolution)
 
 \item{subdataset}{Name of subdataset (e.g. 'landCover').}
 
-\item{start_date}{Character element with start of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.}
+\item{start_date}{Date object with start date of the dataset.}
 
-\item{end_date}{Character element with end of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.}
+\item{end_date}{Date object with end date of the dataset.}
 
 \item{resolution}{Character element with resolution of dataset (e.g. '10km').}
-
-\item{file}{Path to file, or files, to be registered in the database.}
-
-\item{verbose}{Logical. Should the function report on the progress?}
 }
 \value{
 Returns standardized file identifier.
@@ -28,9 +24,9 @@ Returns standardized file identifier.
 Build unique file identifier
 }
 \details{
-{Builds an unique file identifier, 
+{Builds an unique file identifier,
 needed to register a file in the database.}
 }
 \seealso{
-\code{\link{build_descriptor}}
+\code{\link{register_data}}
 }

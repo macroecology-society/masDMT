@@ -16,10 +16,10 @@ A \emph{data.frame}.
 Create a sandbox containing small subsets of target datasets.
 }
 \details{
-{When no argument is used, the function will return a 
-\emph{data.frame} with a summary of the existing datasets and 
-their general characteristics. When \emph{data.id} is provided, 
-the function will search for the corresponding dataset and return 
-a \emph{data.frame} reporting on the individual files that compose 
+{When no argument is used, the function will return a
+\emph{data.frame} with a summary of the existing datasets and
+their general characteristics. When \emph{data.id} is provided,
+the function will search for the corresponding dataset and return
+a \emph{data.frame} reporting on the individual files that compose
 each of the target datasets.}
 }

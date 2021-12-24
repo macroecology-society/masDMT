@@ -40,10 +40,5 @@ Before integrating new, messy data into your project, you might want to <a href=
 
 ### Register data
 <p align="justify">
-Once we have our sandbox, we can use `compile_metadata()` to register all collected datasets. This function creates a portable flat database, equal to the one used in the parent infrastructure. With this database, we can use every MAS tool in the sandbox just as we would in the parent database.
-</p>
-
-### Personalized catalog
-<p align="justify">
-
+Once we have our sandbox, we can use `compile_metadata()` to register all collected datasets. This function creates a portable flat database, equal to the one used in the parent infrastructure. With this database, we can use every MAS tool with the sandbox just as we would in the parent database.
 </p>

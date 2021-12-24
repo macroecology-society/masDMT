@@ -26,9 +26,9 @@ A copy of a parent database.
 Create a sandbox containing small subsets of target datasets.
 }
 \details{
-{The function creates a copy of the datasets given by \emph{data_id} 
-within the area defined by \emph{bbox} and the temporal range determined by 
-\emph{range}. Currently, the function only handles raster objects, and it 
-provides the output either as a  \emph{GeoTiff}, if \emph{virtual} is FALSE, 
+{The function creates a copy of the datasets given by \emph{data_id}
+within the area defined by \emph{bbox} and the temporal range determined by
+\emph{range}. Currently, the function only handles raster objects, and it
+provides the output either as a  \emph{GeoTiff}, if \emph{virtual} is FALSE,
 or a \emph{VRT}, if \emph{virtual} is TRUE.}
 }

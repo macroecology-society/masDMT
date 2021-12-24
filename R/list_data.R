@@ -1,7 +1,5 @@
 #' Create a sandbox containing small subsets of target datasets.
 #' @param data_id Element or vector of class \emph{character}.
-#' @importFrom dplyr tbl filter pull slice as_data_frame data_frame
-#' @importFrom stats complete.cases
 #' @return A \emph{data.frame}.
 #' @details {When no argument is used, the function will return a 
 #' \emph{data.frame} with a summary of the existing datasets and 
@@ -16,10 +14,26 @@
 #-----------------------------------------------------------------------------#
 
 list_data <- function(data_id) {
-
-  # access database
-  path = file.path(paste0(getOption('dmt.data'), .Platform$file.sep))
-  database = readRDS(paste0(path, 'database.rds'))
+  
+  #---------------------------------------------------------------------------#
+  #
+  #---------------------------------------------------------------------------#
+  
+  # path to database registry
+  output_file = file.path(getOption('dmt.data'), 'database.rds')
+  
+  # access existing database
+  file_lock = .lock_database()
+  on.exit(unlock(file_lock$lock), add=TRUE)
+  on.exit(file.remove(file_lock$path), add=TRUE)
+  
+  database = .access_database()
+  
+  if (nrow(database) == 0) stop('no database registry')
+  
+  #---------------------------------------------------------------------------#
+  #
+  #---------------------------------------------------------------------------#
   
   # evaluate dataset argument
   if (missing(data_id)) {

@@ -4,20 +4,14 @@
 \alias{register_data}
 \title{Build unique file identifier}
 \usage{
-register_data(file, dataset, subdataset, start_date, end_date, resolution)
+register_data(input, output, overwrite = FALSE)
 }
 \arguments{
-\item{file}{Path to file, to be registered in the database.}
+\item{input}{Path to the file to be added to the database.}
 
-\item{dataset}{Name of dataset (e.g. 'CCI_landCover').}
+\item{output}{Name of the output file, following the output of \code{\link{build_id}}.}
 
-\item{subdataset}{Name of subdataset (e.g. 'landCover').}
-
-\item{start_date}{Character element with start of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.}
-
-\item{end_date}{Character element with end of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.}
-
-\item{resolution}{Character element with resolution of dataset (e.g. '10km').}
+\item{overwrite}{Logical. Should the function overwrite existing files?}
 }
 \value{
 Writes file into standardized file structure.
@@ -26,9 +20,16 @@ Writes file into standardized file structure.
 Build unique file identifier
 }
 \details{
-{Builds an unique file identifier, 
-needed to register a file in the database.}
+{This function helps users add new data file to a database as
+created with \code{masDMT}. Note that the function will work with chmod to
+modify file permissions. By default, the function will apply a
+\emph{'read-only'} restriction (code 444), preventing potentially wrongful
+overwrites or deletions. When \emph{overwrite} is set to TRUE, the function
+will change the restrictions of a file to \emph{'read-write'}, allowing
+users its modification. If this function is run in windows system, the
+file will also \href{https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls}{
+receive a system-specific icacls}.}
 }
 \seealso{
-\code{\link{build_descriptor}}
+\code{\link{build_id}} \code{\link{lockpick}}
 }

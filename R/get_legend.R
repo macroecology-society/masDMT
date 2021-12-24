@@ -1,7 +1,7 @@
 #' Accesses legend for a given product.
 #' @param data.id Element or vector of class \emph{character}.
 #' @importFrom utils read.csv
-#' @return {Returns a |emph{data.frame} with the legend of the target dataset, containing:
+#' @return {Returns a \emph{data.frame} with the legend of the target dataset, containing:
 #' \itemize{
 #' \item{\emph{value} - Grid value}
 #' \item{\emph{label} - class label}

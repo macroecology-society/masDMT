@@ -1,6 +1,6 @@
 Package: masDMT
 Title: Data Management Tools
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person(given="Steffen", family="Ehrmann", role=c("aut"), email="steffen.ehrmann@idiv.de", comment=c(ORCID="0000-0002-2958-0796")),
     person(given="Ruben", family="Remelgado", role=c("aut", "cre"), email="ruben.remelgado@idiv.de", comment=c(ORCID="0000-0002-9871-5703")),
@@ -11,14 +11,11 @@ License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    sf,
+    raster,
     readr,
     dplyr, 
     dbplyr, 
-    RSQLite, 
-    DBI,
     terra,
-    raster,
     gdalUtils, 
     utils, 
     leaflet, 
@@ -26,8 +23,14 @@ Imports:
     yaml, 
     methods, 
     rmarkdown, 
-    distill
+    distill, 
+    RefManageR, 
+    pingr, 
+    lubridate, 
+    imager, 
+    filelock
 RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5)
 Suggests: 

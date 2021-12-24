@@ -7,14 +7,14 @@
 documentation(source)
 }
 \arguments{
-\item{source}{What documentation to access? 'Choose `catalog` or `toolbox`.}
+\item{source}{What documentation to access? 'Choose \code{catalog} or \code{toolbox}.}
 }
 \description{
 Access documentation websites
 }
 \details{
-{Helper tool to access documentation websites of the MAS database. 
-If the user chooses `catalog`, the function will open the website for the 
-data catalog. If the user chooses `toolbox`, the function will open the 
+{Helper tool to access documentation websites of the MAS database.
+If the user chooses \code{catalog}, the function will open the website for the
+data catalog. If the user chooses \code{toolbox}, the function will open the
 website for the masDMT R package.}
 }

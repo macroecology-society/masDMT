@@ -6,7 +6,7 @@
 #' @details {This function provides access to the bibliographic 
 #' references of one or more datasets in the MAS database. The 
 #' function provides one bibtex file combining all relevant 
-#' bibligraphic references. Note that literature references 
+#' bibliographic references. Note that literature references 
 #' are only available at the top level. For example, the 
 #' 'CCI_landCover' dataset will be accepted in the function 
 #' call, but 'CCI_landCover/landCover' will not return the 
@@ -17,24 +17,23 @@
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 
-collect_bibtex = function(data_id, output) {
+get_bibtex = function(data_id, output) {
   
   #---------------------------------------------------------------------------#
-  # test arguments
+  # test arguments ----
   #---------------------------------------------------------------------------#
   
-  if (!dir.exists(dirname(output))) stop('output directory does not exist')
-  
+  if (!is.character(data_id)) stop('"data_id" is not a character vector')
+  data_id = unname(sapply(data_id, function(i) strsplit(i, '/')[[1]][1]))
   files = paste0(getOption('dmt.data'), data_id, '/info/', data_id, '.bib')
   fe = file.exists(files)
-  if (sum(!fe) > 0) {
-    warning(paste0(data_id[fe], collapse=', '), ' do not have a bibtex')
-  }
-  
-  if (sum(!fe) == length(fe)) stop('no bibtex found for the requested datasets')
+  if (sum(!fe) > 0) warning(paste0(data_id[fe], collapse=', '), ' do not have a bibtex')
+  ind = which(fe)
+  files = files[ind]
+  if (length(files) == 0) stop('no bibtex found for the requested datasets')
   
   #---------------------------------------------------------------------------#
-  # merge/write bibtex files
+  # merge/write bibtex files ----
   #---------------------------------------------------------------------------#
   
   bibtex_data = lapply(files, readLines)

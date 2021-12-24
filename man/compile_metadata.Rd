@@ -10,16 +10,16 @@ compile_metadata(verbose = FALSE)
 \item{verbose}{Logical argument. Should the progress be reported?}
 }
 \value{
-RDS compiling relevant metadata for every file in the database
+SQLite compiling relevant metadata for every file in the database
 }
 \description{
 MAS database builder.
 }
 \details{
-{Updates, or creates, RDS with metadata for every file in the 
-database. the function will first search an existing file in the database, 
-following the path set in \emph{getOptions('dmt.data')}. If no file exists, 
-a new one will be created. If a file exists, the function will read it, 
-list all files currently in the database, and update the list if the last 
-modification date differs, or if new files were added.}
+{Updates, or creates an SQLite file with metadata for every file
+in the database. The function will first search for an existing database
+file following the path set in \emph{getOption(dmt.data)}. If no file
+exists, a new one will be created. If a file exists, the function will
+read it, list all files currently in the database, and update the list
+if the last modification date differs, or if new files were added.}
 }

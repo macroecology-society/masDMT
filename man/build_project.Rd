@@ -16,14 +16,14 @@ A standardized file structure.
 Build project data structure
 }
 \details{
-{This function returns a standardized data structure to ease data and 
+{This function returns a standardized data structure to ease data and
 code transferability. The final data structure includes the following folders:
 \itemize{
-  \item{\emph{00_data -} Standardized data storage}
-  \item{\emph{01_analysis -} output of data analysis}
-  \item{\emph{02_documents -} General documents folder}
-  \item{\emph{03_code -} Storage of  project scripts}
-  \item{\emph{temp - temporary folder (used e.g. for testing)}}
+\item{\emph{00_data -} Standardized data storage}
+\item{\emph{01_analysis -} output of data analysis}
+\item{\emph{02_documents -} General documents folder}
+\item{\emph{03_code -} Storage of  project scripts}
+\item{\emph{temp - temporary folder (used e.g. for testing)}}
 }}
 }
 \examples{

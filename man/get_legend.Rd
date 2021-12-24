@@ -10,7 +10,7 @@ get_legend(data.id)
 \item{data.id}{Element or vector of class \emph{character}.}
 }
 \value{
-{Returns a |emph{data.frame} with the legend of the target dataset, containing:
+{Returns a \emph{data.frame} with the legend of the target dataset, containing:
 \itemize{
 \item{\emph{value} - Grid value}
 \item{\emph{label} - class label}

@@ -70,6 +70,9 @@ build_sandbox <- function(data_id, bbox, range, path, virtual=FALSE, verbose=FAL
       
     }
     
+    # apply access restrictions
+    Sys.chmod(output, '444', use_umask=FALSE)
+    
   }
   
   #---------------------------------------------------------------------------#

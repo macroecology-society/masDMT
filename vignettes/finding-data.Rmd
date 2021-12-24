@@ -1,20 +1,20 @@
 ---
-title: "data access"
+title: "finding data"
 output: rmarkdown::html_vignette
 toc: true
 vignette: >
-  %\VignetteIndexEntry{data access}
+  %\VignetteIndexEntry{finding data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, setup, include = FALSE, echo=FALSE}
+```{r, setup, include=FALSE, echo=FALSE}
 
 require(masDMT)
 require(knitr)
 require(kableExtra)
 
-options(dmt.data=paste0(system.file(package = 'masDMT'), '/extdata/'))
+register_path(list(dmt.data=system.file(package='masDMT', 'extdata')))
 
 ```
 
@@ -25,30 +25,25 @@ Many packages focus on the access to raster, vector, and tabular data, providing
 
 ```{r, eval=FALSE}
 # find all files for dataset "CCI_landCover"
+list_data('CCI_landCover')
+
+# find all files for subdataset "landCover" of dataset "CCI_landCover"
 list_data('CCI_landCover/landCover')
 
-# find all files for subdataset "landCover"
-list_data('CCI_landCover/landCover')
-
-# find all files for resolution "300m"
+# find all files subdataset "landCover" of dataset "CCI_landCover" with a resolution of "300m"
 list_data('CCI_landCover/landCover/300m')
-
 ```
 
 <p align="justify">
-A call to a specific resolution can be useful as some datasets might provide multiple options. Below we use the `MERIT_DEM` as an example, which is commonly used at the MAS at both 300-m and 1-km resolutions, and are pre-computed to minized data processing requirements.
+Calling `list_data()` without specifying a dataset call will return a data.frame listing all registered datasets. It is a useful tool to consult the complexity of the available data, helping us refine our search query.
 <p>
 
 ```{r, eval=FALSE}
-list_data('MERIT_DEM')
+list_data()
 ```
 
 ```{r, echo=FALSE}
-df = head(list_data('MERIT_DEM'))
+df = head(list_data('CCI_landCover'))
 kable_styling(knitr::kable(df), full_width=F, bootstrap_options=c("striped", "hover", "condensed"), font_size=8)
 
 ```
-
-<p align="justify">
-This example shows another important application of `list_data()`. It is a useful tool to consult the complexity of the data available in MAS, helping us better refine our requirements. In fact, if no input is provided to the function, this will return the full registry as a `data.frame`.
-<p>

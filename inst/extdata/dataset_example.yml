@@ -1,20 +1,30 @@
 ---
-  title: name of dataset
-  bib: path to bibtex file
-  license: license under which the dataset falls (e.g. CC-BY-SA-4.0)
-  version: dataset version, 
-  categories: category of dataset (e.g. land cover, ecology, climate)
-  status: one of "available", "developing", "planned"
-  metadata:
-  format: data format (e.g. GRID, vector, table)
-spatial_resolution: spatial resolution(s) of dataset (e.g. [30 m, 300 m, 1 km])
-temporal_resolution: temporal resolution of dataset (e.g. yearly, multiyear snapshot)
-temporal_range: [start year, end year]
-spatial_extent: [min x, max x, min y, max y]
-subdatasets:
-  data_id:
-  - ID of subdataset 1 as DATASET_NAME/SUBDATASET_NAME
-- ID of subdataset 2 as DATASET_NAME/SUBDATASET_NAME
-description:
-  - description of subdataset 1
-- description of subdataset 2
+ title: name of dataset
+ short_description: Short description of dataset, not more than 2-3 lines worth.
+ long_description: Long description of the dataset (can include links, as long as wrapped in <a href="" >a)
+ documentation: Link to online documentation, or e-mail of who to ask information to.
+ data_access: Link/e-mail where to access or inquire about the data.
+ license: license under which the dataset falls (e.g. CC-BY-SA-4.0)
+ version: dataset version, 
+ categories: category of dataset (e.g. land cover, ecology, climate)
+ status: one of "available", "developing", "planned"
+ metadata:
+  format: data format, as one of "Grid", "Vector", "Table"
+  spatial_resolution: spatial resolution(s) of dataset (e.g. [30 m, 300 m, 1 km])
+  temporal_resolution: temporal resolution of dataset (e.g. yearly, multiyear snapshot)
+  temporal_range: [start year, end year]
+  spatial_extent: [min x, max x, min y, max y]
+ subdatasets:
+  # example applied to gridded data
+  data_id_1:
+   variable: Add short descritor of the subdataset (e.g. land cover classification)
+   content:
+    value_range: e.g. 1...10
+    1: agriculture
+    2: forest
+  # example applied to vector and tabular data
+  data_id_2:
+   variable: Add short descritor of the subdataset (e.g. administrative boundaries)
+   content:
+    field_1: description of field 1
+    field_1: description of field 1

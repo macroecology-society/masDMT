@@ -15,7 +15,7 @@ documentation <- function(source) {
   
   # test input
   if (!is.character(source)) stop('input not valid (should be a character)')
-  if (!length(source) > 1) stop('cannot open more than 1 entry at once')
+  if (length(source) != 1) stop('cannot open more than 1 entry at once')
   if (!source %in% c('catalog','toolbox')) stop('entry is not a valid keyword')
   
   # launch requested page

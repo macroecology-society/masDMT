@@ -1,78 +1,80 @@
 #' Build unique file identifier
-#' @param file Path to file, to be registered in the database.
-#' @param dataset Name of dataset (e.g. 'CCI_landCover').
-#' @param subdataset Name of subdataset (e.g. 'landCover').
-#' @param start_date Character element with start of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.
-#' @param end_date Character element with end of dataset (as yyyy-mm-dd). When month/day is unknown, set to '00'.
-#' @param resolution Character element with resolution of dataset (e.g. '10km').
+#' @param input Path to the file to be added to the database.
+#' @param output Name of the output file, following the output of \code{\link{build_id}}.
+#' @param overwrite Logical. Should the function overwrite existing files?
 #' @importFrom raster extension
+#' @importFrom lubridate ymd years
+#' @importFrom tools md5sum
+#' @importFrom filelock lock unlock
 #' @return Writes file into standardized file structure.
-#' @details {Builds an unique file identifier, 
-#' needed to register a file in the database.}
-#' @seealso \code{\link{build_descriptor}}
+#' @details {This function helps users add new data file to a database as 
+#' created with `masDMT`. Note that the function will work with chmod to 
+#' modify file permissions. By default, the function will apply a 
+#' \emph{'read-only'} restriction (code 444), preventing potentially wrongful 
+#' overwrites or deletions. When \emph{overwrite} is set to TRUE, the function 
+#' will change the restrictions of a file to \emph{'read-write'}, allowing 
+#' users its modification. If this function is run in windows system, the 
+#' file will also \href{https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls}{
+#' receive a system-specific icacls}.}
+#' @seealso \code{\link{build_id}} \code{\link{lockpick}}
 #'
 #' @export
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 
-register_data = function(file, dataset, subdataset, start_date, end_date, resolution) {
+register_data = function(input, output, overwrite=FALSE) {
   
   #---------------------------------------------------------------------------#
-  # 0. test input variables ----
+  # test input variables ----
   #---------------------------------------------------------------------------#
   
-  if (!file.exists(file)) stop('"file" missing from file system')
-  if (!is.character(dataset)) stop('"dataset" is not a character element')
-  if (!is.character(subdataset)) stop('"subdataset" is not a character element')
-  if (!is.character(start_date)) stop('"start_date" is not a character element')
-  if (nchar(start_date) != 10) stop('"start_date" not in yyyy-mm-dd format')
-  if (!is.character(end_date)) stop('"end_date" is not a character element')
-  if (nchar(end_date) != 10) stop('"end_date" not in yyyy-mm-dd format')
-  if (!is.character(resolution)) stop('"resolution" is not a character element')
+  if (!file.exists(input)) stop('"input" missing from file system')
+  if (class(output)[1] != 'mas_id') stop('"output" should be a "mas_id" object')
+  if (!logical(overwrite)) stop('"overwrite" is not a logical argument')
   
   #---------------------------------------------------------------------------#
-  # 1. build standardized data entry ----
+  # create file structure ----
   #---------------------------------------------------------------------------#
   
-  # locate metadata file
-  path = file.path(paste0(getOption('dmt.data'), .Platform$file.sep))
-  output_file = paste0(path, 'database.rds')
+  # check if dataset folder exists (if not, create one)
+  output_dir = file.path(getOption('dmt.data'), output@dataset)
+  if (!dir.exists(output_dir)) dir.create(output_dir)
   
-  if (!file.exists(output_file)){
-    warning('no database file available')
-    stop('run "compile_metadata()" to create a flat database file')
+  # create directory that will contain general information (e.g. bibtex)
+  info = paste0(output_dir, .Platform$file.sep, 'info')
+  if (!dir.exists(info)) dir.create(info)
+  
+  #---------------------------------------------------------------------------#
+  # move file into database ----
+  #---------------------------------------------------------------------------#
+  
+  # combine start/end dates into single string
+  dates = paste0(unique(c(output@start, output@end)), collapse='-')
+  
+  # build name of output file
+  output_name = paste0(output@dataset, '-', output@subdataset, '_', 
+                       dates, '_', output@resolution, extension(input))
+  
+  # compile path to new file
+  file_path = file.path(output_dir, output_name)
+  file_lock = lock(file_path)
+  
+  # stop function if output file exists but overwriting is disabled
+  fe = file.exists(file_path)
+  if (fe & (overwrite=FALSE)) {stop('"input" already exists, but "overwrite" is set to FALSE')
   }
   
-  # end date
-  year = substr(start_date, 1, 4)
-  if (as.numeric(substr(start_date,6,7)) == 0) month='01' else month=substr(start_date,6,7)
-  if (as.numeric(substr(start_date,9,10)) == 0) day='01' else day=substr(start_date,9,10)
-  start_date = as.Date(paste0(year, '-', month, '-', day))
+  # create copy input to new file path
+  if (fe) Sys.chmod(file_path, '700')
+  unlock(file_lock)
+  file.copy(input, file_path)
   
-  rm(month, year)
+  # check if input and output files have the same content
+  a = md5sum(input)
+  b = md5sum(file_path)
+  if (a != b) warning('"input" and "output" failed md5sum check')
   
-  # end date
-  year = substr(end_date, 1, 4)
-  if (as.numeric(substr(end_date,6,7)) == 0) month='12' else month=substr(end_date,6,7)
-  if (as.numeric(substr(end_date,9,10)) == 0) {
-    end_date = as.Date(paste (1, as.numeric(month)+1, year, sep='-'), format='%d-%m-%Y') - 1
-    if (month == '12') end_date = as.Date(paste0(year, '-', month, '-31'))
-  } else {
-    end_date = as.Date(paste0(year, '-', month, '-', day))
-  }
-  
-  rm(month, year)
-  
-  ads = data.frame(dataset=dataset, subdataset=subdataset, 
-                   resolution=resolution, path=paste0(dataset, '/', basename(file)), 
-                   format=strsplit(file, '[.]')[[1]][2], 
-                   start=start_date, end=end_date, 
-                   modified=file.mtime(output))
-  
-  saveRDS(rbind(readRDS(output_file), ads), file=output_file)
-  
-  odir = file.path(path, dataset)
-  if (!dir.exists(odir)) dir.create(odir)
-  file.copy(file, paste0(file.path(odir, basename(file))))
+  # enable file lock
+  lockpick(file_path, 'close')
 
 }

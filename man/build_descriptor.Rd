@@ -2,23 +2,31 @@
 % Please edit documentation in R/build_descriptor.R
 \name{build_descriptor}
 \alias{build_descriptor}
-\title{Create metadata entry for the MAS database}
+\title{Creates a metadata record for the data catalog}
 \usage{
-build_descriptor(params)
+build_descriptor(path, data_id, bibtex = NULL, preview = NULL)
 }
 \arguments{
-\item{params}{\emph{Yaml} file with required metadata.}
+\item{path}{Directory where to write metadata record.}
+
+\item{data_id}{Dataset unique identifier.}
+
+\item{bibtex}{Path to bibtex with dataset references. Optional.}
+
+\item{preview}{Path to preview image.}
 }
 \value{
-A Rmarkdown file that can be fed into the MAS data catalog.
+A Rmarkdown file that can be fed into the MAS data catalog. Optional.
 }
 \description{
-Create metadata entry for the MAS database
+Creates a metadata record for the data catalog
 }
 \details{
-{The function parses a yaml file with metadata on a 
-given dataset to create a standardized record of it. This record 
-can then be integrated in the data catalog of the MAS research group. 
-If the specified path to a yaml file does not exist, a copy of a 
-template will be created under that directory.}
+{The function creates a directory in the specified \emph{path}
+named as the \emph{data_id}. Within it, you will find a yaml file where
+you can manually edit the metadata for the new record. If a \emph{bibtex}
+and/or a \emph{preview} image are provided, the function will copy them
+into the new directory after testing their validity. Once filled, the
+yaml file can be compiled into a metadata record using
+\code{\link[masDMT]{compile_descriptor}}.}
 }
