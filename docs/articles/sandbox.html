@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -61,7 +61,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/find-data.html">data access</a>
+      <a href="../articles/cataloguing-data.html">cataloguing data</a>
+    </li>
+    <li>
+      <a href="../articles/finding-data.html">finding data</a>
     </li>
     <li>
       <a href="../articles/package-variables.html">system variables</a>
@@ -124,12 +127,8 @@
 <h3 class="hasAnchor">
 <a href="#big-questions-big-data-starting-small-" class="anchor"></a>Big questions, big data: starting small.</h3>
 <p align="justify">
-When dealing with large-scale applications, starting can seem scary. While computers have evolved substantially, there are still limitations in terms of virtual memory and computing power. We can tackle these constraints by modularizing our workflows. If we design our code as functions that use standardized inputs and no hard-coded expectations (e.g. matrix dimensions, column names) we can easily reapply them to different spatial/temporal scales.
+Large-scale applications can be overwhelming when developing new algorithms. To keep track of our progress, starting with small data subsets is essential, helping quickly learn about our data before scaling-up our analysis.
 </p>
-<p align="justify">
-Another important reason to work on smaller data chunks is time. All of us face deadlines, and these can seem even heavier when we need to process large data volumes. In this context, testing algorithms, an already time consuming task, can grow exponentially if we don’t constrain our initial focus. Pre-selecting test sites is a good way to efficiently manage our time and to systematically test the performance and consistency of our analysis.
-</p>
-<p><br></p>
 </div>
 <div id="setting-up-a-project" class="section level3">
 <h3 class="hasAnchor">
@@ -137,29 +136,26 @@ Another important reason to work on smaller data chunks is time. All of us face 
 <p align="justify">
 Before engaging with data manipulation, we need a place to host it. You can use <code><a href="../reference/build_project.html">build_project()</a></code> to setup a standardized folder structure together with a README file on the purpose of each folder. This follows a similar infrastructure as the MAS database. The more member of the lab use it, the easier it will be to exchange data and code.
 </p>
-<p><br></p>
 </div>
 <div id="determining-what-we-need" class="section level3">
 <h3 class="hasAnchor">
 <a href="#determining-what-we-need" class="anchor"></a>Determining what we need</h3>
 <p align="justify">
-Before integrating new, messy data into your project, you might want to <a href="https://macroecology-society.github.io/data-catalog/">look into the MAS data catalog</a>. This blog-like database offers an overview on each dataset in the MAS database, including thematic information, spatial extent and resolution, and temporal coverage. As an alternative, you can use the function <code><a href="../reference/list_data.html">list_data()</a></code> to list all available datasets through the masDMT package.
+Before integrating new, messy data into your project, you might want to <a href="https://macroecology-society.github.io/data-catalog/">look into the MAS data catalog</a>. This registry offers an overview on each dataset in the MAS database, and guiding us to existing documentation with details on the production of the data.
 </p>
-<p><br></p>
 </div>
-<div id="extracting-a-sandbox" class="section level3">
+<div id="compiling-a-sandbox" class="section level3">
 <h3 class="hasAnchor">
-<a href="#extracting-a-sandbox" class="anchor"></a>Extracting a sandbox</h3>
+<a href="#compiling-a-sandbox" class="anchor"></a>Compiling a sandbox</h3>
 <p align="justify">
-<code><a href="../reference/build_sandbox.html">build_sandbox()</a></code> helps us tackle these issues. Using this function, we can extract subsets of multiple datasets from our common database, storing them in a identical data structure. This way, we can test our algorithms locally and we can later migrate that code into the main database to upscale our analysis (&lt;a href=“<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find" class="uri">https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find</a>”./docs/articles/package-variables.html"&gt;click here to learn about system variables and relative paths).
+<code><a href="../reference/build_sandbox.html">build_sandbox()</a></code> helps us extract a subset of the MAS database that follows the standards of the MAS database. This way, we can test our algorithms locally and we can later migrate that code into the main database to upscale our analysis (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/package-variables.html">click here to learn about system variables and relative paths</a>).
 </p>
-<p>bbox=c(23.5, -1.5, 24, -1.3)</p>
 </div>
 <div id="register-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#register-data" class="anchor"></a>Register data</h3>
 <p align="justify">
-Once we have our sandbox, we can use <code><a href="../reference/compile_metadata.html">compile_metadata()</a></code> to register all collected datasets. This function will make the datasets available through the readers of masDMT (&lt;a href=“<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find" class="uri">https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find</a>”./docs/articles/find-data.html"&gt;click here to learn more)
+Once we have our sandbox, we can use <code><a href="../reference/compile_metadata.html">compile_metadata()</a></code> to register all collected datasets. This function creates a portable flat database, equal to the one used in the parent infrastructure. With this database, we can use every MAS tool with the sandbox just as we would in the parent database.
 </p>
 </div>
   </div>

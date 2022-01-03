@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -104,7 +104,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/find-data.html">data access</a>
+      <a href="../articles/cataloguing-data.html">cataloguing data</a>
+    </li>
+    <li>
+      <a href="../articles/finding-data.html">finding data</a>
     </li>
     <li>
       <a href="../articles/package-variables.html">system variables</a>
@@ -169,24 +172,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>verbose</th>
-      <td><p>Logical argument. Should the progress be reported? Default is FALSE.</p></td>
+      <td><p>Logical argument. Should the progress be reported?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>RDS compiling relevant metadata for every file in the database</p>
+    <p>SQLite compiling relevant metadata for every file in the database</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Updates, or creates, RDS with metadata for every file in the 
-database. the function will first search an existing file in the database, 
-following the path set in <em>getOptions('dmt.data')</em>. If no file exists, 
-a new one will be created. If a file exists, the function will read it, 
-list all files currently in the database, and update the list if the last 
-modification date differs, or if new files were added.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='collect_metadata.html'>collect_metadata</a></code></p></div>
+    <p>Updates, or creates an SQLite file with metadata for every file
+in the database. The function will first search for an existing database
+file following the path set in <em>getOption(dmt.data)</em>. If no file
+exists, a new one will be created. If a file exists, the function will
+read it, list all files currently in the database, and update the list
+if the last modification date differs, or if new files were added.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

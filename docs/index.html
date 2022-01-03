@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -61,7 +61,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/find-data.html">data access</a>
+      <a href="articles/cataloguing-data.html">cataloguing data</a>
+    </li>
+    <li>
+      <a href="articles/finding-data.html">finding data</a>
     </li>
     <li>
       <a href="articles/package-variables.html">system variables</a>
@@ -111,39 +114,34 @@
   <div class="contents col-md-9">
 
 
-<div id="towards-interoperable-workflows" class="section level2">
-<h2 class="hasAnchor">
-<a href="#towards-interoperable-workflows" class="anchor"></a>Towards interoperable workflows</h2>
-<p align="justify">
-The Macroecology and Society (MAS) is a research group of the German Centre for Integrative Biodiversity Research (iDiv), composed by an interdisciplinary team of scientists. It includes backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, the lab aims detect and understand global dynamics in human-environment systems, with a focus on human land use, its underlying societal drivers, and its ecological consequences.
+<div id="towards-interoperable-workflows" class="section level3">
+<h3 class="hasAnchor">
+<a href="#towards-interoperable-workflows" class="anchor"></a>Towards interoperable workflows</h3>
+<img src="masDMT_logo.png" width="130/" style="float:right;margin-left:20px;"><p align="justify">
+<a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html">The Macroecology &amp; Society (MAS)</a> is a research group of the German Centre for Integrative Biodiversity Research (iDiv). It is composed by an interdisciplinary team of scientists, with backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, we can confidently deal with large amounts of diverse data, from statistical surveys to global, gridded and vector layers. These data are frequently shared across projects, creating a need for a common knowledge infrastructure. With this in mind, we developed <code>masDMT</code>. This R package provides the members of the MAS lab with standardized access points their common database, as well as tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
 </p>
-<p align="justify">
-To answer our questions, We rely rely on massive amounts of data with different characteristics and thematic scopes, from statistical surveys to global, gridded and vector layers. We often share this data across projects as well as the code required for its analysis, creating a need for a common knowledge infrastructure imperative. With this in mind, we developed <code>masDMT</code>. This R package provides standardized access points to the common database of MAS. More importantly, it provides tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
-</p>
+<p><br></p>
 </div>
-<div id="instalation" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#instalation" class="anchor"></a>Instalation</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p align="justify">
-<code>masDMT</code> was customized to make our work within the group easier. However, this also means we need to adapt our package to a familiar infrastructure. For this reason, it was not submitted to CRAN and must be installed from it’s Github repository. To do, we can use <code>devtools</code> as following:
+<code>masDMT</code> can be installed with <code>devtools</code> using the following code snipet:
 </p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'macroecology-society/masDMT'</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="requirements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h2>
-<p>The package requires R, a running GDAL instalation and SQLite.</p>
-</div>
-<div id="acknowledgements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'macroecology-society/masDMT'</span><span class="op">)</span></code></pre></div>
+<p><br></p>
+<div id="acknowledgements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h3>
 <p align="justify">
-This work was funded by the Volkswagen Foundation through a Freigeist Fellowship to <a href="https://orcid.org/0000-0003-3927-5856">Carsten Meyer <i class="fab fa-orcid"></i></a>, with additional support by iDiv (FZT-118, DFG). <code>masDMT</code> and the data infrastructure it supports were developed within the High-Performance Computing (HPC) Cluster EVE, a joint effort by the Helmholtz Centre for Environmental Research (UFZ) and the German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig.
+This work was funded by the Volkswagen Foundation through a Freigeist Fellowship to <a href="https://orcid.org/0000-0003-3927-5856">Carsten Meyer <i class="fab fa-orcid"></i></a>, with additional support by iDiv (FZT-118, DFG). <code>masDMT</code> and the data infrastructure it serves were developed with the High-Performance Computing (HPC) Cluster EVE, a joint effort by the Helmholtz Centre for Environmental Research (UFZ) and the German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig.
 </p>
 <p align="center">
-<a href="https://www.idiv.de/en/groups_and_people/core_groups/macroecosocial.html"><img src="idiv_promo.png" width="400" height="200"></a>           <a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="wg_3.jpg" width="400" height="200"></a>
+<a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html"><img src="https://www.idiv.de/fileadmin/templates/images/socialimage.png" width="400" height="200" title="IDIV homepage"></a>           <a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="https://www.volkswagenstiftung.de/sites/default/files/images/2018Freigeist_Logo_web_blau.jpg" width="400" height="200" title="Freigeist homepage"></a>
 </p>
+<p><br></p>
+</div>
 </div>
 
   </div>

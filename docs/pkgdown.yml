@@ -1,9 +1,10 @@
-pandoc: 2.11.4
+pandoc: 2.16.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  find-data: find-data.html
+  cataloguing-data: cataloguing-data.html
+  finding-data: finding-data.html
   package-variables: package-variables.html
   sandbox: sandbox.html
-last_built: 2021-10-26T05:43Z
+last_built: 2022-01-03T12:56Z
 

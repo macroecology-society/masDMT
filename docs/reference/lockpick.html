@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • masDMT</title>
+<title>Change file permissions — lockpick • masDMT</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Change file permissions — lockpick" />
+<meta property="og:description" content="Change file permissions" />
 
 
 
@@ -67,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -153,146 +154,48 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Change file permissions</h1>
+    
+    <div class="hidden name"><code>lockpick.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Change file permissions</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>lockpick</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>mode</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-project-setup" class="hasAnchor"><a href="#section-project-setup" class="anchor"></a>Project setup</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="build_project.html">build_project()</a></code> </p>
-        </td>
-        <td><p>Build project data structure</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_sandbox.html">build_sandbox()</a></code> </p>
-        </td>
-        <td><p>Create a sandbox containing small subsets of target datasets.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="documentation.html">documentation()</a></code> </p>
-        </td>
-        <td><p>Access documentation websites</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="register_path.html">register_path()</a></code> </p>
-        </td>
-        <td><p>Register relevant paths</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_id.html">build_id()</a></code> </p>
-        </td>
-        <td><p>Build unique file identifier</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="register_data.html">register_data()</a></code> </p>
-        </td>
-        <td><p>Build unique file identifier</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="register_legend.html">register_legend()</a></code> </p>
-        </td>
-        <td><p>Register legend file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compile_metadata.html">compile_metadata()</a></code> </p>
-        </td>
-        <td><p>MAS database builder.</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-access" class="hasAnchor"><a href="#section-data-access" class="anchor"></a>Data access</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="list_data.html">list_data()</a></code> </p>
-        </td>
-        <td><p>Create a sandbox containing small subsets of target datasets.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_bibtex.html">get_bibtex()</a></code> </p>
-        </td>
-        <td><p>Merge dataset references</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_legend.html">get_legend()</a></code> </p>
-        </td>
-        <td><p>Accesses legend for a given product.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lockpick.html">lockpick()</a></code> </p>
-        </td>
-        <td><p>Change file permissions</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-cataloguing" class="hasAnchor"><a href="#section-data-cataloguing" class="anchor"></a>Data cataloguing</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="build_descriptor.html">build_descriptor()</a></code> </p>
-        </td>
-        <td><p>Creates a metadata record for the data catalog</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="knit_descriptor.html">knit_descriptor()</a></code> </p>
-        </td>
-        <td><p>Knits a metadata entry for the MAS database</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>Path to the file for which to change permissions.</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>Character element. One of 'close' or 'open'.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>File permission changes.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function will change the target file permissions to protect
+it from accidental deletion and changes. When <em>mode</em> is set to "close",
+the function will apply a chmod code "444", making the file "read-only".
+If set to "open", the function will apply the chmod code "666", enabling
+changes to the file, including deletion. This will prevent other users from modifying
+the file, but will allow the user to If this function is ran in windows,
+the function will additionally use
+<a href='https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls'>
+icacls to modify file permissions</a>. Since windows cannot interpret the chmod codes.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

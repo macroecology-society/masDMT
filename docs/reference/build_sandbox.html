@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -104,7 +104,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/find-data.html">data access</a>
+      <a href="../articles/cataloguing-data.html">cataloguing data</a>
+    </li>
+    <li>
+      <a href="../articles/finding-data.html">finding data</a>
     </li>
     <li>
       <a href="../articles/package-variables.html">system variables</a>
@@ -162,61 +165,47 @@
     <p>Create a sandbox containing small subsets of target datasets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_sandbox</span><span class='op'>(</span><span class='va'>data_id</span>, <span class='va'>bbox</span>, <span class='va'>range</span>, non.spatial <span class='op'>=</span> <span class='cn'>NULL</span>, report.only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>build_sandbox</span><span class='op'>(</span><span class='va'>data_id</span>, <span class='va'>bbox</span>, <span class='va'>range</span>, <span class='va'>path</span>, virtual <span class='op'>=</span> <span class='cn'>FALSE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data_id</th>
-      <td><p>Element or vector of class <em>character</em>.</p></td>
+      <td><p><em>Character</em> vector with target dataset ID's.</p></td>
     </tr>
     <tr>
       <th>bbox</th>
-      <td><p>Four-element vector with target bounding box, composed of min. 
-x, min. y, max. x and max. y coordinates.</p></td>
+      <td><p>Four-element vector with target bounding box (min x, min y, max x, max y).</p></td>
     </tr>
     <tr>
       <th>range</th>
-      <td><p>Two-element vector of class <em>character</em> with start/end 
-dates (optional, in yyyy-mm-dd format).</p></td>
+      <td><p>Two-element <em>Date</em> vector with start/end date range..</p></td>
     </tr>
     <tr>
-      <th>non.spatial</th>
-      <td><p>Optional argument. How should non-spatial 
-data be treated? Provide one of the following:
-  <ul>
-<li><p><em>a character element</em> with an SQL query</p></li>
-<li><p><em>an integer</em> specifying the number of records to extract</p></li>
-</ul></p></td>
+      <th>path</th>
+      <td><p><em>Character</em> element with path to directory where to construct database.</p></td>
     </tr>
     <tr>
-      <th>report.only</th>
-      <td><p>Logical. If TRUE, the function will solely 
-report on storage requirements?</p></td>
+      <th>virtual</th>
+      <td><p>Logical. Should the output be a Virtual Raster (VRT) or a real image?</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Logical. Should the function communicate it's progress?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A mirror of the data structure on the 
-cluster, containing a subset of the target datasets.</p>
+    <p>A copy of a parent database.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function creates a copy of the datasets specified in 
-<em>data_id</em> within the area defined by <em>bbox</em> and the temporal 
-range determined by <em>range</em>. When <em>report.only</em> is set to TRUE, 
-the function will provide a <em>data.frame</em> reporting on the amount of 
-data per individual file that fits to the search criteria. When set to FALSE, 
-the function will inform the user on the amount of data that will be 
-processed and request an output folder to write the data to. Note that 
-the estimates are fairly accurate for gridded and tabular data. For gridded 
-data, the area within a <em>bbox</em> will be consistently covered by pixels, 
-and a data volume is estimated from the amount of cells within it and the 
-data format. For vector data, this is just an estimate that assumes that 
-the target area is consistently covered by all vector entries in the target 
-dataset. this does not consider vector complexity or the actual amount of 
-overlapping vectors.</p>
+    <p>The function creates a copy of the datasets given by <em>data_id</em>
+within the area defined by <em>bbox</em> and the temporal range determined by
+<em>range</em>. Currently, the function only handles raster objects, and it
+provides the output either as a  <em>GeoTiff</em>, if <em>virtual</em> is FALSE,
+or a <em>VRT</em>, if <em>virtual</em> is TRUE.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>system variables • masDMT</title>
+<title>finding data • masDMT</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="system variables">
+<meta property="og:title" content="finding data">
 <meta property="og:description" content="masDMT">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -110,57 +110,132 @@
 
       
 
-      </header><script src="package-variables_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><script src="finding-data_files/header-attrs-2.11/header-attrs.js"></script><script src="finding-data_files/kePrint-0.0.1/kePrint.js"></script><link href="finding-data_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>system variables</h1>
+      <h1 data-toc-skip>finding data</h1>
             
       
       
-      <div class="hidden name"><code>package-variables.Rmd</code></div>
+      <div class="hidden name"><code>finding-data.Rmd</code></div>
 
     </div>
 
     
     
-<div id="configuring-local-projects" class="section level3">
+<div id="collecting-data-paths" class="section level3">
 <h3 class="hasAnchor">
-<a href="#configuring-local-projects" class="anchor"></a>Configuring local projects</h3>
+<a href="#collecting-data-paths" class="anchor"></a>Collecting data paths</h3>
 <p align="justify">
-Environmental variables are seemingly trivial but often overlooked assets. If an argument in your code is recurrent, defining environmental variables is a time saver. For example, consider you have several scripts accessing the same online database, which requires user credentials. If you need to modify those credentials, it can be bothersome to change every single script. As an alternative, we can use R’s <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> to define a variable that contains those credentials.
-</p>
-<p align="justify">
-<code>masDMT</code> takes advantage of this feature through the <code><a href="../reference/register_path.html">register_path()</a></code>. This function registers paths to the MAS database as well as to relevant documentation. This information is recorded permanently together with your package installation, which prevents you from repeating this step with every script. Every time the <code>masDMT</code> loads, the pre-defined variables will be loaded.
-</p>
-<p align="justify">
-To exemplify the use of this tool, let’s first register our database, which is located in <code>/mas/database/</code>. To register this path, we can use <code>register_path</code> as following:
+Many packages focus on the access to raster, vector, and tabular data, providing constant updates and improvements. For this reason, <code>masDMT</code> does not offer additional data access tools. Instead, it helps users locate relevant data. <code><a href="../reference/list_data.html">list_data()</a></code> uses <a href="https://macroecology-society.github.io/data-catalog/"> unique data identifiers as displayed in the MAS data catalog</a> to find and report metadata on the relevant data files, including their format and location. As shown below, we can construct a data call in different levels of complexity, from a generic dataset request to a combination of dataset, subdataset, and spatial resolution.
 </p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># consult the current data path</span>
-<span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.data<span class="op">=</span><span class="st">'/mas/database/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># find all files for dataset "CCI_landCover"</span>
+<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="st">'CCI_landCover'</span><span class="op">)</span>
+
+<span class="co"># find all files for subdataset "landCover" of dataset "CCI_landCover"</span>
+<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover'</span><span class="op">)</span>
+
+<span class="co"># find all files subdataset "landCover" of dataset "CCI_landCover" with a resolution of "300m"</span>
+<span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover/300m'</span><span class="op">)</span></code></pre></div>
 <p align="justify">
-Note the input to the function is in the form of a list, and the keyword <code>dmt.data</code> is used to register the database. This is the go-to variable for functions that query the existing database, such as <code><a href="../reference/list_data.html">list_data()</a></code>.
+Calling <code><a href="../reference/list_data.html">list_data()</a></code> without specifying a dataset call will return a data.frame listing all registered datasets. It is a useful tool to consult the complexity of the available data, helping us refine our search query.
 </p>
-<p align="justify">
-<code>dmt.data</code> is not the only variable we can set. First, we can change the option <code>mas.catalog</code>, which changes the path to the standardized data catalog of the MAS database. This catalog, <a href="https://macroecology-society.github.io/data-catalog/">available through GitHub</a>, contains data descriptions for the datasets used at MAS. However, if we wish to keep the catalog locally - or register a new catalog- we can modify the the <code>mas.catalog</code> option. Following the same premise, we can modify <code>mas.toolbox</code>, which links us to the website of this package by default.
+<p>
 </p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># change path to new catalog website</span>
-<span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.catalog<span class="op">=</span><span class="st">'/new_catalog/'</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># change path to new toolbox website</span>
-<span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.toolbox<span class="op">=</span><span class="st">'/new_toolbox/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p align="justify">
-In the previous examples, we changed one variable at a time for the sake of simplicity. However, you can provide all variables at once. Since the input is provided as a list, <code><a href="../reference/register_path.html">register_path()</a></code> can update several variables simultaneously, making use of the list names to find the right variable to modify.
-</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.data<span class="op">=</span><span class="st">'/mas/database/'</span>, dmt.catalog<span class="op">=</span><span class="st">'/new_catalog/'</span>, dmt.toolbox<span class="op">=</span><span class="st">'/new_toolbox/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table table-striped table-hover table-condensed">
+<thead><tr>
+<th style="text-align:left;">
+dataset
+</th>
+<th style="text-align:left;">
+subdataset
+</th>
+<th style="text-align:left;">
+resolution
+</th>
+<th style="text-align:left;">
+path
+</th>
+<th style="text-align:left;">
+format
+</th>
+<th style="text-align:left;">
+start
+</th>
+<th style="text-align:left;">
+end
+</th>
+<th style="text-align:left;">
+modified
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CCI_landCover
+</td>
+<td style="text-align:left;">
+landCover
+</td>
+<td style="text-align:left;">
+300m
+</td>
+<td style="text-align:left;">
+CCI_landCover/CCI_landCover-landCover_20010000_300m.tif
+</td>
+<td style="text-align:left;">
+tif
+</td>
+<td style="text-align:left;">
+2001-12-31
+</td>
+<td style="text-align:left;">
+2001-12-31
+</td>
+<td style="text-align:left;">
+2020-09-10 13:44:53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CCI_landCover
+</td>
+<td style="text-align:left;">
+landCover
+</td>
+<td style="text-align:left;">
+1km
+</td>
+<td style="text-align:left;">
+CCI_landCover/CCI_landCover-landCover_200200000_1km.tif
+</td>
+<td style="text-align:left;">
+tif
+</td>
+<td style="text-align:left;">
+2002-12-31
+</td>
+<td style="text-align:left;">
+2002-12-31
+</td>
+<td style="text-align:left;">
+2020-09-10 13:45:12
+</td>
+</tr>
+</tbody>
+</table>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

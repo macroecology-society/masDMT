@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -103,7 +103,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/find-data.html">data access</a>
+      <a href="../articles/cataloguing-data.html">cataloguing data</a>
+    </li>
+    <li>
+      <a href="../articles/finding-data.html">finding data</a>
     </li>
     <li>
       <a href="../articles/package-variables.html">system variables</a>
@@ -156,6 +159,15 @@
       
     </div>
 
+    <div id="masdmt-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#masdmt-010" class="anchor"></a>masDMT 0.1.0</h1>
+<ul>
+<li>Database now built with SQLite instead of RDS (solves issues of concurrency)</li>
+<li>register_data() changes file permissions with chmod to ‘444’, making registered files read-only</li>
+<li>added new functions: register_legend(), register_path()</li>
+</ul>
+</div>
     <div id="masdmt-0009000" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9000">
 <a href="#masdmt-0009000" class="anchor"></a>masDMT 0.0.0.9000</h1>
