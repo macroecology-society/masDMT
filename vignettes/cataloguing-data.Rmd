@@ -78,7 +78,13 @@ As seen below, the output consists of a folder names `land_cover`, containing se
 
 <br>
 
-<img src="example_0.png" style="width:100%;" class="center">
+```{yaml eval=FALSE}
+subdatasets:
+ continuous_raster:
+  variable: Continuous raster dataset
+  content:
+   value_range: 1...10 (scale factor 0.01)
+```
 
 <br>
 

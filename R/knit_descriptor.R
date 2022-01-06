@@ -95,14 +95,20 @@ knit_descriptor <- function(params) {
     
     # initiate subdataset container
     i = i + 1
-    subdatasets[[i]] = "<details style='cursor:pointer;border: none;box-shadow: 3px 3px 4px #f8f8f8;'>"
+    subdatasets[[i]] = paste0("<details style='cursor:pointer;border:none;", 
+                              "box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px ",
+                              "0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;",
+                              "padding:10px;margin:0;'>")
     
     # add subdataset name
     i = i + 1
-    subdatasets[[i]] = paste0('<summary style="font-size: 16px;">`', d, '` | ', 
+    subdatasets[[i]] = paste0('<summary style="font-size:16px;">`', 
+                              d, '`<span style="color:#C8C8C8;"> | </span>', 
                               params$subdatasets[[d]]$variable, '</summary>')
     
     # add table with details of variable's content
+    i = i + 1
+    subdatasets[[i]] = '<hr style="margin-top:0;margin-bottom:20px;">'
     i = i + 1
     subdatasets[[i]] = '|content|description|'
     i = i + 1
@@ -142,23 +148,29 @@ knit_descriptor <- function(params) {
     stop(paste0('"', params$status, '" is not a valid keyword')) 
   }
   
-  if (params$status == 'planned') status_color = '#eb984e'
-  if (params$status == 'developing') status_color = '#3498db'
-  if (params$status == 'available') status_color = '#229954'
+  if (params$status == 'planned') status_color = '#4682B4'
+  if (params$status == 'developing') status_color = '#2E8B57'
+  if (params$status == 'available') status_color = '#228B22'
   
   #---------------------------------------------------------------------------#
   # check documentation ----
   #---------------------------------------------------------------------------#
   
   if (length(grep('@', params$documentation)) > 0) {
-    documentation = paste0("<p style='margin-top:0;margin-bottom:0;'><a style='margin:0;padding:0;' href='mailto:", 
-                           params$documentation, "?Data information request: ", params$tile, "'>documentation</a></p>")
+    documentation = paste0("<p style='margin-top:0;margin-bottom:0;'>",
+                           '<a style="margin:0;padding:0;" href="mailto:', 
+                           params$documentation, '?subject=Data information request: ', 
+                           params$tile, '">documentation</a></p>')
     
   } else {
-    p = ping(tryCatch(strsplit(params$documentation, '//', fixed=T)[[1]][2], error=function(e) return(FALSE)))
+    p = ping(tryCatch(strsplit(params$documentation, 
+                               '//', fixed=T)[[1]][2], 
+                      error=function(e) return(FALSE)))
+    
     if (max(p, na.rm=T) < 0) {
-      documentation = paste0("<p style='margin-top:0;margin-bottom:0;'><a style='margin:0;padding:0;' href='", 
-                             params$documentation, "'>documentation.</a></p>")
+      documentation = paste0("<p style='margin-top:0;margin-bottom:0;'>",
+                             "<a style='margin:0;padding:0;' href='", 
+                             params$documentation, "'>documentation</a></p>")
     } else {
       documentation = 'Undocumented'
     }
@@ -169,14 +181,17 @@ knit_descriptor <- function(params) {
   #---------------------------------------------------------------------------#
   
   if (length(grep('@', params$data_access)) > 0) {
-    data_access = paste0("<p style='margin-top:0;margin-bottom:0;'><a style='margin:0;padding:0;' href='mailto:", 
-                           params$data_access, "?Data information request: ", params$tile, "'>Data access</a></p>")
+    data_access = paste0("<p style='margin-top:0;margin-bottom:0;'>",
+                           '<a style="margin:0;padding:0;" href="mailto:', 
+                           params$data_access, '?subject=Data access request: ', 
+                           params$tile, '">Data access</a></p>')
     
   } else {
     p = ping(tryCatch(strsplit(params$data_access, '//', fixed=T)[[1]][2], 
                       error=function(e) return(FALSE)))
     if (max(p, na.rm=T) < 0) {
-      data_access = paste0("<p style='margin-top:0;margin-bottom:0;'><a style='margin:0;padding:0;' href='", 
+      data_access = paste0("<p style='margin-top:0;margin-bottom:0;'>",
+                           "<a style='margin:0;padding:0;' href='", 
                              params$data_access, "'>Data access</a></p>")
     } else {
       data_access = 'Restricted data acess'
@@ -209,8 +224,9 @@ knit_descriptor <- function(params) {
     # add HTML formatting
     citations = c(
       '<h3 style="margin-bottom:0;">References</h3>', 
-      paste0("<p style='margin-top:0;margin-bottom:5;'><a href='", ifile, 
-             " download=", ofile, "'><small>(Download bibtex)</small></a></p>"), 
+      paste0("<p style='margin-top:0;margin-bottom:5;'>", "
+             <a target='_blank' href='", ifile, "' download='", 
+             ofile, "'><small>(Download bibtex)</small></a></p>"), 
       citations
       )
     
@@ -277,9 +293,17 @@ knit_descriptor <- function(params) {
       '</div>', 
       '<hr style="margin-top:0;margin-bottom:0;">', 
       citations, 
+      '<hr>', 
       '</div>', 
       '', 
       '<aside>', 
+      paste0('<p style="padding:5px;margin-top:0;margin-bottom:20px;', 
+             'border-radius:10px;', 'text-align:center;background:', 
+             status_color,';color:#ffffff;','height:25px;width:70px;',
+             'box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, ',
+             'rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;">',
+             params$status,'</p>'), 
+      '<hr style="margin-top:0;margin-bottom:0;">', 
       '<p style="margin-top:0;margin-bottom:0;">**Format**</p>', 
       paste0('<p style="margin-top:0;">', data_format, '</p>'), 
       '<p style="margin-top:0;">**Spatial extent:**</p>', 
@@ -289,7 +313,8 @@ knit_descriptor <- function(params) {
       '<p style="margin-top:0;margin-bottom:0;">**Resolution**</p>', 
       paste0('<p style="margin-top:0;">', params$metadata$spatial_resolution, '</p>'), 
       '<p style="margin-top:0;margin-bottom:0;">**Time frame**</p>', 
-      paste0('<p style="margin-top:0;">', params$metadata$temporal_range[1], ' to ', params$metadata$temporal_range[2], '</p>'), 
+      paste0('<p style="margin-top:0;">', params$metadata$temporal_range[1], 
+             ' to ', params$metadata$temporal_range[2], '</p>'), 
       '<hr style="margin-top:0;margin-bottom:0;">', 
       paste0('<p>', documentation, '</p>'), 
       paste0('<p>', data_access, '</p>'), 
@@ -298,9 +323,6 @@ knit_descriptor <- function(params) {
       paste0('<p style="margin-top:0;">', params$license, '</p>'), 
       '<p style="margin-top:0;margin-bottom:0;">**Version**</p>', 
       paste0('<p style="margin-top:0;">', params$version, '</p>'), 
-      paste0('<p style="margin-top:0;margin-bottom:0;border-radius:15px;vertical-align:middle;text-align:center;background:',
-             status_color,';color:#ffffff;height:25px;width:70px;">',
-             params$status,'</p>'), 
       '<br>', 
       '<br>', 
       '<img src="https://raw.githubusercontent.com/macroecology-society/masDMT/master/docs/sidebar_credits.png" width="120;">', 

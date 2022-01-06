@@ -20,6 +20,9 @@ reference:
   - get_bibtex
   - get_legend
   - lockpick
+  - table_indices
+  - .lock_database
+  - .access_database
 - title: Data cataloguing
   contents:
   - build_descriptor

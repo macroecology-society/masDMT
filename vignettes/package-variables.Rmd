@@ -8,10 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+knitr::opts_chunk$set(fig.path = "man/figures/", echo = TRUE)
 ```
 
 ```{r setup, echo=FALSE, message=FALSE}

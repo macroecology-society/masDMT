@@ -187,7 +187,11 @@ As a practical example, let’s create a new metadata record for a hypothetical 
 As seen below, the output consists of a folder names <code>land_cover</code>, containing several files with the same name. This includes the bibtex and preview image we provided, together with a yaml file.
 </p>
 <p><br></p>
-<p><img src="example_0.png" style="width:100%;" class="center"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">continuous_raster</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> Continuous raster dataset</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">value_range</span><span class="kw">:</span><span class="at"> 1...10 (scale factor 0.01)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div id="documenting-metadata" class="section level3">
@@ -276,11 +280,11 @@ The <code>subdatset</code> field extends further, with one entry for each subdat
 <p align="justify">
 As shown in the example below, all continuous raster datasets demand is information on its minimum and maximum values. This requires us to add a <code>value_range</code> field, which we can describe with the minimum and maximum values, providing a scaling factor in parenthesis when applicable.
 </p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">continuous_raster</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> continuous raster dataset</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">value_range</span><span class="kw">:</span><span class="at"> 1...10 (scale factor 0.01)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">continuous_raster</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> continuous raster dataset</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">value_range</span><span class="kw">:</span><span class="at"> 1...10 (scale factor 0.01)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div id="example-b-categorical-raster" class="section level4">
@@ -289,13 +293,13 @@ As shown in the example below, all continuous raster datasets demand is informat
 <p align="justify">
 Categorical raster datasets require some documentation effort. Here, we need to provide a field for each raster value, describing it with the adequate class.
 </p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">categorical_raster</span><span class="kw">:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> categorical raster dataset</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">1</span><span class="kw">:</span><span class="at"> agriculture</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">2</span><span class="kw">:</span><span class="at"> forest</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">3</span><span class="kw">:</span><span class="at"> water</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">categorical_raster</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> categorical raster dataset</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">1</span><span class="kw">:</span><span class="at"> agriculture</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">2</span><span class="kw">:</span><span class="at"> forest</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">3</span><span class="kw">:</span><span class="at"> water</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div id="example-c-vectortable" class="section level4">
@@ -304,27 +308,27 @@ Categorical raster datasets require some documentation effort. Here, we need to 
 <p align="justify">
 </p>
 <p>Vector and tabular datasets impose a similar challenge as categorical rasters. Here, we need to provide each column as a field, and accopany that field with an adequate description.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_or_table</span><span class="kw">:</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_or_table</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span></code></pre></div>
 <p><br></p>
 <p align="justify">
 The examples above demonstrate the documentation of individual subdatasets. However, we can add more than one by following the example below.
 </p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_dataset_1</span><span class="kw">:</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_dataset_2</span><span class="kw">:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_dataset_1</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_dataset_2</span><span class="kw">:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_1</span><span class="kw">:</span><span class="at"> description of column 1</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -334,7 +338,7 @@ The examples above demonstrate the documentation of individual subdatasets. Howe
 <p align="justify">
 Before we can add our metadata record into the data catalog, we first need to knit it into an html. To assure the standardization of metadata records, we can se <code><a href="../reference/knit_descriptor.html">knit_descriptor()</a></code>. This function reads the yaml file we previously documented, and translates it into a fully formated <code>Rmarkdown</code> file, which is then translated into <code>html</code>.
 </p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use "path" and "id", specified when calling build_descriptor()</span>
 <span class="fu"><a href="../reference/knit_descriptor.html">knit_descriptor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">path</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">'.yml'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>

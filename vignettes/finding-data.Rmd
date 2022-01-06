@@ -14,6 +14,7 @@ require(masDMT)
 require(knitr)
 require(kableExtra)
 
+knitr::opts_chunk$set(fig.path = "man/figures/", echo = TRUE)
 register_path(list(dmt.data=system.file(package='masDMT', 'extdata')))
 
 ```
