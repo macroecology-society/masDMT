@@ -215,7 +215,7 @@ knit_descriptor <- function(params) {
     })))
     
     # specify where to find the file in the file system
-    ifile = paste0("https://github.com/macroecology-society/data-catalog/tree/main/_posts/", 
+    ifile = paste0("https://raw.githubusercontent.com/data-catalog/tree/main/_posts/", 
                    params$title, "/", params$title, ".bib")
     
     # suggest output name
@@ -226,7 +226,7 @@ knit_descriptor <- function(params) {
       '<h3 style="margin-bottom:0;">References</h3>', 
       paste0("<p style='margin-top:0;margin-bottom:5;'>", "
              <a target='_blank' href='", ifile, "' download='", 
-             ofile, "'><small>(Download bibtex)</small></a></p>"), 
+             ofile, "'><small>(bibtex)</small></a></p>"), 
       citations
       )
     
