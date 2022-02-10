@@ -28,5 +28,5 @@ you can manually edit the metadata for the new record. If a \emph{bibtex}
 and/or a \emph{preview} image are provided, the function will copy them
 into the new directory after testing their validity. Once filled, the
 yaml file can be compiled into a metadata record using
-\code{\link[masDMT]{compile_descriptor}}.}
+\code{\link[masDMT]{compile_metadata}}.}
 }
