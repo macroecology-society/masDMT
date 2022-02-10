@@ -11,7 +11,7 @@
 #' the function will additionally use 
 #' \href{https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/icacls}{
 #' icacls to modify file permissions}. Since windows cannot interpret the chmod codes.}
-#'
+#' @importFrom utils fileSnapshot
 #' @export
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
