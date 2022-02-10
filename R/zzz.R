@@ -13,3 +13,4 @@
   #if (Sys.which('gdalbuildvrt') == '') warning('missing GDAL')
   #if (Sys.which('python') == '') warning('missing python')
 }
+globalVariables(c("x", "a"))
