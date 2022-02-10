@@ -29,12 +29,12 @@ Imports:
     lubridate, 
     imager, 
     filelock,
-    fpeek
+    fpeek,
+    kableExtra
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5)
 Suggests: 
-    knitr,
-    kableExtra
+    knitr
 VignetteBuilder: knitr
