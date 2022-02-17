@@ -215,7 +215,7 @@ knit_descriptor <- function(params) {
     })))
     
     # specify where to find the file in the file system
-    ifile = paste0("https://raw.githubusercontent.com/data-catalog/tree/main/_posts/", 
+    ifile = paste0("https://raw.githubusercontent.com/data-catalog/main/_posts/", 
                    params$title, "/", params$title, ".bib")
     
     # suggest output name
