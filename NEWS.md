@@ -1,3 +1,7 @@
+# masDMT 0.1.1
+
+- smaller fixes to run checks on all standard operating systems
+
 # masDMT 0.1.0
 
 * Database now built with SQLite instead of RDS (solves issues of concurrency)

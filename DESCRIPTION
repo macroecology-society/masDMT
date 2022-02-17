@@ -1,6 +1,6 @@
 Package: masDMT
 Title: Data Management Tools
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(given="Steffen", family="Ehrmann", role=c("aut"), email="steffen.ehrmann@idiv.de", comment=c(ORCID="0000-0002-2958-0796")),
     person(given="Ruben", family="Remelgado", role=c("aut", "cre"), email="ruben.remelgado@idiv.de", comment=c(ORCID="0000-0002-9871-5703")),
@@ -28,12 +28,13 @@ Imports:
     pingr, 
     lubridate, 
     imager, 
-    filelock
+    filelock,
+    fpeek,
+    kableExtra
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5)
 Suggests: 
-    knitr,
-    kableExtra
+    knitr
 VignetteBuilder: knitr

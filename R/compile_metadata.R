@@ -80,7 +80,7 @@ compile_metadata <- function(verbose=FALSE) {
       subdataset = tmp[1]
       
       # extract date and variable strings
-      dates = strsplit(tmp[2], '–')[[1]]
+      dates = strsplit(tmp[2], '-')[[1]]
       
       # translate date string into data object (needed for database)
       dates = do.call('c', lapply(strsplit(dates, '-')[[1]], function(d) {

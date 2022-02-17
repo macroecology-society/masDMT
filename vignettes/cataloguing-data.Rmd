@@ -18,7 +18,7 @@ require(masDMT)
 This section describes how to document datasets and how to <a href="https://macroecology-society.github.io/data-catalog/">integrate them in the MAS data catalog.</a>. `masDMT` makes this registration easier, providing tools to automatically generate complex html records.
 </p>
 <p align='justify'>
-When creating a descriptor for a new dataset, we should keep the catalog organization in mind, Let's peek under the hood. If we look at <a href="">where posts are stored</a>, we will see something like shown below. As you can see, each dataset has one folder with the its unique identifier. For example, the land cover dataset of the climate change initiative (CCI) is recorded as `CCI_landCover`, the same ID we can provide to `list_data` to find the path to the corresponding rasters (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find-data.html">see this article for examples on data access</a>).
+When creating a descriptor for a new dataset, we should keep the catalog organization in mind, Let's peek under the hood. If we look at <a href="https://github.com/macroecology-society/data-catalog/tree/main/_posts">where posts are stored</a>, we will see something like shown below. As you can see, each dataset has one folder labelled with its unique identifier. For example, the land cover dataset of the climate change initiative (CCI) is recorded as `CCI_landCover`, the same ID we can provide to `list_data()` to find the path to the corresponding rasters (<a href="https://macroecology-society.github.io/masDMT/articles/find-data.html">see this article for examples on data access</a>).
 </p>
 
 <br>
@@ -63,7 +63,7 @@ As a practical example, let's create a new metadata record for a hypothetical da
 path = '/metadata/' # path to directory where to create metadata record
 id = 'land_cover' # uique dataset identifier
 bib = '/data/bibtex.bib' # path to bibtex
-img = '/data/preview.bib' # path to preview image
+img = '/data/preview.png' # path to preview image
 
 # run function to build dataset repository
 build_descriptor(path, id, bibtex=bib, preview=img)
@@ -73,7 +73,7 @@ build_descriptor(path, id, bibtex=bib, preview=img)
 <br>
 
 <p align='justify'>
-As seen below, the output consists of a folder names `land_cover`, containing several files with the same name. This includes the bibtex and preview image we provided, together with a yaml file.
+As seen below, the output consists of a folder named `land_cover`, containing several files with the same name. This includes the bibtex and preview image we provided, together with a yaml file.
 </p>
 
 <br>

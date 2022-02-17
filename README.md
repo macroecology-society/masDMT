@@ -3,7 +3,7 @@
 <!-- badges: end -->
 
 ### Towards interoperable workflows
-<img src="masDMT_logo.png" width=130/ style="float:left;margin-right:20px;margin-bottom:20px;">
+<img src="docs/masDMT_logo.png" width=130/ style="float:left;margin-right:20px;margin-bottom:20px;">
 <p align="justify">
 <a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html">The Macroecology & Society (MAS)</a> is a research group of the German Centre for Integrative Biodiversity Research (iDiv). It is composed by an interdisciplinary team of scientists, with backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, we can confidently deal with large amounts of diverse data, from statistical surveys to global, gridded and vector layers. These data are frequently shared across projects, creating a need for a common knowledge infrastructure. With this in mind, we developed `masDMT`. This R package provides the members of the MAS lab with standardized access points their common database, as well as tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
 </p>
@@ -27,7 +27,8 @@ This work was funded by the Volkswagen Foundation through a Freigeist Fellowship
 </p>
 
 <p align="center">
-<a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html"><img src="https://www.idiv.de/fileadmin/templates/images/socialimage.png" width="400" height="200" title="IDIV homepage"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="https://www.volkswagenstiftung.de/sites/default/files/images/2018Freigeist_Logo_web_blau.jpg" width="400" height="200" title="Freigeist homepage"/></a>
+<a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html"><img src="https://www.idiv.de/fileadmin/templates/images/socialimage.png" width="400" height="200" title="IDIV homepage"/></a>
+<a href="https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/freigeist-fellowships"><img src="https://www.volkswagenstiftung.de/sites/default/files/images/2018Freigeist_Logo_web_blau.jpg" width="400" height="200" title="Freigeist homepage"/></a>
 </p>
 
 <br>
