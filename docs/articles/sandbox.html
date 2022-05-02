@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -127,35 +127,56 @@
 <h3 class="hasAnchor">
 <a href="#big-questions-big-data-starting-small-" class="anchor"></a>Big questions, big data: starting small.</h3>
 <p align="justify">
-Large-scale applications can be overwhelming when developing new algorithms. To keep track of our progress, starting with small data subsets is essential, helping quickly learn about our data before scaling-up our analysis.
+Large-scale applications can be overwhelming when developing new
+algorithms. To keep track of our progress, starting with small data
+subsets is essential, helping quickly learn about our data before
+scaling-up our analysis.
 </p>
 </div>
 <div id="setting-up-a-project" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setting-up-a-project" class="anchor"></a>Setting up a project</h3>
 <p align="justify">
-Before engaging with data manipulation, we need a place to host it. You can use <code><a href="../reference/build_project.html">build_project()</a></code> to setup a standardized folder structure together with a README file on the purpose of each folder. This follows a similar infrastructure as the MAS database. The more member of the lab use it, the easier it will be to exchange data and code.
+Before engaging with data manipulation, we need a place to host it. You
+can use <code><a href="../reference/build_project.html">build_project()</a></code> to setup a standardized folder
+structure together with a README file on the purpose of each folder.
+This follows a similar infrastructure as the MAS database. The more
+member of the lab use it, the easier it will be to exchange data and
+code.
 </p>
 </div>
 <div id="determining-what-we-need" class="section level3">
 <h3 class="hasAnchor">
 <a href="#determining-what-we-need" class="anchor"></a>Determining what we need</h3>
 <p align="justify">
-Before integrating new, messy data into your project, you might want to <a href="https://macroecology-society.github.io/data-catalog/">look into the MAS data catalog</a>. This registry offers an overview on each dataset in the MAS database, and guiding us to existing documentation with details on the production of the data.
+Before integrating new, messy data into your project, you might want to
+<a href="https://macroecology-society.github.io/data-catalog/">look into
+the MAS data catalog</a>. This registry offers an overview on each
+dataset in the MAS database, and guiding us to existing documentation
+with details on the production of the data.
 </p>
 </div>
 <div id="compiling-a-sandbox" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compiling-a-sandbox" class="anchor"></a>Compiling a sandbox</h3>
 <p align="justify">
-<code><a href="../reference/build_sandbox.html">build_sandbox()</a></code> helps us extract a subset of the MAS database that follows the standards of the MAS database. This way, we can test our algorithms locally and we can later migrate that code into the main database to upscale our analysis (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/package-variables.html">click here to learn about system variables and relative paths</a>).
+<code><a href="../reference/build_sandbox.html">build_sandbox()</a></code> helps us extract a subset of the MAS
+database that follows the standards of the MAS database. This way, we
+can test our algorithms locally and we can later migrate that code into
+the main database to upscale our analysis
+(<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/package-variables.html">click
+here to learn about system variables and relative paths</a>).
 </p>
 </div>
 <div id="register-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#register-data" class="anchor"></a>Register data</h3>
 <p align="justify">
-Once we have our sandbox, we can use <code><a href="../reference/compile_metadata.html">compile_metadata()</a></code> to register all collected datasets. This function creates a portable flat database, equal to the one used in the parent infrastructure. With this database, we can use every MAS tool with the sandbox just as we would in the parent database.
+Once we have our sandbox, we can use <code><a href="../reference/compile_metadata.html">compile_metadata()</a></code> to
+register all collected datasets. This function creates a portable flat
+database, equal to the one used in the parent infrastructure. With this
+database, we can use every MAS tool with the sandbox just as we would in
+the parent database.
 </p>
 </div>
   </div>

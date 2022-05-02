@@ -98,7 +98,8 @@ The yaml is copied from within `masDMT`, and specifies all fields that need comp
 
 |      field        | description                                                                                |
 |-------------------|--------------------------------------------------------------------------------------------|
-|title              | Unique identifier                                                                          |
+|title              | Tile of the dataset                                                                        |
+|dataset_id         | Unique identifier                                                                          |
 |short_description  | Short dataset description, used in preview and included in the extended metadata record    |
 |long_description   | Long dataset description, used only in the extended metadata record                        |
 |documentation      | Link to documentation file, or e-mail of whom to reach                                     |

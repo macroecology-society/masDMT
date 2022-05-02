@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -127,42 +127,69 @@
 <h3 class="hasAnchor">
 <a href="#documenting-data" class="anchor"></a>Documenting data</h3>
 <p align="justify">
-This section describes how to document datasets and how to <a href="https://macroecology-society.github.io/data-catalog/">integrate them in the MAS data catalog.</a>. <code>masDMT</code> makes this registration easier, providing tools to automatically generate complex html records.
+This section describes how to document datasets and how to
+<a href="https://macroecology-society.github.io/data-catalog/">integrate
+them in the MAS data catalog.</a>. <code>masDMT</code> makes this
+registration easier, providing tools to automatically generate complex
+html records.
 </p>
 <p align="justify">
-When creating a descriptor for a new dataset, we should keep the catalog organization in mind, Let’s peek under the hood. If we look at <a href="">where posts are stored</a>, we will see something like shown below. As you can see, each dataset has one folder with the its unique identifier. For example, the land cover dataset of the climate change initiative (CCI) is recorded as <code>CCI_landCover</code>, the same ID we can provide to <code>list_data</code> to find the path to the corresponding rasters (<a href="https://github.com/macroecology-society/masDMT/tree/master/docs/articles/find-data.html">see this article for examples on data access</a>).
+When creating a descriptor for a new dataset, we should keep the catalog
+organization in mind, Let’s peek under the hood. If we look at
+<a href="https://github.com/macroecology-society/data-catalog/tree/main/_posts">where
+posts are stored</a>, we will see something like shown below. As you can
+see, each dataset has one folder labelled with its unique identifier.
+For example, the land cover dataset of the climate change initiative
+(CCI) is recorded as <code>CCI_landCover</code>, the same ID we can
+provide to <code><a href="../reference/list_data.html">list_data()</a></code> to find the path to the
+corresponding rasters
+(<a href="https://macroecology-society.github.io/masDMT/articles/find-data.html">see
+this article for examples on data access</a>).
 </p>
 <p><br></p>
 <p><img src="file_structure_1.png" class="center"></p>
 <p><br></p>
 <p align="justify">
-Keeping our focus on the <code>CCI_landCover</code> dataset, we can obtain further insights on which files a dataset contains. As shown below, this record contains the following files:
+Keeping our focus on the <code>CCI_landCover</code> dataset, we can
+obtain further insights on which files a dataset contains. As shown
+below, this record contains the following files:
 </p>
 <ul>
 <li>
-<code>Rmd</code>: needed by <code>Rmarkdown</code> create an <code>html</code>
+<code>Rmd</code>: needed by <code>Rmarkdown</code> create an
+<code>html</code>
 </li>
 <li>
-<code>html</code>: Knited from the <code>Rmd</code> file, used by the website
+<code>html</code>: Knited from the <code>Rmd</code> file, used by the
+website
 </li>
 <li>
 <code>CCI_landCover.png</code>: Preview image of the dataset
 </li>
 <li>
-<code>CCI_landCover_extent.png</code>: Image showing the spatial extent of the dataset
+<code>CCI_landCover_extent.png</code>: Image showing the spatial extent
+of the dataset
 </li>
 <li>
-<code>CCI_landCover.bib</code>: Bibtex file with literature reference of dataset
+<code>CCI_landCover.bib</code>: Bibtex file with literature reference of
+dataset
 </li>
 <li>
-<code>CCI_landCover.yml</code>: Configuration file with metadata of dataset
+<code>CCI_landCover.yml</code>: Configuration file with metadata of
+dataset
 </li>
 </ul>
 <p><br></p>
 <p><img src="file_structure_2.png" class="center"></p>
 <p><br></p>
 <p align="justify">
-Here, the most important thing is the <code>yaml</code> file. This is where we enter metadata required by the catalog, which will be used when automatically generating the <code>Rmd</code>, <code>html</code>, and extent image files. The preview image and the bibtex are optional. Images are expected to have a size of 200x100 pixels. If you don’t feel like cropping images through scripting, <a href="https://resizeimage.net/">I recommend this website</a>.
+Here, the most important thing is the <code>yaml</code> file. This is
+where we enter metadata required by the catalog, which will be used when
+automatically generating the <code>Rmd</code>, <code>html</code>, and
+extent image files. The preview image and the bibtex are optional.
+Images are expected to have a size of 200x100 pixels. If you don’t feel
+like cropping images through scripting,
+<a href="https://resizeimage.net/">I recommend this website</a>.
 </p>
 <p><br></p>
 </div>
@@ -170,7 +197,12 @@ Here, the most important thing is the <code>yaml</code> file. This is where we e
 <h3 class="hasAnchor">
 <a href="#creating-a-new-metadata-record" class="anchor"></a>Creating a new metadata record</h3>
 <p align="justify">
-As a practical example, let’s create a new metadata record for a hypothetical dataset called <code>land cover</code>. First we use <code><a href="../reference/build_descriptor.html">build_descriptor()</a></code> to setup the data descriptor, creating a file structure we can later feed to the data catalog. We will give this dataset the unique identifier <code>land_cover</code>, and provide a bibtex with its literature references and a preview image.
+As a practical example, let’s create a new metadata record for a
+hypothetical dataset called <code>land cover</code>. First we use
+<code><a href="../reference/build_descriptor.html">build_descriptor()</a></code> to setup the data descriptor, creating a
+file structure we can later feed to the data catalog. We will give this
+dataset the unique identifier <code>land_cover</code>, and provide a
+bibtex with its literature references and a preview image.
 </p>
 <p><br></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -178,13 +210,16 @@ As a practical example, let’s create a new metadata record for a hypothetical 
 <span class="va">path</span> <span class="op">=</span> <span class="st">'/metadata/'</span> <span class="co"># path to directory where to create metadata record</span>
 <span class="va">id</span> <span class="op">=</span> <span class="st">'land_cover'</span> <span class="co"># uique dataset identifier</span>
 <span class="va">bib</span> <span class="op">=</span> <span class="st">'/data/bibtex.bib'</span> <span class="co"># path to bibtex</span>
-<span class="va">img</span> <span class="op">=</span> <span class="st">'/data/preview.bib'</span> <span class="co"># path to preview image</span>
+<span class="va">img</span> <span class="op">=</span> <span class="st">'/data/preview.png'</span> <span class="co"># path to preview image</span>
 
 <span class="co"># run function to build dataset repository</span>
 <span class="fu"><a href="../reference/build_descriptor.html">build_descriptor</a></span><span class="op">(</span><span class="va">path</span>, <span class="va">id</span>, bibtex<span class="op">=</span><span class="va">bib</span>, preview<span class="op">=</span><span class="va">img</span><span class="op">)</span></code></pre></div>
 <p><br></p>
 <p align="justify">
-As seen below, the output consists of a folder names <code>land_cover</code>, containing several files with the same name. This includes the bibtex and preview image we provided, together with a yaml file.
+As seen below, the output consists of a folder named
+<code>land_cover</code>, containing several files with the same name.
+This includes the bibtex and preview image we provided, together with a
+yaml file.
 </p>
 <p><br></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
@@ -198,7 +233,10 @@ As seen below, the output consists of a folder names <code>land_cover</code>, co
 <h3 class="hasAnchor">
 <a href="#documenting-metadata" class="anchor"></a>Documenting metadata</h3>
 <p align="justify">
-The yaml is copied from within <code>masDMT</code>, and specifies all fields that need completion. The table below lists those fields and provides their description. Notice that some fields have predefined keywords that must be followed.
+The yaml is copied from within <code>masDMT</code>, and specifies all
+fields that need completion. The table below lists those fields and
+provides their description. Notice that some fields have predefined
+keywords that must be followed.
 </p>
 <p><br></p>
 <table class="table">
@@ -213,57 +251,71 @@ The yaml is copied from within <code>masDMT</code>, and specifies all fields tha
 <tbody>
 <tr class="odd">
 <td>title</td>
+<td>Tile of the dataset</td>
+</tr>
+<tr class="even">
+<td>dataset_id</td>
 <td>Unique identifier</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>short_description</td>
-<td>Short dataset description, used in preview and included in the extended metadata record</td>
+<td>Short dataset description, used in preview and included in the
+extended metadata record</td>
+</tr>
+<tr class="even">
+<td>long_description</td>
+<td>Long dataset description, used only in the extended metadata
+record</td>
 </tr>
 <tr class="odd">
-<td>long_description</td>
-<td>Long dataset description, used only in the extended metadata record</td>
-</tr>
-<tr class="even">
 <td>documentation</td>
 <td>Link to documentation file, or e-mail of whom to reach</td>
 </tr>
-<tr class="odd">
-<td>data_access</td>
-<td>link of where to access the data from, or e-mail of whom to reach</td>
-</tr>
 <tr class="even">
+<td>data_access</td>
+<td>link of where to access the data from, or e-mail of whom to
+reach</td>
+</tr>
+<tr class="odd">
 <td>license</td>
 <td>Dataset license</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>categories</td>
-<td>Keyword specifying the topic of the dataset, which is used to refine the search for records</td>
+<td>Keyword specifying the topic of the dataset, which is used to refine
+the search for records</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>status</td>
-<td>Status of the dataset (one of <code>available</code>, <code>developing</code>, or <code>planned</code>)</td>
+<td>Status of the dataset (one of <code>available</code>,
+<code>developing</code>, or <code>planned</code>)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>format</td>
-<td>Format of the dataset (one of <code>Grid</code>, <code>Vector</code>, or <code>Table</code>)</td>
+<td>Format of the dataset (one of <code>Grid</code>,
+<code>Vector</code>, or <code>Table</code>)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>spatial_resolution</td>
-<td>Spatial resolution, expressed as a mixture of a numeric element and a character (e.g. 30m)</td>
+<td>Spatial resolution, expressed as a mixture of a numeric element and
+a character (e.g. 30m)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>temporal_resolution</td>
-<td>Temporal resolution of dataset (e.g. yearly, multiyear snapshot)</td>
-</tr>
-<tr class="even">
-<td>temporal_range</td>
-<td>Start and end of the period covered by the dataset, expressed as dates (yyyy-mm-dd)</td>
+<td>Temporal resolution of dataset (e.g. yearly, multiyear
+snapshot)</td>
 </tr>
 <tr class="odd">
-<td>spatial_extent</td>
-<td>Bounding coordinates of the dataset (min x, max x, min y, max y)</td>
+<td>temporal_range</td>
+<td>Start and end of the period covered by the dataset, expressed as
+dates (yyyy-mm-dd)</td>
 </tr>
 <tr class="even">
+<td>spatial_extent</td>
+<td>Bounding coordinates of the dataset (min x, max x, min y, max
+y)</td>
+</tr>
+<tr class="odd">
 <td>subdatasets</td>
 <td>List and description of subdatsets</td>
 </tr>
@@ -271,14 +323,22 @@ The yaml is copied from within <code>masDMT</code>, and specifies all fields tha
 </table>
 <p><br></p>
 <p align="justify">
-The <code>subdatset</code> field extends further, with one entry for each subdataset. Below we have three examples on how to fill the <code>subdataset</code> section. Note that every subdataset requires a <code>variable</code> description, but additional metadata depends on the nature of the input dataset.
+The <code>subdatset</code> field extends further, with one entry for
+each subdataset. Below we have three examples on how to fill the
+<code>subdataset</code> section. Note that every subdataset requires a
+<code>variable</code> description, but additional metadata depends on
+the nature of the input dataset.
 </p>
 <p><br></p>
 <div id="example-a-continuous-raster" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example-a-continuous-raster" class="anchor"></a>Example A: Continuous raster</h4>
 <p align="justify">
-As shown in the example below, all continuous raster datasets demand is information on its minimum and maximum values. This requires us to add a <code>value_range</code> field, which we can describe with the minimum and maximum values, providing a scaling factor in parenthesis when applicable.
+As shown in the example below, all continuous raster datasets demand is
+information on its minimum and maximum values. This requires us to add a
+<code>value_range</code> field, which we can describe with the minimum
+and maximum values, providing a scaling factor in parenthesis when
+applicable.
 </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">continuous_raster</span><span class="kw">:</span></span>
@@ -291,7 +351,9 @@ As shown in the example below, all continuous raster datasets demand is informat
 <h4 class="hasAnchor">
 <a href="#example-b-categorical-raster" class="anchor"></a>Example B: Categorical raster</h4>
 <p align="justify">
-Categorical raster datasets require some documentation effort. Here, we need to provide a field for each raster value, describing it with the adequate class.
+Categorical raster datasets require some documentation effort. Here, we
+need to provide a field for each raster value, describing it with the
+adequate class.
 </p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">categorical_raster</span><span class="kw">:</span></span>
@@ -307,7 +369,9 @@ Categorical raster datasets require some documentation effort. Here, we need to 
 <a href="#example-c-vectortable" class="anchor"></a>Example C: Vector/Table</h4>
 <p align="justify">
 </p>
-<p>Vector and tabular datasets impose a similar challenge as categorical rasters. Here, we need to provide each column as a field, and accopany that field with an adequate description.</p>
+<p>Vector and tabular datasets impose a similar challenge as categorical
+rasters. Here, we need to provide each column as a field, and accopany
+that field with an adequate description.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_or_table</span><span class="kw">:</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> tabular dataset</span></span>
@@ -316,7 +380,9 @@ Categorical raster datasets require some documentation effort. Here, we need to 
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="fu">column_2</span><span class="kw">:</span><span class="at"> description of column 2</span></span></code></pre></div>
 <p><br></p>
 <p align="justify">
-The examples above demonstrate the documentation of individual subdatasets. However, we can add more than one by following the example below.
+The examples above demonstrate the documentation of individual
+subdatasets. However, we can add more than one by following the example
+below.
 </p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdatasets</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">vector_dataset_1</span><span class="kw">:</span></span>
@@ -336,7 +402,12 @@ The examples above demonstrate the documentation of individual subdatasets. Howe
 <h3 class="hasAnchor">
 <a href="#knitting-documentation" class="anchor"></a>Knitting documentation</h3>
 <p align="justify">
-Before we can add our metadata record into the data catalog, we first need to knit it into an html. To assure the standardization of metadata records, we can se <code><a href="../reference/knit_descriptor.html">knit_descriptor()</a></code>. This function reads the yaml file we previously documented, and translates it into a fully formated <code>Rmarkdown</code> file, which is then translated into <code>html</code>.
+Before we can add our metadata record into the data catalog, we first
+need to knit it into an html. To assure the standardization of metadata
+records, we can se <code><a href="../reference/knit_descriptor.html">knit_descriptor()</a></code>. This function reads
+the yaml file we previously documented, and translates it into a fully
+formated <code>Rmarkdown</code> file, which is then translated into
+<code>html</code>.
 </p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use "path" and "id", specified when calling build_descriptor()</span>

@@ -3,7 +3,7 @@
 <!-- badges: end -->
 
 ### Towards interoperable workflows
-<img src="docs/masDMT_logo.png" width=130/ style="float:left;margin-right:20px;margin-bottom:20px;">
+<img src="masDMT_logo.png" width=130/ style="float:left;margin-right:20px;margin-bottom:20px;">
 <p align="justify">
 <a href="https://www.idiv.de/en/groups-and-people/core-groups/macroecosocial.html">The Macroecology & Society (MAS)</a> is a research group of the German Centre for Integrative Biodiversity Research (iDiv). It is composed by an interdisciplinary team of scientists, with backgrounds in geography, statistics, macro- and community ecology, environmental resource management, environmental social science, crop science, and agricultural biology. In this rich environment, we can confidently deal with large amounts of diverse data, from statistical surveys to global, gridded and vector layers. These data are frequently shared across projects, creating a need for a common knowledge infrastructure. With this in mind, we developed `masDMT`. This R package provides the members of the MAS lab with standardized access points their common database, as well as tools to make research projects scalable. It helps transfer a project between small, local analysis in a desktop, to global analysis in High Performance Computing (HPC) environment.
 </p>

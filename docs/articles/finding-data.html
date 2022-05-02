@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -128,7 +128,16 @@
 <h3 class="hasAnchor">
 <a href="#collecting-data-paths" class="anchor"></a>Collecting data paths</h3>
 <p align="justify">
-Many packages focus on the access to raster, vector, and tabular data, providing constant updates and improvements. For this reason, <code>masDMT</code> does not offer additional data access tools. Instead, it helps users locate relevant data. <code><a href="../reference/list_data.html">list_data()</a></code> uses <a href="https://macroecology-society.github.io/data-catalog/"> unique data identifiers as displayed in the MAS data catalog</a> to find and report metadata on the relevant data files, including their format and location. As shown below, we can construct a data call in different levels of complexity, from a generic dataset request to a combination of dataset, subdataset, and spatial resolution.
+Many packages focus on the access to raster, vector, and tabular data,
+providing constant updates and improvements. For this reason,
+<code>masDMT</code> does not offer additional data access tools.
+Instead, it helps users locate relevant data. <code><a href="../reference/list_data.html">list_data()</a></code>
+uses <a href="https://macroecology-society.github.io/data-catalog/">
+unique data identifiers as displayed in the MAS data catalog</a> to find
+and report metadata on the relevant data files, including their format
+and location. As shown below, we can construct a data call in different
+levels of complexity, from a generic dataset request to a combination of
+dataset, subdataset, and spatial resolution.
 </p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># find all files for dataset "CCI_landCover"</span>
@@ -140,7 +149,10 @@ Many packages focus on the access to raster, vector, and tabular data, providing
 <span class="co"># find all files subdataset "landCover" of dataset "CCI_landCover" with a resolution of "300m"</span>
 <span class="fu"><a href="../reference/list_data.html">list_data</a></span><span class="op">(</span><span class="st">'CCI_landCover/landCover/300m'</span><span class="op">)</span></code></pre></div>
 <p align="justify">
-Calling <code><a href="../reference/list_data.html">list_data()</a></code> without specifying a dataset call will return a data.frame listing all registered datasets. It is a useful tool to consult the complexity of the available data, helping us refine our search query.
+Calling <code><a href="../reference/list_data.html">list_data()</a></code> without specifying a dataset call will
+return a data.frame listing all registered datasets. It is a useful tool
+to consult the complexity of the available data, helping us refine our
+search query.
 </p>
 <p>
 </p>

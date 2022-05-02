@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">masDMT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -127,22 +127,47 @@
 <h3 class="hasAnchor">
 <a href="#configuring-local-projects" class="anchor"></a>Configuring local projects</h3>
 <p align="justify">
-Environmental variables are seemingly trivial but often overlooked assets. If an argument in your code is recurrent, defining environmental variables is a time saver. For example, consider you have several scripts accessing the same online database, which requires user credentials. If you need to modify those credentials, it can be bothersome to change every single script. As an alternative, we can use R’s <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> to define a variable that contains those credentials.
+Environmental variables are seemingly trivial but often overlooked
+assets. If an argument in your code is recurrent, defining environmental
+variables is a time saver. For example, consider you have several
+scripts accessing the same online database, which requires user
+credentials. If you need to modify those credentials, it can be
+bothersome to change every single script. As an alternative, we can use
+R’s <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> to define a variable that contains those
+credentials.
 </p>
 <p align="justify">
-<code>masDMT</code> takes advantage of this feature through the <code><a href="../reference/register_path.html">register_path()</a></code>. This function registers paths to the MAS database as well as to relevant documentation. This information is recorded permanently together with your package installation, which prevents you from repeating this step with every script. Every time the <code>masDMT</code> loads, the pre-defined variables will be loaded.
+<code>masDMT</code> takes advantage of this feature through the
+<code><a href="../reference/register_path.html">register_path()</a></code>. This function registers paths to the MAS
+database as well as to relevant documentation. This information is
+recorded permanently together with your package installation, which
+prevents you from repeating this step with every script. Every time the
+<code>masDMT</code> loads, the pre-defined variables will be loaded.
 </p>
 <p align="justify">
-To exemplify the use of this tool, let’s first register our database, which is located in <code>/mas/database/</code>. To register this path, we can use <code>register_path</code> as following:
+To exemplify the use of this tool, let’s first register our database,
+which is located in <code>/mas/database/</code>. To register this path,
+we can use <code>register_path</code> as following:
 </p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># consult the current data path</span>
 <span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.data<span class="op">=</span><span class="st">'/mas/database/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p align="justify">
-Note the input to the function is in the form of a list, and the keyword <code>dmt.data</code> is used to register the database. This is the go-to variable for functions that query the existing database, such as <code><a href="../reference/list_data.html">list_data()</a></code>.
+Note the input to the function is in the form of a list, and the keyword
+<code>dmt.data</code> is used to register the database. This is the
+go-to variable for functions that query the existing database, such as
+<code><a href="../reference/list_data.html">list_data()</a></code>.
 </p>
 <p align="justify">
-<code>dmt.data</code> is not the only variable we can set. First, we can change the option <code>mas.catalog</code>, which changes the path to the standardized data catalog of the MAS database. This catalog, <a href="https://macroecology-society.github.io/data-catalog/">available through GitHub</a>, contains data descriptions for the datasets used at MAS. However, if we wish to keep the catalog locally - or register a new catalog- we can modify the the <code>mas.catalog</code> option. Following the same premise, we can modify <code>mas.toolbox</code>, which links us to the website of this package by default.
+<code>dmt.data</code> is not the only variable we can set. First, we can
+change the option <code>mas.catalog</code>, which changes the path to
+the standardized data catalog of the MAS database. This catalog,
+<a href="https://macroecology-society.github.io/data-catalog/">available
+through GitHub</a>, contains data descriptions for the datasets used at
+MAS. However, if we wish to keep the catalog locally - or register a new
+catalog- we can modify the the <code>mas.catalog</code> option.
+Following the same premise, we can modify <code>mas.toolbox</code>,
+which links us to the website of this package by default.
 </p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># change path to new catalog website</span>
@@ -151,7 +176,11 @@ Note the input to the function is in the form of a list, and the keyword <code>d
 <span class="co"># change path to new toolbox website</span>
 <span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.toolbox<span class="op">=</span><span class="st">'/new_toolbox/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p align="justify">
-In the previous examples, we changed one variable at a time for the sake of simplicity. However, you can provide all variables at once. Since the input is provided as a list, <code><a href="../reference/register_path.html">register_path()</a></code> can update several variables simultaneously, making use of the list names to find the right variable to modify.
+In the previous examples, we changed one variable at a time for the sake
+of simplicity. However, you can provide all variables at once. Since the
+input is provided as a list, <code><a href="../reference/register_path.html">register_path()</a></code> can update
+several variables simultaneously, making use of the list names to find
+the right variable to modify.
 </p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/register_path.html">register_path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dmt.data<span class="op">=</span><span class="st">'/mas/database/'</span>, dmt.catalog<span class="op">=</span><span class="st">'/new_catalog/'</span>, dmt.toolbox<span class="op">=</span><span class="st">'/new_toolbox/'</span><span class="op">)</span><span class="op">)</span></code></pre></div>

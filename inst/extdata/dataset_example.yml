@@ -1,5 +1,6 @@
 ---
- title: name of dataset
+ title: just the title
+ dataset_id: unique identifier of dataset (same as in file naming)
  short_description: Short description of dataset, not more than 2-3 lines worth.
  long_description: Long description of the dataset (can include links, as long as wrapped in <a href="" >a)
  documentation: Link to online documentation, or e-mail of who to ask information to.

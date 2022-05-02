@@ -35,7 +35,7 @@ knit_descriptor <- function(params) {
   }
   
   # get names of parameters and report missing ones
-  required_parameters = c('title', 'short_description', 'long_description', 
+  required_parameters = c('title', 'dataset_id',  'short_description', 'long_description', 
                           'documentation', 'data_access', 'license', 
                           'version', 'categories', 'status', 
                           'metadata', 'subdatasets')
@@ -70,7 +70,7 @@ knit_descriptor <- function(params) {
         ), color="red", opacity=0.3, fillColor="red"), 0,0, zoom=1)
   
   # save map as image
-  extentImg = paste0(output, params$title, '_extent.png')
+  extentImg = paste0(output, params$data_id, '_extent.png')
   mapshot(map, file=extentImg, cliprect='viewport', vheight=350, vwidth=510)
   extentImg = basename(extentImg)
   
@@ -133,7 +133,7 @@ knit_descriptor <- function(params) {
   # detect preview image ----
   #---------------------------------------------------------------------------#
   
-  preview_image = paste0(params$title, '.png')
+  preview_image = paste0(params$dataset_id, '.png')
   if (!file.exists(paste0(output, preview_image))) {
     preview_image = NULL
   } else {
@@ -202,7 +202,7 @@ knit_descriptor <- function(params) {
   # check bibtex ----
   #---------------------------------------------------------------------------#
   
-  bib = file.path(dname, paste0(params$title, '.bib'))
+  bib = file.path(dname, paste0(params$dataset_id, '.bib'))
   
   if (file.exists(bib)) {
     
@@ -211,15 +211,15 @@ knit_descriptor <- function(params) {
     
     # compile citation strings
     citations = unlist(unname(lapply(1:length(bib), function(i) {
-      return(paste0('[', as.character(i), '] ', Citet(bib[i])))
+      return(paste0('<p>[', as.character(i), '] ', Citet(bib[i]), '</p>'))
     })))
     
     # specify where to find the file in the file system
     ifile = paste0("https://raw.githubusercontent.com/data-catalog/main/_posts/", 
-                   params$title, "/", params$title, ".bib")
+                   params$dataset_id, "/", params$dataset_id, ".bib")
     
     # suggest output name
-    ofile = paste0(params$title, "/", params$title, ".bibtex")
+    ofile = paste0(params$dataset_id, "/", params$dataset_id, ".bibtex")
     
     # add HTML formatting
     citations = c(
@@ -240,11 +240,11 @@ knit_descriptor <- function(params) {
   # write data into file ----
   #---------------------------------------------------------------------------#
   
-  ifile = paste0(output, params$title, '.Rmd')
+  ifile = paste0(output, params$dataset_id, '.Rmd')
   
   connection <- file(ifile)
   
-  id1 = params$title
+  id1 = params$dataset_id
   id2 = paste0(id1, '/', names(params$subdatasets)[1])
   id3 = paste0(id2, '/', 
                paste0(strsplit(params$metadata$spatial_resolution[1], 
@@ -257,7 +257,7 @@ knit_descriptor <- function(params) {
       'description: |', 
       paste0('  ', strsplit(params$short_description, '\n')[[1]]), 
       preview_image, 
-      paste0('slug: ', params$title), 
+      paste0('slug: ', params$dataset_id), 
       'categories:', 
       categories, 
       paste0('date: ', Sys.Date()), 
@@ -330,7 +330,7 @@ knit_descriptor <- function(params) {
       '<br>', 
       '<p style="margin-bottom:0;padding:0;">**Where there  mistakes?**</p>', 
       paste0("<p><a href='https://github.com/macroecology-society/data-catalog/tree/main/_posts/", 
-             params$title, "/", params$title, ".yml'>Propose an edit at our GitHub repository</a></p>"), 
+             params$dataset_id, "/", params$dataset_id, ".yml'>Propose an edit at our GitHub repository</a></p>"), 
       '</aside>'
     ), 
     connection
