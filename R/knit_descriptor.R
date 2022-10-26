@@ -70,7 +70,7 @@ knit_descriptor <- function(params) {
         ), color="red", opacity=0.3, fillColor="red"), 0,0, zoom=1)
   
   # save map as image
-  extentImg = paste0(output, params$data_id, '_extent.png')
+  extentImg = paste0(output, params$dataset_id, '_extent.png')
   mapshot(map, file=extentImg, cliprect='viewport', vheight=350, vwidth=510)
   extentImg = basename(extentImg)
   
@@ -148,9 +148,9 @@ knit_descriptor <- function(params) {
     stop(paste0('"', params$status, '" is not a valid keyword')) 
   }
   
-  if (params$status == 'planned') status_color = '#4682B4'
-  if (params$status == 'developing') status_color = '#2E8B57'
-  if (params$status == 'available') status_color = '#228B22'
+  if (params$status == 'planned') status_color = '#2E8B57'
+  if (params$status == 'developing') status_color = '#4682B4'
+  if (params$status == 'available') status_color = '#e6691c'
   
   #---------------------------------------------------------------------------#
   # check documentation ----
