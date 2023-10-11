@@ -7,7 +7,7 @@
 #' @param verbose Logical. Should the function communicate it's progress?
 #' @return A copy of a parent database.
 #' @importFrom lubridate is.Date
-#' @importFrom gdalUtils gdalbuildvrt gdal_translate
+#' @importFrom gdalUtilities gdalbuildvrt gdal_translate
 #' @details {The function creates a copy of the datasets given by \emph{data_id} 
 #' within the area defined by \emph{bbox} and the temporal range determined by 
 #' \emph{range}. Currently, the function only handles raster objects, and it 

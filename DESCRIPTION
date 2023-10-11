@@ -16,7 +16,6 @@ Imports:
     dplyr, 
     dbplyr, 
     terra,
-    gdalUtils, 
     utils, 
     leaflet, 
     mapview, 
@@ -30,11 +29,13 @@ Imports:
     imager, 
     filelock,
     fpeek,
-    kableExtra
-RoxygenNote: 7.2.1
+    kableExtra, 
+    gdalUtilities
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5)
 Suggests: 
-    knitr
+    knitr, 
+    sf
 VignetteBuilder: knitr
