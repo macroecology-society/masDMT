@@ -23,6 +23,7 @@ build_project = function(out.path) {
   # 0. check input argument
   #----------------------------------------------------------------------------------------------------------------------------#
   
+  if (!exists(out.path)) out.path = "."
   if (!is.character(out.path)) stop('"out.path" is not a string character')
   if (length(out.path) > 1) stop('"out.path" has more than 1 element')
   if (!dir.exists(out.path)) {
